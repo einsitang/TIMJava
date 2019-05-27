@@ -3,7 +3,7 @@ package com.sevlow.sdk.tim.api.impl;
 import com.sevlow.sdk.tim.api.TIMAccountService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.bean.ImportAccountsResult;
-import com.sevlow.sdk.tim.bean.TIMAccount;
+import com.sevlow.sdk.tim.bean.account.TIMAccount;
 import com.sevlow.sdk.tim.common.error.TIMError;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import com.sevlow.sdk.tim.utils.JsonUtils;

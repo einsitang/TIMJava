@@ -1,6 +1,6 @@
 package com.sevlow.sdk.tim.api;
 
-import com.sevlow.sdk.tim.bean.TIMOnlineStatus;
+import com.sevlow.sdk.tim.bean.OnlineStatusResult;
 import com.sevlow.sdk.tim.common.error.TIMException;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public interface TIMOnlineStatusService {
 	 * @return
 	 * @throws TIMException
 	 */
-	TIMOnlineStatus queryState(List<String> accounts) throws TIMException;
+	OnlineStatusResult queryState(List<String> accounts) throws TIMException;
 
 }
 

@@ -2,7 +2,7 @@ package com.sevlow.sdk.tim.api.impl;
 
 import com.sevlow.sdk.tim.api.TIMOnlineStatusService;
 import com.sevlow.sdk.tim.api.TIMService;
-import com.sevlow.sdk.tim.bean.TIMOnlineStatus;
+import com.sevlow.sdk.tim.bean.OnlineStatusResult;
 import com.sevlow.sdk.tim.common.error.TIMError;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import com.sevlow.sdk.tim.utils.JsonUtils;
@@ -29,7 +29,7 @@ public class TIMOnlineStatusServiceImpl implements TIMOnlineStatusService {
 	}
 
 	@Override
-	public TIMOnlineStatus queryState(@NotNull List<String> accounts) throws TIMException {
+	public OnlineStatusResult queryState(@NotNull List<String> accounts) throws TIMException {
 
 		if (accounts == null || accounts.size() < 1) {
 			throw new RuntimeException("accounts 不能为空集");
@@ -46,7 +46,7 @@ public class TIMOnlineStatusServiceImpl implements TIMOnlineStatusService {
 
 		String jsonResult = this.timService.post(api, queryStateBody);
 
-		TIMOnlineStatus result = JsonUtils.fromJson(jsonResult, TIMOnlineStatus.class);
+		OnlineStatusResult result = JsonUtils.fromJson(jsonResult, OnlineStatusResult.class);
 
 		return result;
 	}

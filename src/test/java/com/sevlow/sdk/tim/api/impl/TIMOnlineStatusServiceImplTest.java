@@ -3,7 +3,7 @@ package com.sevlow.sdk.tim.api.impl;
 import com.sevlow.sdk.tim.api.TIMOnlineStatusService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.api.test.TestModule;
-import com.sevlow.sdk.tim.bean.TIMOnlineStatus;
+import com.sevlow.sdk.tim.bean.OnlineStatusResult;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import com.sevlow.sdk.tim.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -39,20 +39,20 @@ public class TIMOnlineStatusServiceImplTest {
 
 		List<String> accounts = Arrays.asList(arr);
 
-		TIMOnlineStatus onlineStatus = onlineStatusService.queryState(accounts);
+		OnlineStatusResult onlineStatus = onlineStatusService.queryState(accounts);
 
-		List<TIMOnlineStatus.AccountState> results = onlineStatus.getQueryResult();
+		List<OnlineStatusResult.AccountState> results = onlineStatus.getQueryResult();
 
-		TIMOnlineStatus.State test1State = null ;
+		OnlineStatusResult.State test1State = null ;
 
-		for(TIMOnlineStatus.AccountState result : results){
+		for(OnlineStatusResult.AccountState result : results){
 			if("test_1".equals(result.getAccount())){
 				test1State = result.getState();
 				break;
 			}
 		}
 
-		Assert.assertEquals(TIMOnlineStatus.State.Offline, test1State);
+		Assert.assertEquals(OnlineStatusResult.State.Offline, test1State);
 
 		log.debug(JsonUtils.toJson(onlineStatus));
 

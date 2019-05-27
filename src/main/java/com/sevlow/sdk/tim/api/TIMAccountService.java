@@ -1,7 +1,7 @@
 package com.sevlow.sdk.tim.api;
 
 import com.sevlow.sdk.tim.bean.ImportAccountsResult;
-import com.sevlow.sdk.tim.bean.TIMAccount;
+import com.sevlow.sdk.tim.bean.account.TIMAccount;
 import com.sevlow.sdk.tim.common.error.TIMException;
 
 import java.util.List;

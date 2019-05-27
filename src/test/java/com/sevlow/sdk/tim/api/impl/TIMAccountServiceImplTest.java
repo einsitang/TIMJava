@@ -4,7 +4,7 @@ import com.sevlow.sdk.tim.api.TIMAccountService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.api.test.TestModule;
 import com.sevlow.sdk.tim.bean.ImportAccountsResult;
-import com.sevlow.sdk.tim.bean.TIMAccount;
+import com.sevlow.sdk.tim.bean.account.TIMAccount;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;

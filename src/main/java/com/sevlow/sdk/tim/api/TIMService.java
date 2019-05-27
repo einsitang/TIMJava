@@ -11,6 +11,7 @@ import java.util.Map;
  * @Package com.sevlow.sdk.tim.api
  * @date 2019-05-27 11:20
  * @Description:
+ * TIMService是所有Service模块的入口
  */
 public interface TIMService {
 
@@ -24,8 +25,26 @@ public interface TIMService {
 	 */
 	String getUserSig(String identifier) throws TIMException;
 
+	/**
+	 *
+	 * 通用GET方法
+	 *
+	 * @param api           TIM API 地址
+	 * @param queryParams   API 地址所需参数(不包含公共参数)
+	 * @return
+	 * @throws TIMException
+	 */
 	String get(String api, Map<String,String> queryParams) throws TIMException;
 
+	/**
+	 *
+	 * 通用POST方法
+	 *
+	 * @param api           TIM API 地址
+	 * @param body          API 请求体
+	 * @return
+	 * @throws TIMException
+	 */
 	String post(String api,Object body) throws TIMException;
 
 	TIMAccountService getAccountService();

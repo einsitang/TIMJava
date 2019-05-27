@@ -13,7 +13,7 @@ import java.util.List;
  * @Description: TIM Account 在线状态
  */
 @Data
-public class TIMOnlineStatus implements Serializable {
+public class OnlineStatusResult implements Serializable {
 
 	private static final long serialVersionUID = 1687104704170171011L;
 
