@@ -1,7 +1,7 @@
 package com.sevlow.sdk.tim.common;
 
-import com.sun.jersey.core.util.Base64;
-import io.netty.handler.codec.DecoderException;
+import org.bouncycastle.util.encoders.Base64;
+import org.bouncycastle.util.encoders.DecoderException;
 
 /**
  * @author Element

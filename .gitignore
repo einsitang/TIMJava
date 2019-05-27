@@ -57,3 +57,5 @@ sonar-project.properties
 
 # STS
 .factorypath
+
+private_key.example.txt

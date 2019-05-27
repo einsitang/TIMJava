@@ -2,6 +2,9 @@ package com.sevlow.sdk.tim.api;
 
 
 import com.sevlow.sdk.tim.common.error.TIMException;
+import com.sevlow.sdk.tim.config.TIMConfig;
+
+import java.util.Map;
 
 /**
  * @author Element
@@ -11,6 +14,8 @@ import com.sevlow.sdk.tim.common.error.TIMException;
  */
 public interface TIMService {
 
+	TIMConfig getConfig();
+
 	/**
 	 * 获取UserSig信息
 	 * @param identifier
@@ -18,6 +23,10 @@ public interface TIMService {
 	 * @throws TIMException
 	 */
 	String getUserSig(String identifier) throws TIMException;
+
+	String get(String api, Map<String,String> queryParams) throws TIMException;
+
+	String post(String api,Object body) throws TIMException;
 
 	TIMAccountService getAccountService();
 
@@ -35,6 +44,6 @@ public interface TIMService {
 
 	TIMProfileService getProfileService();
 
-	TIMRelService getRelService();
+	TIMRelationService getRelationService();
 
 }

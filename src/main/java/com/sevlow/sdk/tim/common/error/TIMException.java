@@ -1,5 +1,7 @@
 package com.sevlow.sdk.tim.common.error;
 
+import com.sevlow.sdk.tim.constant.TIMErrorConstant;
+
 import java.io.Serializable;
 
 /**
