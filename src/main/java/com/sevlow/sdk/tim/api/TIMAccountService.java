@@ -33,7 +33,7 @@ public interface TIMAccountService {
 	 *
 	 * API Doc : https://cloud.tencent.com/document/product/269/4919
 	 * @param accounts
-	 * @return FailAccounts
+	 * @return
 	 */
 	ImportAccountsResult multiImport(List<String> accounts) throws TIMException;
 

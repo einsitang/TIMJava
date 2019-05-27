@@ -1,7 +1,5 @@
 package com.sevlow.sdk.tim.common.error;
 
-import com.sevlow.sdk.tim.constant.TIMErrorConstant;
-
 import java.io.Serializable;
 
 /**
@@ -11,6 +9,7 @@ import java.io.Serializable;
  * @Description: TODO
  */
 public class TIMException extends Exception implements Serializable {
+
 	private static final long serialVersionUID = 3469414966034151505L;
 
 	private TIMError error;

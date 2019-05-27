@@ -28,7 +28,7 @@ public class TIMError implements Serializable {
 	@Override
 	public String toString() {
 		return "错误: ErrorCode=" + this.errorCode + ", ErrorInfo=" + this.errorInfo + "\n" +
-				TIMErrorConstant.getErrorInfo(this.errorCode);
+				"Description=" + TIMErrorConstant.getErrorInfo(this.errorCode);
 	}
 
 }

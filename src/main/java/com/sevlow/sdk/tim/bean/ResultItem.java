@@ -12,16 +12,12 @@ import java.io.Serializable;
  * @Description: TODO
  */
 @Data
-public class ResultItem implements Serializable {
+public class ResultItem extends ResultStruct implements Serializable {
 
 	private static final long serialVersionUID = -1825495492551857861L;
 
 	@SerializedName("To_Account")
 	private String account;
 
-	@SerializedName("ResultCode")
-	private int resultCode;
 
-	@SerializedName("ResultInfo")
-	private String resultInfo;
 }

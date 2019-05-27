@@ -34,6 +34,7 @@ public class TIMServiceImpl implements TIMService {
 
 	private TIMAccountService accountService = new TIMAccountServiceImpl(this);
 	private TIMOnlineStatusService onlineStatusService = new TIMOnlineStatusServiceImpl(this);
+	private TIMRelationService relationService = new TIMRelationServiceImpl(this);
 
 	public TIMServiceImpl(TIMConfig config) {
 		this.config = config;
@@ -203,7 +204,7 @@ public class TIMServiceImpl implements TIMService {
 
 	@Override
 	public TIMRelationService getRelationService() {
-		return null;
+		return this.relationService;
 	}
 
 }

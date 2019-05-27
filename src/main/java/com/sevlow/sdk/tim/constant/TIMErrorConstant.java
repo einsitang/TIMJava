@@ -19,6 +19,25 @@ public class TIMErrorConstant {
 
 		ERROR_INFO_MAP.put(-1,"Unknow");
 
+		ERROR_INFO_MAP.put(30001,"请求参数错误，请根据错误描述检查请求参数");
+		ERROR_INFO_MAP.put(30002,"SDKAppID 不匹配");
+		ERROR_INFO_MAP.put(30003,"请求的用户帐号不存在");
+		ERROR_INFO_MAP.put(30004,"请求需要 App 管理员权限");
+		ERROR_INFO_MAP.put(30005,"关系链字段中包含敏感词");
+		ERROR_INFO_MAP.put(30006,"服务器内部错误，请重试");
+		ERROR_INFO_MAP.put(30007,"网络超时，请稍后重试");
+		ERROR_INFO_MAP.put(30008,"并发写导致写冲突，建议使用批量方式");
+		ERROR_INFO_MAP.put(30009,"后台禁止该用户发起加好友请求");
+		ERROR_INFO_MAP.put(30010,"自己的好友数已达系统上限");
+		ERROR_INFO_MAP.put(30011,"分组已达系统上限");
+		ERROR_INFO_MAP.put(30012,"未决数已达系统上限");
+		ERROR_INFO_MAP.put(30014,"对方的好友数已达系统上限");
+		ERROR_INFO_MAP.put(30015,"请求添加好友时，对方在自己的黑名单中，不允许加好友");
+		ERROR_INFO_MAP.put(30016,"请求添加好友时，对方的加好友验证方式是不允许任何人添加自己为好友");
+		ERROR_INFO_MAP.put(30525,"请求添加好友时，自己在对方的黑名单中，不允许加好友");
+		ERROR_INFO_MAP.put(30539,"A 请求加 B 为好友，B 的加好友验证方式被设置为“AllowType_Type_NeedConfirm”，这时 A 与 B 之间只能形成未决关系，这个返回码用于标识加未决成功，以便与加好友成功的返回码区分开，调用方可以捕捉该错误给用户一个合理的提示");
+		ERROR_INFO_MAP.put(30540,"添加好友请求被安全策略打击，请勿频繁发起添加好友请求");
+
 		ERROR_INFO_MAP.put(40005,"资料字段中包含敏感词");
 		ERROR_INFO_MAP.put(40006,"设置资料时服务器内部错误，请稍后重试");
 		ERROR_INFO_MAP.put(40601,"资料字段的 Value 长度超过500字节");

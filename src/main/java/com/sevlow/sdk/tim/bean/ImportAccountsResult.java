@@ -16,7 +16,13 @@ import java.util.List;
 @Data
 public class ImportAccountsResult implements Serializable {
 
+	@SerializedName("ResultItem")
+	private List<ResultItem> resultItems = new ArrayList<>();
+
 	@SerializedName("FailAccounts")
 	private List<String> failAccounts = new ArrayList<>();
+
+	@SerializedName("Invalid_Account")
+	private List<String> invalidaccount = new ArrayList<>();
 
 }

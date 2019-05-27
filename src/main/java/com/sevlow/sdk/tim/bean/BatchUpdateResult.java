@@ -4,26 +4,27 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Element
  * @Package com.sevlow.sdk.tim.bean
- * @date 2019-05-27 18:04
+ * @date 2019-05-28 00:13
  * @Description: TODO
  */
 @Data
-public class AddFriendResult implements Serializable {
+public class BatchUpdateResult implements Serializable {
 
-	private static final long serialVersionUID = 8152624238915124107L;
+	private static final long serialVersionUID = -2729886288572231679L;
 
 	@SerializedName("ResultItem")
-	private ResultItem resultItem;
+	private List<ResultItem> resultItems = new ArrayList<>();
 
 	@SerializedName("Fail_Account")
-	private List<String> failAccounts;
+	private List<String> failAccounts = new ArrayList<>();
 
 	@SerializedName("Invalid_Account")
-	private List<String> invalidAccounts;
+	private List<String> invalidAccounts = new ArrayList<>();
 
 }

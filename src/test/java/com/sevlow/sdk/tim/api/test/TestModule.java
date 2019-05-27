@@ -22,6 +22,7 @@ public class TestModule implements Module {
 		Long accountType = 36862L;
 
 		String priKeyPath = "classpath:private_key.example.txt";
+//		String priKeyPath = "/Users/Element/workspace/github/TIMJava/src/test/resources/private_key.example.txt";
 		String adminIdentifier = "admin";
 
 		TIMConfig config = new TIMConfig(appId, priKeyPath, adminIdentifier);
