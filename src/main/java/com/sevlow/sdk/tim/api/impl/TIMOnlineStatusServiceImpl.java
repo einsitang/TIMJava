@@ -6,7 +6,7 @@ import com.sevlow.sdk.tim.bean.OnlineStatusResult;
 import com.sevlow.sdk.tim.common.error.TIMError;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import com.sevlow.sdk.tim.utils.JsonUtils;
-import com.sun.istack.internal.NotNull;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -29,7 +29,7 @@ public class TIMOnlineStatusServiceImpl implements TIMOnlineStatusService {
 	}
 
 	@Override
-	public OnlineStatusResult queryState(@NotNull List<String> accounts) throws TIMException {
+	public OnlineStatusResult queryState(@NonNull List<String> accounts) throws TIMException {
 
 		if (accounts == null || accounts.size() < 1) {
 			throw new RuntimeException("accounts 不能为空集");

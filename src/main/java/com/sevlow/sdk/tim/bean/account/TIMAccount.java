@@ -1,8 +1,8 @@
 package com.sevlow.sdk.tim.bean.account;
 
 import com.google.gson.annotations.SerializedName;
-import com.sun.istack.internal.NotNull;
 import lombok.Data;
+import lombok.NonNull;
 
 import java.io.Serializable;
 
@@ -20,7 +20,7 @@ public class TIMAccount implements Serializable {
 	/**
 	 * 用户名，长度不超过32字节
 	 */
-	@NotNull
+	@NonNull
 	@SerializedName("Identifier")
 	private String identifier;
 

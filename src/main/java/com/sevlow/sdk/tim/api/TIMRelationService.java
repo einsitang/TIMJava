@@ -2,7 +2,7 @@ package com.sevlow.sdk.tim.api;
 
 import com.sevlow.sdk.tim.bean.*;
 import com.sevlow.sdk.tim.common.error.TIMException;
-import com.sun.istack.internal.NotNull;
+import lombok.NonNull;
 
 import java.util.Date;
 import java.util.List;
@@ -82,7 +82,7 @@ public interface TIMRelationService {
 	 * @return
 	 * @throws TIMException
 	 */
-	AddFriendsResult addFriends(@NotNull String identifier, @NotNull List<String> friends, @NotNull String friendSource, AddType addType) throws TIMException;
+	AddFriendsResult addFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull String friendSource, AddType addType) throws TIMException;
 
 	/**
 	 * 添加好友(双向添加好友)
@@ -98,7 +98,7 @@ public interface TIMRelationService {
 	 * @return
 	 * @throws TIMException
 	 */
-	AddFriendsResult addFriends(@NotNull String identifier, @NotNull List<String> friends, @NotNull String friendSource) throws TIMException;
+	AddFriendsResult addFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull String friendSource) throws TIMException;
 
 
 	/**
@@ -114,9 +114,9 @@ public interface TIMRelationService {
 	 * @param friendSource 好友来源
 	 * @return
 	 */
-	ImportFriendsResult importFriends(@NotNull String identifier, @NotNull List<String> friends, @NotNull String friendSource) throws TIMException;
+	ImportFriendsResult importFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull String friendSource) throws TIMException;
 
-	UpdateFriendsResult updateFriends(@NotNull String identifier,@NotNull List<String> friends,@NotNull SnsItem snsItem) throws TIMException;
+	UpdateFriendsResult updateFriends(@NonNull String identifier,@NonNull List<String> friends,@NonNull SnsItem snsItem) throws TIMException;
 	/**
 	 * 删除好友
 	 * <p>
@@ -129,7 +129,7 @@ public interface TIMRelationService {
 	 * @param deleteType 删除方式,为 <b>null</b> 则双向删除( Delete_Type_Both )
 	 * @return
 	 */
-	DeleteFriendsResult deleteFriend(@NotNull String identifier, @NotNull List<String> friends, DeleteType deleteType) throws TIMException;
+	DeleteFriendsResult deleteFriend(@NonNull String identifier, @NonNull List<String> friends, DeleteType deleteType) throws TIMException;
 
 	/**
 	 * 删除好友(双向)
@@ -142,7 +142,7 @@ public interface TIMRelationService {
 	 * @param friends    删除的好友列表 <b>Identifier</b> 集合
 	 * @return
 	 */
-	DeleteFriendsResult deleteFriend(@NotNull String identifier, @NotNull List<String> friends) throws TIMException;
+	DeleteFriendsResult deleteFriend(@NonNull String identifier, @NonNull List<String> friends) throws TIMException;
 
 	/**
 	 * 清空(删除)所有好友
@@ -151,7 +151,7 @@ public interface TIMRelationService {
 	 *
 	 * @param identifier
 	 */
-	void emptyFriends(@NotNull String identifier) throws TIMException;
+	void emptyFriends(@NonNull String identifier) throws TIMException;
 
 	/**
 	 * 校验好友
@@ -165,7 +165,7 @@ public interface TIMRelationService {
 	 * @param checkType
 	 * @return
 	 */
-	CheckFriendsResult checkFriends(@NotNull String identifier, @NotNull List<String> friends, CheckType checkType) throws TIMException;
+	CheckFriendsResult checkFriends(@NonNull String identifier, @NonNull List<String> friends, CheckType checkType) throws TIMException;
 
 	/**
 	 * 校验好友(双向)
@@ -174,7 +174,7 @@ public interface TIMRelationService {
 	 * @param friends
 	 * @return
 	 */
-	CheckFriendsResult checkFriends(@NotNull String identifier, @NotNull List<String> friends) throws TIMException;
+	CheckFriendsResult checkFriends(@NonNull String identifier, @NonNull List<String> friends) throws TIMException;
 
 	/**
 	 * 拉取好友
@@ -190,9 +190,9 @@ public interface TIMRelationService {
 	 * @param lastStandardSequence 上次拉取标配关系链的 Sequence，仅在只拉取标配关系链字段时有用
 	 * @return
 	 */
-	ListFriendsResult listFriends(@NotNull String identifier, int offset, int rows, Date timestamp, int lastStandardSequence) throws TIMException;
+	ListFriendsResult listFriends(@NonNull String identifier, int offset, int rows, Date timestamp, int lastStandardSequence) throws TIMException;
 
-	ListFriendsByAccountsResult listFriendsByAccounts(@NotNull String identifier, @NotNull List<String> accounts) throws TIMException;
+	ListFriendsByAccountsResult listFriendsByAccounts(@NonNull String identifier, @NonNull List<String> accounts) throws TIMException;
 
 	/**
 	 * 屏蔽用户(添加黑名单)
@@ -205,7 +205,7 @@ public interface TIMRelationService {
 	 * @param accounts
 	 * @return
 	 */
-	AddBlockAccountsResult addBlockAccounts(@NotNull String identifier, @NotNull List<String> accounts) throws TIMException;
+	AddBlockAccountsResult addBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts) throws TIMException;
 
 	/**
 	 * 解除屏蔽 (删除黑名单)
@@ -218,7 +218,7 @@ public interface TIMRelationService {
 	 * @param blockAccounts
 	 * @return
 	 */
-	RemoveBlockAccountsResult removeblockAccounts(@NotNull String identifier, @NotNull List<String> blockAccounts) throws TIMException;
+	RemoveBlockAccountsResult removeblockAccounts(@NonNull String identifier, @NonNull List<String> blockAccounts) throws TIMException;
 
 	/**
 	 * 拉取黑名单
@@ -233,7 +233,7 @@ public interface TIMRelationService {
 	 * @param lastSequence 上一次拉黑名单时后台返回给客户端的 Seq，初次拉取时为0
 	 * @return
 	 */
-	ListBlockAccountsResult listBlockAccounts(@NotNull String identifier, int offset, int rows, int lastSequence) throws TIMException;
+	ListBlockAccountsResult listBlockAccounts(@NonNull String identifier, int offset, int rows, int lastSequence) throws TIMException;
 
 	/**
 	 * 校验黑名单
@@ -247,7 +247,7 @@ public interface TIMRelationService {
 	 * @param checkType
 	 * @return
 	 */
-	CheckBlockAccountsResult checkBlockAccounts(@NotNull String identifier, @NotNull List<String> accounts, CheckType checkType) throws TIMException;
+	CheckBlockAccountsResult checkBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts, CheckType checkType) throws TIMException;
 
 	/**
 	 * 添加分组
@@ -261,7 +261,7 @@ public interface TIMRelationService {
 	 * @param friends
 	 * @return
 	 */
-	AddGroupsResult addGroups(@NotNull String identifier, @NotNull List<String> groupNames, @NotNull List<String> friends) throws TIMException;
+	AddGroupsResult addGroups(@NonNull String identifier, @NonNull List<String> groupNames, @NonNull List<String> friends) throws TIMException;
 
 	/**
 	 * 删除分组
@@ -274,7 +274,7 @@ public interface TIMRelationService {
 	 * @param groupNames
 	 * @return
 	 */
-	DeleteGroupsResult deleteGroups(@NotNull String Identifier, @NotNull List<String> groupNames) throws TIMException;
+	DeleteGroupsResult deleteGroups(@NonNull String Identifier, @NonNull List<String> groupNames) throws TIMException;
 
 
 }

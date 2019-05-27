@@ -1,8 +1,8 @@
 package com.sevlow.sdk.tim.config;
 
-import com.sun.istack.internal.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NonNull;
 
 /**
  * @author Element
@@ -16,16 +16,16 @@ public class TIMConfig {
 	/**
 	 * 腾讯IM appId
 	 */
-	@NotNull
+	@NonNull
 	private Long appId;
 
 	/**
 	 * privateKey 文件地址(基于Project的<b>相对</b>目录地址)
 	 * 如果在包内需要加上classpath:
 	 */
-	@NotNull
+	@NonNull
 	private String privateKeyPath;
 
-	@NotNull
+	@NonNull
 	private String adminIdentifier;
 }

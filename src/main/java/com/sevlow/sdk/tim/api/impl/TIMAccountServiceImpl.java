@@ -7,7 +7,7 @@ import com.sevlow.sdk.tim.bean.account.TIMAccount;
 import com.sevlow.sdk.tim.common.error.TIMError;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import com.sevlow.sdk.tim.utils.JsonUtils;
-import com.sun.istack.internal.NotNull;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class TIMAccountServiceImpl implements TIMAccountService {
 	}
 
 	@Override
-	public void singleImport(@NotNull TIMAccount account) throws TIMException {
+	public void singleImport(@NonNull TIMAccount account) throws TIMException {
 
 		try {
 
@@ -77,7 +77,7 @@ public class TIMAccountServiceImpl implements TIMAccountService {
 	}
 
 	@Override
-	public void kick(@NotNull String identifier) throws TIMException {
+	public void kick(@NonNull String identifier) throws TIMException {
 		String api = "v4/im_open_login_svc/kick";
 
 		Map<String, String> kickBody = new HashMap<>();
