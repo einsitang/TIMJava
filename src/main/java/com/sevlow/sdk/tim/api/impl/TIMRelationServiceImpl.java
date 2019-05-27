@@ -67,6 +67,11 @@ public class TIMRelationServiceImpl implements TIMRelationService {
 	}
 
 	@Override
+	public UpdateFriendsResult updateFriends(String identifier, List<String> friends, SnsItem snsItem) throws TIMException {
+		return null;
+	}
+
+	@Override
 	public DeleteFriendsResult deleteFriend(String identifier, List<String> friends, DeleteType deleteType) throws TIMException {
 		return null;
 	}
@@ -102,12 +107,12 @@ public class TIMRelationServiceImpl implements TIMRelationService {
 	}
 
 	@Override
-	public AddBlockAccountsResult blockAccounts(String identifier, List<String> accounts) throws TIMException {
+	public AddBlockAccountsResult addBlockAccounts(String identifier, List<String> accounts) throws TIMException {
 		return null;
 	}
 
 	@Override
-	public RemoveBlockAccountsResult unblockAccounts(String identifier, List<String> blockAccounts) throws TIMException {
+	public RemoveBlockAccountsResult removeblockAccounts(String identifier, List<String> blockAccounts) throws TIMException {
 		return null;
 	}
 
