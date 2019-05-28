@@ -22,10 +22,19 @@ import java.util.*;
 @Slf4j
 public class TIMRelationServiceImpl implements TIMRelationService {
 
+	private final String ADD_SOURCE_TYPE_PREFIX = "AddSource_Type_";
+
 	private TIMService timService;
 
 	public TIMRelationServiceImpl(TIMService timService) {
 		this.timService = timService;
+	}
+
+	private String cleanAddSourceTypePrefix(String addSourceType){
+		if (StringUtils.startsWith(addSourceType, ADD_SOURCE_TYPE_PREFIX)) {
+			return RegExUtils.removeFirst(addSourceType, ADD_SOURCE_TYPE_PREFIX);
+		}
+		return addSourceType;
 	}
 
 	@Override
@@ -37,11 +46,7 @@ public class TIMRelationServiceImpl implements TIMRelationService {
 
 		String api = "v4/sns/friend_add";
 
-		final String ADD_SOURCE_TYPE_PREFIX = "AddSource_Type_";
-
-		if (StringUtils.startsWith(friendSource, ADD_SOURCE_TYPE_PREFIX)) {
-			friendSource = RegExUtils.removeFirst(friendSource, ADD_SOURCE_TYPE_PREFIX);
-		}
+		friendSource = cleanAddSourceTypePrefix(friendSource);
 
 		Map<String, Object> body = new HashMap<>();
 		body.put("From_Account", identifier);
@@ -73,12 +78,35 @@ public class TIMRelationServiceImpl implements TIMRelationService {
 
 	@Override
 	public ImportFriendsResult importFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull String friendSource) throws TIMException {
-		return null;
+
+		if(friends == null || friends.size()<1){
+			throw new RuntimeException("friends can't be empty");
+		}
+
+		friendSource = cleanAddSourceTypePrefix(friendSource);
+
+		List<TIMFriend> list = new ArrayList<>();
+		TIMFriend timFriend = null;
+
+		for(String friend : friends){
+			timFriend = new TIMFriend(friend,ADD_SOURCE_TYPE_PREFIX + friendSource);
+			list.add(timFriend);
+		}
+
+		return this.importFriends(identifier, list);
 	}
 
 	@Override
 	public ImportFriendsResult importFriends(@NonNull String identifier, @NonNull List<TIMFriend> friends) throws TIMException {
-		return null;
+
+		String api = "v4/sns/friend_import";
+
+		Map<String,Object> body = new HashMap<>();
+
+		body.put("From_Account", identifier);
+		body.put("AddFriendItem", friends);
+
+		return JsonUtils.fromJson(this.timService.post(api,body),ImportFriendsResult.class);
 	}
 
 	@Override
