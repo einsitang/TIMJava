@@ -59,3 +59,4 @@ sonar-project.properties
 .factorypath
 
 private_key.example.txt
+config.test.yml

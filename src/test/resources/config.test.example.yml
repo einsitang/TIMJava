@@ -1,0 +1,4 @@
+appId: 1400207264
+adminIdentifier: admin
+accountType: 36862
+privateKeyPath: "classpath:private_key.example.txt"

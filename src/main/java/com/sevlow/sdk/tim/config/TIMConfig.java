@@ -13,6 +13,12 @@ import lombok.NonNull;
 @Data
 @AllArgsConstructor
 public class TIMConfig {
+
+	@Deprecated
+	public TIMConfig() {
+
+	}
+
 	/**
 	 * 腾讯IM appId
 	 */
@@ -28,4 +34,7 @@ public class TIMConfig {
 
 	@NonNull
 	private String adminIdentifier;
+
+
+	private Long accountType;
 }

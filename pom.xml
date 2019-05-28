@@ -77,7 +77,11 @@
             <artifactId>okhttp</artifactId>
             <version>3.14.2</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.10</version>
+        </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -157,23 +161,23 @@
                 </configuration>
             </plugin>
             <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-checkstyle-plugin</artifactId>-->
-                <!--<version>2.17</version>-->
-                <!--<configuration>-->
-                    <!--<configLocation>quality-checks/google_checks.xml</configLocation>-->
-                    <!--<includeTestSourceDirectory>true</includeTestSourceDirectory>-->
-                    <!--<consoleOutput>true</consoleOutput>-->
-                    <!--<failsOnError>true</failsOnError>-->
-                <!--</configuration>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>verify</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>check</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-checkstyle-plugin</artifactId>-->
+            <!--<version>2.17</version>-->
+            <!--<configuration>-->
+            <!--<configLocation>quality-checks/google_checks.xml</configLocation>-->
+            <!--<includeTestSourceDirectory>true</includeTestSourceDirectory>-->
+            <!--<consoleOutput>true</consoleOutput>-->
+            <!--<failsOnError>true</failsOnError>-->
+            <!--</configuration>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<phase>verify</phase>-->
+            <!--<goals>-->
+            <!--<goal>check</goal>-->
+            <!--</goals>-->
+            <!--</execution>-->
+            <!--</executions>-->
             <!--</plugin>-->
         </plugins>
     </build>
