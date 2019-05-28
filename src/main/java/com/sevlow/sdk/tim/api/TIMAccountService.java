@@ -3,6 +3,7 @@ package com.sevlow.sdk.tim.api;
 import com.sevlow.sdk.tim.bean.ImportAccountsResult;
 import com.sevlow.sdk.tim.bean.account.TIMAccount;
 import com.sevlow.sdk.tim.common.error.TIMException;
+import lombok.NonNull;
 
 import java.util.List;
 
@@ -46,6 +47,6 @@ public interface TIMAccountService {
 	 * API Doc : https://cloud.tencent.com/document/product/269/3853
 	 * @param identifier
 	 */
-	void kick(String identifier) throws TIMException;
+	void kick(@NonNull String identifier) throws TIMException;
 
 }
