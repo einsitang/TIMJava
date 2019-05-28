@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sevlow</groupId>
-    <artifactId>tencent-im-java-sdk</artifactId>
+    <artifactId>tim-java-sdk</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>TIMJava - Tencent IM Java SDK</name>
     <description>腾讯IM通讯 Java SDK</description>
@@ -31,8 +31,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <httpclient.version>4.5</httpclient.version>
-        <jetty.version>9.4.12.v20180830</jetty.version>
+
     </properties>
 
     <dependencies>
