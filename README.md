@@ -35,6 +35,31 @@
 
 ### 贡献代码
 
+fork 本项目
+
+clone自己fork的仓库
+
+添加本仓库地址为远程仓库
+```shell
+git remote add root https://github.com/forfuns/TIMJava.git
+```
+
+定期保持自己仓库和此项目的内容
+
+```shell
+git fetch root
+git checkout develop
+git rebase root/develop
+git push origin develop
+
+```
+
+切换到`develop`分支
+
+在自己的仓库和develop的分支上开发代码，并且编写测试用例
+
+最后在此项目中提交`PR`(Pull request)
+
 ## coffe
 
 :-)
