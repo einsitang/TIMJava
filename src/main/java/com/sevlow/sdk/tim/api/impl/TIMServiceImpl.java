@@ -6,6 +6,7 @@ import com.sevlow.sdk.tim.common.error.TIMError;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import com.sevlow.sdk.tim.config.TIMConfig;
 import com.sevlow.sdk.tim.utils.JsonUtils;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.apache.commons.io.FileUtils;
@@ -46,7 +47,7 @@ public class TIMServiceImpl implements TIMService {
 	}
 
 	@Override
-	public String getUserSig(String identifier) throws TIMException {
+	public String getUserSig(@NonNull String identifier) throws TIMException {
 
 		TLSSigature.GenTLSSignatureResult signatureResult;
 

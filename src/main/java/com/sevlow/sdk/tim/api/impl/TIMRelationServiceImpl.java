@@ -3,9 +3,13 @@ package com.sevlow.sdk.tim.api.impl;
 import com.sevlow.sdk.tim.api.TIMRelationService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.bean.*;
+import com.sevlow.sdk.tim.bean.account.TIMFriend;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import com.sevlow.sdk.tim.utils.JsonUtils;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RegExUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
@@ -25,13 +29,19 @@ public class TIMRelationServiceImpl implements TIMRelationService {
 	}
 
 	@Override
-	public AddFriendsResult addFriends(String identifier, List<String> friends, String friendSource, AddType addType) throws TIMException {
+	public AddFriendsResult addFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull String friendSource, AddType addType) throws TIMException {
 
 		if (friends == null || friends.size() < 1) {
 			throw new RuntimeException("friends can't be empty");
 		}
 
 		String api = "v4/sns/friend_add";
+
+		final String ADD_SOURCE_TYPE_PREFIX = "AddSource_Type_";
+
+		if (StringUtils.startsWith(friendSource, ADD_SOURCE_TYPE_PREFIX)) {
+			friendSource = RegExUtils.removeFirst(friendSource, ADD_SOURCE_TYPE_PREFIX);
+		}
 
 		Map<String, Object> body = new HashMap<>();
 		body.put("From_Account", identifier);
@@ -41,7 +51,7 @@ public class TIMRelationServiceImpl implements TIMRelationService {
 		for (String friend : friends) {
 			friendItem = new HashMap<>();
 			friendItem.put("To_Account", friend);
-			friendItem.put("AddSource", "AddSource_Type_" + friendSource);
+			friendItem.put("AddSource", ADD_SOURCE_TYPE_PREFIX + friendSource);
 
 			friendItems.add(friendItem);
 		}
@@ -57,82 +67,89 @@ public class TIMRelationServiceImpl implements TIMRelationService {
 	}
 
 	@Override
-	public AddFriendsResult addFriends(String identifier, List<String> friends, String friendSource) throws TIMException {
+	public AddFriendsResult addFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull String friendSource) throws TIMException {
 		return this.addFriends(identifier, friends, friendSource, null);
 	}
 
 	@Override
-	public ImportFriendsResult importFriends(String identifier, List<String> friends, String friendSource) throws TIMException {
+	public ImportFriendsResult importFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull String friendSource) throws TIMException {
 		return null;
 	}
 
 	@Override
-	public UpdateFriendsResult updateFriends(String identifier, List<String> friends, SnsItem snsItem) throws TIMException {
+	public ImportFriendsResult importFriends(@NonNull String identifier, @NonNull List<TIMFriend> friends) throws TIMException {
 		return null;
 	}
 
 	@Override
-	public DeleteFriendsResult deleteFriend(String identifier, List<String> friends, DeleteType deleteType) throws TIMException {
+	public UpdateFriendsResult updateFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull SnsItem snsItem) throws TIMException {
 		return null;
 	}
 
 	@Override
-	public DeleteFriendsResult deleteFriend(String identifier, List<String> friends) throws TIMException {
+	public DeleteFriendsResult deleteFriend(@NonNull String identifier, @NonNull List<String> friends, DeleteType deleteType) throws TIMException {
 		return null;
 	}
 
 	@Override
-	public void emptyFriends(String identifier) throws TIMException {
-
-	}
-
-	@Override
-	public CheckFriendsResult checkFriends(String identifier, List<String> friends, CheckType checkType) throws TIMException {
+	public DeleteFriendsResult deleteFriend(@NonNull String identifier, @NonNull List<String> friends) throws TIMException {
 		return null;
 	}
 
 	@Override
-	public CheckFriendsResult checkFriends(String identifier, List<String> friends) throws TIMException {
+	public void emptyFriends(@NonNull String identifier) throws TIMException {
+
+	}
+
+	@Override
+	public CheckFriendsResult checkFriends(@NonNull String identifier, @NonNull List<String> friends, CheckType checkType) throws TIMException {
 		return null;
 	}
 
 	@Override
-	public ListFriendsResult listFriends(String identifier, int offset, int rows, Date timestamp, int lastStandardSequence) throws TIMException {
+	public CheckFriendsResult checkFriends(@NonNull String identifier, @NonNull List<String> friends) throws TIMException {
 		return null;
 	}
 
 	@Override
-	public ListFriendsByAccountsResult listFriendsByAccounts(String identifier, List<String> accounts) throws TIMException {
+	public ListFriendsResult listFriends(@NonNull String identifier, int offset, int rows, Date timestamp, int lastStandardSequence) throws TIMException {
 		return null;
 	}
 
 	@Override
-	public AddBlockAccountsResult addBlockAccounts(String identifier, List<String> accounts) throws TIMException {
+	public ListFriendsByAccountsResult listFriendsByAccounts(@NonNull String identifier, @NonNull List<String> accounts) throws TIMException {
 		return null;
 	}
 
 	@Override
-	public RemoveBlockAccountsResult removeblockAccounts(String identifier, List<String> blockAccounts) throws TIMException {
+	public AddBlockAccountsResult addBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts) throws TIMException {
 		return null;
 	}
 
 	@Override
-	public ListBlockAccountsResult listBlockAccounts(String identifier, int offset, int rows, int lastSequence) throws TIMException {
+	public RemoveBlockAccountsResult removeblockAccounts(@NonNull String identifier, @NonNull List<String> blockAccounts) throws TIMException {
 		return null;
 	}
 
 	@Override
-	public CheckBlockAccountsResult checkBlockAccounts(String identifier, List<String> accounts, CheckType checkType) throws TIMException {
+	public ListBlockAccountsResult listBlockAccounts(@NonNull String identifier, int offset, int rows, int lastSequence) throws TIMException {
 		return null;
 	}
 
 	@Override
-	public AddGroupsResult addGroups(String identifier, List<String> groupNames, List<String> friends) throws TIMException {
+	public CheckBlockAccountsResult checkBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts, CheckType checkType) throws TIMException {
 		return null;
 	}
 
 	@Override
-	public DeleteGroupsResult deleteGroups(String Identifier, List<String> groupNames) throws TIMException {
+	public AddGroupsResult addGroups(@NonNull String identifier, @NonNull List<String> groupNames, @NonNull List<String> friends) throws TIMException {
 		return null;
 	}
+
+	@Override
+	public DeleteGroupsResult deleteGroups(@NonNull String Identifier, @NonNull List<String> groupNames) throws TIMException {
+		return null;
+	}
+
+
 }

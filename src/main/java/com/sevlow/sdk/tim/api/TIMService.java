@@ -3,6 +3,7 @@ package com.sevlow.sdk.tim.api;
 
 import com.sevlow.sdk.tim.common.error.TIMException;
 import com.sevlow.sdk.tim.config.TIMConfig;
+import lombok.NonNull;
 
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public interface TIMService {
 	 * @return
 	 * @throws TIMException
 	 */
-	String getUserSig(String identifier) throws TIMException;
+	String getUserSig(@NonNull String identifier) throws TIMException;
 
 	/**
 	 *

@@ -1,6 +1,8 @@
 package com.sevlow.sdk.tim.api;
 
 import com.sevlow.sdk.tim.bean.*;
+import com.sevlow.sdk.tim.bean.account.TIMAccount;
+import com.sevlow.sdk.tim.bean.account.TIMFriend;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import lombok.NonNull;
 
@@ -111,10 +113,24 @@ public interface TIMRelationService {
 	 *
 	 * @param identifier   需要导入好友的 <b>Identifier</b>
 	 * @param friends      被添加的 <b>Identifier</b> 集合
-	 * @param friendSource 好友来源
+	 * @param friendSource 好友来源,自动补全AddSource_Type_XXX,所以仅输入"XXX"即可
 	 * @return
 	 */
 	ImportFriendsResult importFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull String friendSource) throws TIMException;
+
+	/**
+	 * 导入好友
+	 * <p>
+	 * 支持批量导入单向好友；
+	 * 往同一个用户导入好友时建议采用批量导入的方式，避免并发写导致的写冲突。
+	 * <p>
+	 * API Doc : https://cloud.tencent.com/document/product/269/8301
+	 *
+	 * @param identifier   需要导入好友的 <b>Identifier</b>
+	 * @param friends      被添加的 <b>TIMFriend</b> 集合
+	 * @return
+	 */
+	ImportFriendsResult importFriends(@NonNull String identifier, @NonNull List<TIMFriend> friends) throws TIMException;
 
 	UpdateFriendsResult updateFriends(@NonNull String identifier,@NonNull List<String> friends,@NonNull SnsItem snsItem) throws TIMException;
 	/**
