@@ -1,4 +1,4 @@
-appId: 1400207264
-adminIdentifier: admin
-accountType: 36862
-privateKeyPath: "classpath:private_key.example.txt"
+appId: 应用SDKAPPID
+adminIdentifier: 管理员Identifier
+accountType: accountType
+privateKeyPath: privateKey文件绝对路径，如果放在resource内加上classpath:项目相对路径
