@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @Description: TODO
  */
 @Data
-public class UpdateFriendsResult extends AddFriendsResult implements Serializable {
+public class UpdateFriendsResult extends BatchUpdateResult implements Serializable {
 
 	private static final long serialVersionUID = 1084310377363123264L;
 

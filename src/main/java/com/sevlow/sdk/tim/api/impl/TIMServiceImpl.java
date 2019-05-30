@@ -14,8 +14,8 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.RegExUtils;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
+import java.net.SocketTimeoutException;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -101,9 +101,6 @@ public class TIMServiceImpl implements TIMService {
 		String url = buildFullUrl(api, null);
 		String json = JsonUtils.toJson(body);
 
-		log.debug("【TIMJava】POST request url : {}",url);
-		log.debug("【TIMJava】POST request body : {}",json);
-
 		Request request = new Request.Builder()
 				.url(url)
 				.post(RequestBody.create(JSON, json))
@@ -136,28 +133,53 @@ public class TIMServiceImpl implements TIMService {
 		return url;
 	}
 
+	private String executeInternal(Request request) throws Exception {
+
+		Response response = HTTP_CLIENT.newCall(request).execute();
+		String jsonResult = response.body().string();
+
+		TIMError timError = JsonUtils.fromJson(jsonResult, TIMError.class);
+
+		if (0 != timError.getErrorCode()) {
+			throw new TIMException(timError);
+		}
+
+		log.debug("【TIMJava】response body -------- ");
+		log.debug(jsonResult);
+		log.debug("【TIMJava】response body -------- ");
+
+		return jsonResult;
+
+	}
+
 	private String execute(Request request) throws TIMException {
+		return execute(request, 1);
+	}
+
+	private String execute(Request request, int reqCount) throws TIMException {
 		try {
 
-			// @TODO 加入retry机制
+			String url = request.url().toString();
+			String method = request.method();
+			RequestBody body = request.body();
 
-			// @TODO 加入公共错误处理机制
+			log.debug("【TIMJava】 发起请求 当前第 {} 次 / {} 次 {}", reqCount, config.getReqReTryCount(), reqCount > 1 ? "[重试请求]" : "");
+			log.debug("【TIMJava】 request method : {}", method);
+			log.debug("【TIMJava】 request url : {}", url);
+			log.debug("【TIMJava】 request body : {}", body != null ? body.toString() : null);
 
-			Response response = HTTP_CLIENT.newCall(request).execute();
-			String jsonResult = response.body().string();
+			return executeInternal(request);
 
-			TIMError timError = JsonUtils.fromJson(jsonResult, TIMError.class);
+		} catch (SocketTimeoutException e) {
 
-			if (0 != timError.getErrorCode()) {
-				throw new TIMException(timError);
+			if (reqCount >= config.getReqReTryCount()) {
+				throw new TIMException(new TIMError(-1, "请求失效,请检查你的网络状态"));
 			}
 
-			log.debug("【TIMJava】response body : ");
-			log.debug(jsonResult);
+			// 执行重试
+			return execute(request, reqCount++);
 
-			return jsonResult;
-
-		} catch (IOException e) {
+		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			throw new TIMException(new TIMError(-1, e.getMessage()));
 		}

@@ -31,7 +31,7 @@ public class TIMFriend implements Serializable {
 	private Long remarkTime;
 
 	@SerializedName("GroupName")
-	private List<String> groupNames = new ArrayList<>();
+	private List<String> groupNames ;
 
 	@NonNull
 	@SerializedName("AddSource")
@@ -44,6 +44,6 @@ public class TIMFriend implements Serializable {
 	private Long addTime;
 
 	@SerializedName("CustomItem")
-	private List<SnsItem> customItems = new ArrayList<>();
+	private List<SnsItem> customItems;
 
 }

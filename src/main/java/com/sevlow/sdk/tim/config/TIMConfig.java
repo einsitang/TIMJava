@@ -35,6 +35,7 @@ public class TIMConfig {
 	@NonNull
 	private String adminIdentifier;
 
-
 	private Long accountType;
+
+	private int reqReTryCount = 3;
 }

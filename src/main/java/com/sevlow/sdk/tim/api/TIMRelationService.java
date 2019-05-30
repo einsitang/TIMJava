@@ -132,7 +132,7 @@ public interface TIMRelationService {
 	 */
 	ImportFriendsResult importFriends(@NonNull String identifier, @NonNull List<TIMFriend> friends) throws TIMException;
 
-	UpdateFriendsResult updateFriends(@NonNull String identifier,@NonNull List<String> friends,@NonNull SnsItem snsItem) throws TIMException;
+	UpdateFriendsResult updateFriends(@NonNull String identifier,@NonNull List<String> friends, List<SnsItem> snsItems) throws TIMException;
 	/**
 	 * 删除好友
 	 * <p>

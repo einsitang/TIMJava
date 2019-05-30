@@ -4,6 +4,7 @@ import com.sevlow.sdk.tim.api.TIMRelationService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.bean.*;
 import com.sevlow.sdk.tim.bean.account.TIMFriend;
+import com.sevlow.sdk.tim.common.error.TIMError;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import com.sevlow.sdk.tim.utils.JsonUtils;
 import lombok.NonNull;
@@ -30,9 +31,13 @@ public class TIMRelationServiceImpl implements TIMRelationService {
 		this.timService = timService;
 	}
 
-	private String cleanAddSourceTypePrefix(String addSourceType){
+	private String cleanAddSourceTypePrefix(String addSourceType) throws TIMException {
 		if (StringUtils.startsWith(addSourceType, ADD_SOURCE_TYPE_PREFIX)) {
-			return RegExUtils.removeFirst(addSourceType, ADD_SOURCE_TYPE_PREFIX);
+			addSourceType = RegExUtils.removeFirst(addSourceType, ADD_SOURCE_TYPE_PREFIX);
+		}
+
+		if (addSourceType.length() > 8) {
+			throw new TIMException(new TIMError(30001, "addSourceType除去前缀Add_Source_外，不能多于8个字符"));
 		}
 		return addSourceType;
 	}
@@ -79,7 +84,7 @@ public class TIMRelationServiceImpl implements TIMRelationService {
 	@Override
 	public ImportFriendsResult importFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull String friendSource) throws TIMException {
 
-		if(friends == null || friends.size()<1){
+		if (friends == null || friends.size() < 1) {
 			throw new RuntimeException("friends can't be empty");
 		}
 
@@ -88,8 +93,8 @@ public class TIMRelationServiceImpl implements TIMRelationService {
 		List<TIMFriend> list = new ArrayList<>();
 		TIMFriend timFriend = null;
 
-		for(String friend : friends){
-			timFriend = new TIMFriend(friend,ADD_SOURCE_TYPE_PREFIX + friendSource);
+		for (String friend : friends) {
+			timFriend = new TIMFriend(friend, ADD_SOURCE_TYPE_PREFIX + friendSource);
 			list.add(timFriend);
 		}
 
@@ -101,27 +106,68 @@ public class TIMRelationServiceImpl implements TIMRelationService {
 
 		String api = "v4/sns/friend_import";
 
-		Map<String,Object> body = new HashMap<>();
+		Map<String, Object> body = new HashMap<>();
 
 		body.put("From_Account", identifier);
 		body.put("AddFriendItem", friends);
 
-		return JsonUtils.fromJson(this.timService.post(api,body),ImportFriendsResult.class);
+		return JsonUtils.fromJson(this.timService.post(api, body), ImportFriendsResult.class);
 	}
 
 	@Override
-	public UpdateFriendsResult updateFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull SnsItem snsItem) throws TIMException {
-		return null;
+	public UpdateFriendsResult updateFriends(@NonNull String identifier, @NonNull List<String> friends, List<SnsItem> snsItems) throws TIMException {
+
+		String api = "v4/sns/friend_update";
+
+		if (friends == null || friends.size() < 1) {
+			throw new RuntimeException("friends can't be empty");
+		}
+
+		Map<String, Object> body = new HashMap<>();
+		body.put("From_Account", identifier);
+
+		List<Map<String, Object>> updateItems = new ArrayList<>();
+		Map<String, Object> updateItem = null;
+
+		for (String friend : friends) {
+
+			updateItem = new HashMap<>();
+			updateItem.put("To_Account", friend);
+			updateItem.put("SnsItem", snsItems);
+
+			updateItems.add(updateItem);
+		}
+
+		body.put("UpdateItem", updateItems);
+
+		return JsonUtils.fromJson(this.timService.post(api, body), UpdateFriendsResult.class);
 	}
 
 	@Override
 	public DeleteFriendsResult deleteFriend(@NonNull String identifier, @NonNull List<String> friends, DeleteType deleteType) throws TIMException {
-		return null;
+
+		if (friends == null || friends.size() < 1) {
+			throw new RuntimeException("friends can't be empty");
+		}
+
+		String api = "v4/sns/friend_delete";
+
+		Map<String, Object> body = new HashMap<>();
+		body.put("From_Account", identifier);
+		body.put("To_Account", friends);
+
+		if (deleteType == null) {
+			deleteType = DeleteType.Delete_Type_Both;
+		}
+
+		body.put("DeleteType", deleteType);
+
+		return JsonUtils.fromJson(this.timService.post(api, body), DeleteFriendsResult.class);
 	}
 
 	@Override
 	public DeleteFriendsResult deleteFriend(@NonNull String identifier, @NonNull List<String> friends) throws TIMException {
-		return null;
+		return deleteFriend(identifier, friends, null);
 	}
 
 	@Override
