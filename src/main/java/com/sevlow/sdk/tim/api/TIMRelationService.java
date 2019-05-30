@@ -132,6 +132,20 @@ public interface TIMRelationService {
 	 */
 	ImportFriendsResult importFriends(@NonNull String identifier, @NonNull List<TIMFriend> friends) throws TIMException;
 
+	/**
+	 * 更新好友
+	 *
+	 * 支持批量更新同一用户的多个好友的关系链数据。
+	 * 更新一个用户多个好友时，建议采用批量方式，避免并发写导致的写冲突。
+	 *
+	 * API Doc : https://cloud.tencent.com/document/product/269/12525
+	 *
+	 * @param identifier
+	 * @param friends
+	 * @param snsItems
+	 * @return
+	 * @throws TIMException
+	 */
 	UpdateFriendsResult updateFriends(@NonNull String identifier,@NonNull List<String> friends, List<SnsItem> snsItems) throws TIMException;
 	/**
 	 * 删除好友
