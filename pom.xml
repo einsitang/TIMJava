@@ -6,7 +6,7 @@
 
     <groupId>com.sevlow</groupId>
     <artifactId>tim-java-sdk</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1</version>
     <name>TIMJava - Tencent IM Java SDK</name>
     <description>腾讯IM 云通讯 Java SDK</description>
     <url>https://github.com/forfuns/TIMJava</url>
@@ -109,6 +109,19 @@
         </dependency>
 
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>70yi-nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://mvn.70yi.ren:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>70yi-nexus-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://mvn.70yi.ren:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <build>
         <pluginManagement>
