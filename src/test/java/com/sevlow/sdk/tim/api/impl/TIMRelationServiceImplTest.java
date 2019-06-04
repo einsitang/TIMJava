@@ -83,4 +83,96 @@ public class TIMRelationServiceImplTest {
 
 	}
 
+
+	@Test
+	public void testEmptyFriends() throws TIMException {
+
+		String identifier = "test_1" ;
+		relationService.emptyFriends(identifier);
+
+	}
+
+
+	@Test
+	public void testCheckFriends() throws TIMException {
+		String identifier = "test_1" ;
+		List list = Arrays.asList("test_1","test_2");
+		CheckFriendsResult result = relationService.checkFriends(identifier, list);
+		Assert.assertEquals(2,result.getInfoItem().size());
+
+	}
+
+
+	@Test
+	public void testListFriends() throws TIMException {
+
+		ListFriendsResult result = relationService.listFriends("test_1", 0, 1, 0, null);
+
+		Assert.assertNotNull(result);
+	}
+
+	@Test
+	public void testListFriendsByAccounts() throws TIMException {
+		ListFriendsByAccountsResult list = relationService.listFriendsByAccounts("test_1", Arrays.asList("test_2"));
+
+		Assert.assertEquals(list.getInfoItem().size(),1);
+	}
+
+	@Test
+	public void testAddBlockAccounts() throws TIMException {
+		String identifier = "test_1";
+		List account = Arrays.asList("test_2");
+		AddBlockAccountsResult result = relationService.addBlockAccounts(identifier, account);
+		Assert.assertEquals(result.getResultItems().size(),1);
+
+	}
+
+
+	@Test
+	public void testRemoveblockAccounts() throws TIMException  {
+
+		String identifier = "test_1";
+		List account = Arrays.asList("test_2");
+		RemoveBlockAccountsResult result = relationService.removeblockAccounts(identifier, account);
+		Assert.assertEquals(result.getResultItems().size(),1);
+
+	}
+
+	@Test
+	public void testListBlockAccounts() throws TIMException {
+
+		String identifier = "test_1" ;
+		Integer offset = 0 ;
+		Integer rows = 1 ;
+		Integer lastSequence = 0 ;
+		ListBlockAccountsResult res = relationService.listBlockAccounts(identifier, offset, rows, lastSequence);
+		Assert.assertTrue(res.getCurruentSequence() > 0 );
+	}
+
+	@Test
+	public void testCheckBlockAccounts() throws TIMException {
+
+		String identifier = "test_1";
+		List<String> accounts = Arrays.asList("test_2","test_3");
+		String checkType = "44";
+		CheckBlockAccountsResult result = relationService.checkBlockAccounts(identifier, accounts, checkType);
+		Assert.assertTrue(result.getBlackListCheckItems().size() > 0);
+	}
+
+	@Test
+	public void testAddGroups() throws TIMException {
+		String identifier = "test_1" ;
+		List<String> groupNames = Arrays.asList("group123");
+		AddGroupsResult res = relationService.addGroups(identifier, groupNames, null);
+		Assert.assertTrue(res.getResultItems().size() >= 0 );
+	}
+
+	@Test
+	public void testDeleteGroups() throws TIMException {
+		String identifier = "test_1" ;
+		List<String> groupNames = Arrays.asList("group123");
+		DeleteGroupsResult res = relationService.deleteGroups(identifier, groupNames);
+		Assert.assertTrue(res.getCurrentSequence() >= 0 );
+
+	}
 }

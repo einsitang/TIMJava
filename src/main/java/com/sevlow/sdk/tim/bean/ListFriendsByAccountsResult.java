@@ -17,7 +17,7 @@ public class ListFriendsByAccountsResult implements Serializable {
 	private static final long serialVersionUID = 7934007519250442782L;
 
 	@SerializedName("InfoItem")
-	private List<String> infoItem;
+	private List<InfoItem> infoItem;
 
 	@Data
 	public static class InfoItem implements Serializable{
@@ -46,7 +46,7 @@ public class ListFriendsByAccountsResult implements Serializable {
 		private String tag;
 
 		@SerializedName("Value")
-		private String value;
+		private Object value;
 	}
 
 }

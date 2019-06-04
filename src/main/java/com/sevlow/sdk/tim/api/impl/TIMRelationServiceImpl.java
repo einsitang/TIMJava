@@ -4,6 +4,7 @@ import com.sevlow.sdk.tim.api.TIMRelationService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.bean.*;
 import com.sevlow.sdk.tim.bean.account.TIMFriend;
+import com.sevlow.sdk.tim.bean.relationManage.DeleteAllResult;
 import com.sevlow.sdk.tim.common.error.TIMError;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import com.sevlow.sdk.tim.utils.JsonUtils;
@@ -22,6 +23,7 @@ import java.util.*;
  */
 @Slf4j
 public class TIMRelationServiceImpl implements TIMRelationService {
+
 
 	private final String ADD_SOURCE_TYPE_PREFIX = "AddSource_Type_";
 
@@ -165,6 +167,7 @@ public class TIMRelationServiceImpl implements TIMRelationService {
 		return JsonUtils.fromJson(this.timService.post(api, body), DeleteFriendsResult.class);
 	}
 
+
 	@Override
 	public DeleteFriendsResult deleteFriend(@NonNull String identifier, @NonNull List<String> friends) throws TIMException {
 		return deleteFriend(identifier, friends, null);
@@ -173,56 +176,159 @@ public class TIMRelationServiceImpl implements TIMRelationService {
 	@Override
 	public void emptyFriends(@NonNull String identifier) throws TIMException {
 
+		String api = "v4/sns/friend_delete_all";
+
+		Map<String, Object> body = new HashMap<>();
+		body.put("From_Account", identifier);
+
+		this.timService.post(api, body);
+
 	}
 
 	@Override
 	public CheckFriendsResult checkFriends(@NonNull String identifier, @NonNull List<String> friends, CheckType checkType) throws TIMException {
-		return null;
+
+		if (friends == null || friends.size() < 1) {
+			throw new RuntimeException("friends can't be empty");
+		}
+
+		String api = "v4/sns/friend_check";
+
+		Map<String, Object> body = new HashMap<>();
+		body.put("From_Account",identifier);
+		body.put("To_Account",friends);
+		// 如果不是双向检查，则默认为单项检查
+		if (!CheckType.CheckResult_Type_Both.equals(checkType)){
+			checkType = CheckType.CheckResult_Type_Singal ;
+		}
+		body.put("CheckType",checkType);
+		return JsonUtils.fromJson(this.timService.post(api, body), CheckFriendsResult.class);
 	}
 
 	@Override
 	public CheckFriendsResult checkFriends(@NonNull String identifier, @NonNull List<String> friends) throws TIMException {
-		return null;
+		return checkFriends(identifier,friends,null);
 	}
 
 	@Override
-	public ListFriendsResult listFriends(@NonNull String identifier, int offset, int rows, Date timestamp, int lastStandardSequence) throws TIMException {
-		return null;
+	public ListFriendsResult listFriends(@NonNull String identifier, Integer offset, Integer rows, Integer timestamp, Integer lastStandardSequence) throws TIMException {
+		String api = "v4/sns/friend_get_all";
+
+		Map<String, Object> body = new HashMap<>();
+		body.put("From_Account",identifier);
+		body.put("TimeStamp", timestamp) ;
+		body.put("StartIndex",offset) ;
+		body.put("LastStandardSequence",lastStandardSequence);
+		return JsonUtils.fromJson(this.timService.post(api, body), ListFriendsResult.class);
 	}
 
 	@Override
 	public ListFriendsByAccountsResult listFriendsByAccounts(@NonNull String identifier, @NonNull List<String> accounts) throws TIMException {
-		return null;
+		if (accounts == null || accounts.size() < 1) {
+			throw new RuntimeException("accounts can't be empty");
+		}
+
+		String api = "v4/sns/friend_get_list";
+
+		Map<String, Object> body = new HashMap<>();
+		body.put("From_Account",identifier);
+		body.put("To_Account",accounts);
+
+		return JsonUtils.fromJson(this.timService.post(api, body), ListFriendsByAccountsResult.class);
 	}
 
 	@Override
 	public AddBlockAccountsResult addBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts) throws TIMException {
-		return null;
+
+		if (accounts == null || accounts.size() < 1) {
+			throw new RuntimeException("accounts can't be empty");
+		}
+
+		String api = "v4/sns/black_list_add";
+
+		Map<String, Object> body = new HashMap<>();
+
+		body.put("From_Account",identifier);
+		body.put("To_Account",accounts);
+		return JsonUtils.fromJson(this.timService.post(api, body), AddBlockAccountsResult.class);
 	}
 
 	@Override
 	public RemoveBlockAccountsResult removeblockAccounts(@NonNull String identifier, @NonNull List<String> blockAccounts) throws TIMException {
-		return null;
+		if (blockAccounts == null || blockAccounts.size() < 1) {
+			throw new RuntimeException("blockAccounts can't be empty");
+		}
+
+		String api = "v4/sns/black_list_delete";
+
+		Map<String, Object> body = new HashMap<>();
+
+		body.put("From_Account",identifier);
+		body.put("To_Account",blockAccounts);
+		return JsonUtils.fromJson(this.timService.post(api, body), RemoveBlockAccountsResult.class);
 	}
 
 	@Override
-	public ListBlockAccountsResult listBlockAccounts(@NonNull String identifier, int offset, int rows, int lastSequence) throws TIMException {
-		return null;
+	public ListBlockAccountsResult listBlockAccounts(@NonNull String identifier, Integer offset, Integer rows, Integer lastSequence) throws TIMException {
+
+		String api = "v4/sns/black_list_get";
+
+		Map<String, Object> body = new HashMap<>();
+
+		body.put("From_Account",identifier);
+		body.put("StartIndex",offset);
+		body.put("MaxLimited",rows);
+		body.put("LastSequence",lastSequence);
+
+		return JsonUtils.fromJson(this.timService.post(api, body), ListBlockAccountsResult.class);
 	}
 
 	@Override
-	public CheckBlockAccountsResult checkBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts, CheckType checkType) throws TIMException {
-		return null;
+	public CheckBlockAccountsResult checkBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts, String checkType) throws TIMException {
+
+		if (accounts == null || accounts.size() < 1) {
+			throw new RuntimeException("accounts can't be empty");
+		}
+
+		String api = "v4/sns/black_list_check";
+
+		Map<String, Object> body = new HashMap<>();
+		body.put("From_Account",identifier);
+		body.put("To_Account",accounts);
+		// 只要不是双向验证，默认为单向验证
+		if ( !CheckBlockAccountsResult.CHECK_TYPE_BOTH.equals(checkType) ){
+			checkType = CheckBlockAccountsResult.CHECK_TYPE_SINGAL ;
+		}
+		body.put("CheckType",checkType);
+
+		return JsonUtils.fromJson(this.timService.post(api, body), CheckBlockAccountsResult.class);
 	}
 
 	@Override
-	public AddGroupsResult addGroups(@NonNull String identifier, @NonNull List<String> groupNames, @NonNull List<String> friends) throws TIMException {
-		return null;
+	public AddGroupsResult addGroups(@NonNull String identifier, @NonNull List<String> groupNames, List<String> friends) throws TIMException {
+		if (groupNames == null || groupNames.size() < 1) {
+			throw new RuntimeException("groupNames can't be empty");
+		}
+		String api = "v4/sns/group_add";
+
+		Map<String, Object> body = new HashMap<>();
+		body.put("From_Account",identifier);
+		body.put("GroupName",groupNames);
+		body.put("To_Account",friends);
+		return JsonUtils.fromJson(this.timService.post(api, body), AddGroupsResult.class);
 	}
 
 	@Override
-	public DeleteGroupsResult deleteGroups(@NonNull String Identifier, @NonNull List<String> groupNames) throws TIMException {
-		return null;
+	public DeleteGroupsResult deleteGroups(@NonNull String identifier, @NonNull List<String> groupNames) throws TIMException {
+		if (groupNames == null || groupNames.size() < 1) {
+			throw new RuntimeException("groupNames can't be empty");
+		}
+		String api = "v4/sns/group_delete";
+
+		Map<String, Object> body = new HashMap<>();
+		body.put("From_Account",identifier);
+		body.put("GroupName",groupNames);
+		return JsonUtils.fromJson(this.timService.post(api, body), DeleteGroupsResult.class);
 	}
 
 
