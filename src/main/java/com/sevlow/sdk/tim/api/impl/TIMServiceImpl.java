@@ -48,8 +48,19 @@ public class TIMServiceImpl implements TIMService {
 
 	@Override
 	public String getUserSig(@NonNull String identifier) throws TIMException {
+		return getUserSig(identifier,30);
+	}
 
+	@Override
+	public String getUserSig(@NonNull String identifier, Integer expireOfDay) throws TIMException {
 		TLSSigature.GenTLSSignatureResult signatureResult;
+
+		if (expireOfDay == null) {
+			expireOfDay = 30;
+		}
+		if (expireOfDay < 1) {
+			expireOfDay = 1;
+		}
 
 		try {
 

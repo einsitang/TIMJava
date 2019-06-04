@@ -4,7 +4,6 @@ import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.api.test.TestModule;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import lombok.extern.slf4j.Slf4j;
-import org.testng.Assert;
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
 

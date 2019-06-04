@@ -18,10 +18,6 @@ public class CheckBlockAccountsResult extends ResultStruct implements Serializab
 
 	private static final long serialVersionUID = -7979547907000718945L;
 
-	public static final String CHECK_TYPE_BOTH = "BlackCheckResult_Type_Both" ;
-	public static final String CHECK_TYPE_SINGAL = "BlackCheckResult_Type_Singal" ;
-
-
 	@SerializedName("BlackListCheckItem")
 	private List<BlockListCheckItem> blackListCheckItems ;
 

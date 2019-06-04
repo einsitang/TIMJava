@@ -1,12 +1,10 @@
 package com.sevlow.sdk.tim.api;
 
 import com.sevlow.sdk.tim.bean.*;
-import com.sevlow.sdk.tim.bean.account.TIMAccount;
 import com.sevlow.sdk.tim.bean.account.TIMFriend;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import lombok.NonNull;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -68,6 +66,19 @@ public interface TIMRelationService {
 		private CheckType(String typeInfo) {
 			this.typeInfo = typeInfo;
 		}
+	}
+
+	public static enum BlackCheckType{
+
+		BlackCheckResult_Type_Both("BlackCheckResult_Type_Both"),
+		BlackCheckResult_Type_Singal("BlackCheckResult_Type_Singal");
+
+		private String typeInfo;
+
+		private BlackCheckType(String typeInfo){
+			this.typeInfo = typeInfo;
+		}
+
 	}
 
 	/**
@@ -277,7 +288,7 @@ public interface TIMRelationService {
 	 * @param checkType
 	 * @return
 	 */
-	CheckBlockAccountsResult checkBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts, String checkType) throws TIMException;
+	CheckBlockAccountsResult checkBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts, BlackCheckType checkType) throws TIMException;
 
 	/**
 	 * 添加分组
