@@ -85,7 +85,8 @@ public class TIMServiceImpl implements TIMService {
 
 		String url = buildFullUrl(api, queryParams);
 
-		log.debug("【TIMJava】{} request : {}", "GET", url);
+		log.debug("【TIMJava】 request method : {}", "GET");
+		log.debug("【TIMJava】 request url : {}", url);
 
 		Request request = new Request.Builder()
 				.url(url)
@@ -100,6 +101,10 @@ public class TIMServiceImpl implements TIMService {
 
 		String url = buildFullUrl(api, null);
 		String json = JsonUtils.toJson(body);
+
+		log.debug("【TIMJava】 request method : {}", "POST");
+		log.debug("【TIMJava】 request url : {}", url);
+		log.debug("【TIMJava】 request body : {}", json);
 
 		Request request = new Request.Builder()
 				.url(url)
@@ -164,9 +169,6 @@ public class TIMServiceImpl implements TIMService {
 			RequestBody body = request.body();
 
 			log.debug("【TIMJava】 发起请求 当前第 {} 次 / {} 次 {}", reqCount, config.getReqReTryCount(), reqCount > 1 ? "[重试请求]" : "");
-			log.debug("【TIMJava】 request method : {}", method);
-			log.debug("【TIMJava】 request url : {}", url);
-			log.debug("【TIMJava】 request body : {}", body != null ? body.toString() : null);
 
 			return executeInternal(request);
 
@@ -180,7 +182,7 @@ public class TIMServiceImpl implements TIMService {
 			return execute(request, reqCount++);
 
 		} catch (Exception e) {
-			log.error(e.getMessage(), e);
+//			log.error(e.getMessage(), e);
 			throw new TIMException(new TIMError(-1, e.getMessage()));
 		}
 	}

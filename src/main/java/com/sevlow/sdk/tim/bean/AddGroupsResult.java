@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Element
@@ -18,4 +19,5 @@ public class AddGroupsResult extends BatchUpdateResult implements Serializable {
 
 	@SerializedName("CurrentSequence")
 	private int currentSequence;
+
 }

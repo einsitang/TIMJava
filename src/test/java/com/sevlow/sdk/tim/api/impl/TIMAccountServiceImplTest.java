@@ -39,7 +39,7 @@ public class TIMAccountServiceImplTest {
 	public void testSingleImport() throws TIMException {
 
 		TIMAccount account = new TIMAccount("test_1");
-		account.setNick("fake_user_nick");
+		account.setNick("fake_user_nick111");
 
 		accountService.singleImport(account);
 
@@ -48,7 +48,7 @@ public class TIMAccountServiceImplTest {
 	@Test
 	public void testMultiImport() throws TIMException {
 
-		ImportAccountsResult result = accountService.multiImport(Arrays.asList("test_2", "test_3", "test_4", "test_5"));
+		ImportAccountsResult result = accountService.multiImport(Arrays.asList("test_211", "test_3", "test_4", "test_5"));
 		Assert.assertEquals(0, result.getFailAccounts().size());
 
 	}

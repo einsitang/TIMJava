@@ -52,6 +52,7 @@ public class TIMOnlineStatusServiceImplTest {
 			}
 		}
 
+		Object p = OnlineStatusResult.State.Offline ;
 		Assert.assertEquals(OnlineStatusResult.State.Offline, test1State);
 
 		log.debug(JsonUtils.toJson(onlineStatus));

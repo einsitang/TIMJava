@@ -220,7 +220,7 @@ public interface TIMRelationService {
 	 * @param lastStandardSequence 上次拉取标配关系链的 Sequence，仅在只拉取标配关系链字段时有用
 	 * @return
 	 */
-	ListFriendsResult listFriends(@NonNull String identifier, int offset, int rows, Date timestamp, int lastStandardSequence) throws TIMException;
+	ListFriendsResult listFriends(@NonNull String identifier, Integer offset, Integer rows, Integer timestamp, Integer lastStandardSequence) throws TIMException;
 
 	ListFriendsByAccountsResult listFriendsByAccounts(@NonNull String identifier, @NonNull List<String> accounts) throws TIMException;
 
@@ -263,7 +263,7 @@ public interface TIMRelationService {
 	 * @param lastSequence 上一次拉黑名单时后台返回给客户端的 Seq，初次拉取时为0
 	 * @return
 	 */
-	ListBlockAccountsResult listBlockAccounts(@NonNull String identifier, int offset, int rows, int lastSequence) throws TIMException;
+	ListBlockAccountsResult listBlockAccounts(@NonNull String identifier, Integer offset, Integer rows, Integer lastSequence) throws TIMException;
 
 	/**
 	 * 校验黑名单
@@ -277,7 +277,7 @@ public interface TIMRelationService {
 	 * @param checkType
 	 * @return
 	 */
-	CheckBlockAccountsResult checkBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts, CheckType checkType) throws TIMException;
+	CheckBlockAccountsResult checkBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts, String checkType) throws TIMException;
 
 	/**
 	 * 添加分组
@@ -291,7 +291,7 @@ public interface TIMRelationService {
 	 * @param friends
 	 * @return
 	 */
-	AddGroupsResult addGroups(@NonNull String identifier, @NonNull List<String> groupNames, @NonNull List<String> friends) throws TIMException;
+	AddGroupsResult addGroups(@NonNull String identifier, @NonNull List<String> groupNames, List<String> friends) throws TIMException;
 
 	/**
 	 * 删除分组
@@ -300,11 +300,11 @@ public interface TIMRelationService {
 	 * <p>
 	 * API Doc : https://cloud.tencent.com/document/product/269/10108
 	 *
-	 * @param Identifier
+	 * @param identifier
 	 * @param groupNames
 	 * @return
 	 */
-	DeleteGroupsResult deleteGroups(@NonNull String Identifier, @NonNull List<String> groupNames) throws TIMException;
+	DeleteGroupsResult deleteGroups(@NonNull String identifier, @NonNull List<String> groupNames) throws TIMException;
 
 
 }
