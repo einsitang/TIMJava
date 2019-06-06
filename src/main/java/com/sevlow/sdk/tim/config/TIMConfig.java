@@ -2,22 +2,19 @@ package com.sevlow.sdk.tim.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
  * @author Element
  * @Package com.sevlow.sdk.tim.config
  * @date 2019-05-27 10:21
- * @Description: TODO
+ * @Description:
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class TIMConfig {
-
-	@Deprecated
-	public TIMConfig() {
-
-	}
 
 	/**
 	 * 腾讯IM appId
