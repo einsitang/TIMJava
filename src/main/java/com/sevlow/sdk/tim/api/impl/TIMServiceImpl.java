@@ -31,7 +31,7 @@ public class TIMServiceImpl implements TIMService {
 	private TIMConfig config;
 
 	private final OkHttpClient HTTP_CLIENT = new OkHttpClient();
-	private final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+	private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
 	private TIMAccountService accountService = new TIMAccountServiceImpl(this);
 	private TIMOnlineStatusService onlineStatusService = new TIMOnlineStatusServiceImpl(this);

@@ -18,9 +18,6 @@ public class BatchUpdateResult implements Serializable {
 
 	private static final long serialVersionUID = -2729886288572231679L;
 
-	public BatchUpdateResult() {
-	}
-
 	@SerializedName("ResultItem")
 	private List<ResultItem> resultItems = new ArrayList<>();
 
