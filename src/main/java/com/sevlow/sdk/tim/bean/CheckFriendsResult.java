@@ -10,16 +10,16 @@ import java.util.List;
  * @author Element
  * @Package com.sevlow.sdk.tim.bean
  * @date 2019-05-27 19:40
- * @Description: TODO
+ * @Description:
  */
 @Data
 public class CheckFriendsResult {
 
     @SerializedName("InfoItem")
-    private List<InfoItemDetail> infoItem ;
+    private List<InfoItemDetail> infoItems ;
 
     @SerializedName("Fail_Account")
-    private String[] failAccount ;
+    private List<String> failAccounts ;
 
 
 }

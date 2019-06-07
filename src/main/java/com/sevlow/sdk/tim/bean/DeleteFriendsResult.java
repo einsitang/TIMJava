@@ -9,7 +9,7 @@ import java.util.List;
  * @author Element
  * @Package com.sevlow.sdk.tim.bean
  * @date 2019-05-27 19:40
- * @Description: TODO
+ * @Description:
  */
 @Data
 public class DeleteFriendsResult {

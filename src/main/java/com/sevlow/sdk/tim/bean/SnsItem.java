@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Element
  * @Package com.sevlow.sdk.tim.bean
  * @date 2019-05-28 00:11
- * @Description: TODO
+ * @Description:
  */
 @Data
 public class SnsItem<T> implements Serializable {

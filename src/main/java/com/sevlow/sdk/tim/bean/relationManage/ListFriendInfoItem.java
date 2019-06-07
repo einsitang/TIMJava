@@ -1,6 +1,7 @@
 package com.sevlow.sdk.tim.bean.relationManage;
 
 import com.google.gson.annotations.SerializedName;
+import com.sevlow.sdk.tim.bean.SnsItem;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -23,21 +24,7 @@ public class ListFriendInfoItem  implements Serializable {
     private String infoAccount ;
 
     @SerializedName("SnsProfileItem")
-    private List<SnsProfileItem> snsProfileItem ;
+    private List<SnsItem> snsProfileItems ;
 
-
-
-
-    @Data
-    private class SnsProfileItem implements Serializable {
-
-        private static final long serialVersionUID = 4088549752680756130L;
-
-        @SerializedName("Tag")
-        private String tag;
-
-        @SerializedName("Value")
-        private Object value;
-
-    }
+    
 }

@@ -20,7 +20,7 @@ import java.util.List;
  * @author Element
  * @Package com.sevlow.sdk.tim.api.impl
  * @date 2019-05-27 23:39
- * @Description: TODO
+ * @Description:
  */
 @Slf4j
 @Guice(modules = {TestModule.class})
@@ -98,7 +98,7 @@ public class TIMRelationServiceImplTest {
 		String identifier = "test_1";
 		List list = Arrays.asList("test_1", "test_2");
 		CheckFriendsResult result = relationService.checkFriends(identifier, list);
-		Assert.assertEquals(2, result.getInfoItem().size());
+		Assert.assertEquals(2, result.getInfoItems().size());
 
 	}
 

@@ -25,7 +25,7 @@ public class ListFriendsResult {
     private Integer startIndex ;
 
     @SerializedName("InfoItem")
-    private List<ListFriendInfoItem> infoItem ;
+    private List<ListFriendInfoItem> infoItems;
 
     @SerializedName("CurrentStandardSequence")
     private Integer currentStandardSequence ;
