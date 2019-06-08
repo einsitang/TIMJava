@@ -1,4 +1,4 @@
-package com.sevlow.sdk.tim.bean.relationManage;
+package com.sevlow.sdk.tim.bean.relation;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;

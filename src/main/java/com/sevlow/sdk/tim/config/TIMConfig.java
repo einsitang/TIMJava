@@ -34,5 +34,5 @@ public class TIMConfig {
 
 	private Long accountType;
 
-	private int reqReTryCount = 3;
+	private int reqMaxRetry = 3;
 }

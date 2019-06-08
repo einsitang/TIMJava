@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author Element
  * @Package com.sevlow.sdk.tim.bean
  * @date 2019-05-27 14:11
- * @Description: TODO
+ * @Description:
  */
 @Data
 public class TIMAccount implements Serializable {

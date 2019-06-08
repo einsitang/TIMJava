@@ -13,7 +13,7 @@ import javax.inject.Inject;
  * @author Element
  * @Package com.sevlow.sdk.tim.api.impl
  * @date 2019-05-27 13:28
- * @Description: TODO
+ * @Description:
  */
 @Slf4j
 @Guice(modules = {TestModule.class})

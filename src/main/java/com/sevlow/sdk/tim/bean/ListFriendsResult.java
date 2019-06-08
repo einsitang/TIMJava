@@ -1,7 +1,7 @@
 package com.sevlow.sdk.tim.bean;
 
 import com.google.gson.annotations.SerializedName;
-import com.sevlow.sdk.tim.bean.relationManage.ListFriendInfoItem;
+import com.sevlow.sdk.tim.bean.relation.ListFriendInfoItem;
 import lombok.Data;
 
 import java.util.List;

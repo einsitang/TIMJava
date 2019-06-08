@@ -13,7 +13,7 @@ import java.util.List;
  * @author Element
  * @Package com.sevlow.sdk.tim.bean.account
  * @date 2019-05-28 11:42
- * @Description: TODO
+ * @Description:
  */
 @Data
 public class TIMFriend implements Serializable {

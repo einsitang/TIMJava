@@ -175,13 +175,13 @@ public class TIMServiceImpl implements TIMService {
 	private String execute(Request request, int reqCount) throws TIMException {
 		try {
 
-			log.debug("【TIMJava】 发起请求 当前第 {} 次 / {} 次 {}", reqCount, config.getReqReTryCount(), reqCount > 1 ? "[重试请求]" : "");
+			log.debug("【TIMJava】 发起请求 当前第 {} 次 / {} 次 {}", reqCount, config.getReqMaxRetry(), reqCount > 1 ? "[重试请求]" : "");
 
 			return executeInternal(request);
 
 		} catch (SocketTimeoutException e) {
 
-			if (reqCount >= config.getReqReTryCount()) {
+			if (reqCount >= config.getReqMaxRetry()) {
 				throw new TIMException(new TIMError(-1, "请求失效,请检查你的网络状态"));
 			}
 
