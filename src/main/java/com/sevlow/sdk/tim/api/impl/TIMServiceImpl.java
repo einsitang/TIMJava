@@ -48,7 +48,7 @@ public class TIMServiceImpl implements TIMService {
 
 	@Override
 	public String getUserSig(@NonNull String identifier) throws TIMException {
-		return getUserSig(identifier,30);
+		return getUserSig(identifier, 30);
 	}
 
 	@Override
@@ -188,6 +188,8 @@ public class TIMServiceImpl implements TIMService {
 			// 执行重试
 			return execute(request, reqCount++);
 
+		} catch (TIMException e) {
+			throw e;
 		} catch (Exception e) {
 			throw new TIMException(new TIMError(-1, e.getMessage()));
 		}
