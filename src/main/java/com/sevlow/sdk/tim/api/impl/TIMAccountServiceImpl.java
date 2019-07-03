@@ -64,6 +64,10 @@ public class TIMAccountServiceImpl implements TIMAccountService {
 			return new ImportAccountsResult();
 		}
 
+		if(accounts.size() > 100){
+			throw new TIMException(new TIMError(70402, "单次用户导入不能超过100个,请分段导入"));
+		}
+
 		String api = "v4/im_open_login_svc/multiaccount_import";
 
 		Map<String, List<String>> multiImportBody = new HashMap<>();
