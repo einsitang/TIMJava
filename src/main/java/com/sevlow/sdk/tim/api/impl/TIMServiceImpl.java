@@ -36,6 +36,7 @@ public class TIMServiceImpl implements TIMService {
 	private TIMAccountService accountService = new TIMAccountServiceImpl(this);
 	private TIMOnlineStatusService onlineStatusService = new TIMOnlineStatusServiceImpl(this);
 	private TIMRelationService relationService = new TIMRelationServiceImpl(this);
+	private TIMChatService chatService = new TIMChatServiceImpl(this);
 
 	public TIMServiceImpl(TIMConfig config) {
 		this.config = config;
@@ -230,6 +231,11 @@ public class TIMServiceImpl implements TIMService {
 	@Override
 	public TIMRelationService getRelationService() {
 		return this.relationService;
+	}
+
+	@Override
+	public TIMChatService getTIMChatService() {
+		return this.chatService;
 	}
 
 }
