@@ -37,7 +37,7 @@ public class TIMChatServiceImpl implements TIMChatService {
      *  @param msgList 消息集合
      */
     @Override
-    public void batchsendmsg(String fromAccount, List<String> toAccounts, List<String> msgList) throws TimeoutException, TIMException {
+    public void batchSendMsg(String fromAccount, List<String> toAccounts, List<String> msgList) throws TimeoutException, TIMException {
         if (toAccounts == null || toAccounts.size() > 500) {
             throw new TimeoutException("群发账号不能多于500个");
         }
