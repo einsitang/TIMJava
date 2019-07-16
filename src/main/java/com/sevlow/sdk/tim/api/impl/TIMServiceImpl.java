@@ -193,10 +193,6 @@ public class TIMServiceImpl implements TIMService {
 		return this.accountService;
 	}
 
-	@Override
-	public TIMChatService getChatService() {
-		return null;
-	}
 
 	@Override
 	public TIMDirtyWordService getDirtyWordService() {
@@ -234,7 +230,7 @@ public class TIMServiceImpl implements TIMService {
 	}
 
 	@Override
-	public TIMChatService getTIMChatService() {
+	public TIMChatService getChatService() {
 		return this.chatService;
 	}
 

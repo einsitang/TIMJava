@@ -67,6 +67,5 @@ public interface TIMService {
 
 	TIMRelationService getRelationService();
 
-	TIMChatService getTIMChatService();
 
 }
