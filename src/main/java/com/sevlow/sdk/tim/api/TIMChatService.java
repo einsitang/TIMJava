@@ -22,5 +22,5 @@ public interface TIMChatService {
      *  @param toAccounts 群发接收账号集合
      *  @param msgList 消息集合
      */
-    void batchSendMsg(String fromAccount , List<String> toAccounts,List<String> msgList) throws TimeoutException, TIMException;
+    void batchSendMsg(String fromAccount , List<String> toAccounts,List<String> msgList) throws TIMException;
 }

@@ -4,6 +4,7 @@ import com.sevlow.sdk.tim.api.TIMChatService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.bean.chat.MsgBody;
 import com.sevlow.sdk.tim.bean.chat.MsgContent;
+import com.sevlow.sdk.tim.common.error.TIMError;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
@@ -37,9 +38,9 @@ public class TIMChatServiceImpl implements TIMChatService {
      *  @param msgList 消息集合
      */
     @Override
-    public void batchSendMsg(String fromAccount, List<String> toAccounts, List<String> msgList) throws TimeoutException, TIMException {
+    public void batchSendMsg(String fromAccount, List<String> toAccounts, List<String> msgList) throws TIMException {
         if (toAccounts == null || toAccounts.size() > 500) {
-            throw new TimeoutException("群发账号不能多于500个");
+            throw new TIMException(new TIMError(90011,"批量发消息目标帐号超过500"));
         }
 
         String api = "/v4/openim/batchsendmsg";
