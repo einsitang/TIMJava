@@ -1,5 +1,10 @@
 package com.sevlow.sdk.tim.api;
 
+import com.sevlow.sdk.tim.common.error.TIMException;
+
+import java.util.List;
+import java.util.concurrent.TimeoutException;
+
 /**
  * @author Element
  * @Package com.sevlow.sdk.tim.api
@@ -10,4 +15,12 @@ package com.sevlow.sdk.tim.api;
  *
  */
 public interface TIMChatService {
+
+    /**
+     * 批量消息
+     *  @param fromAccount 指定发送账号
+     *  @param toAccounts 群发接收账号集合
+     *  @param msgList 消息集合
+     */
+    void batchSendMsg(String fromAccount , List<String> toAccounts,List<String> msgList) throws TIMException;
 }

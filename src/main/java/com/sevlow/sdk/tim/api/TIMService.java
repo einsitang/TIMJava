@@ -6,6 +6,7 @@ import com.sevlow.sdk.tim.config.TIMConfig;
 import lombok.NonNull;
 
 import java.util.Map;
+import java.util.Timer;
 
 /**
  * @author Element
@@ -74,5 +75,6 @@ public interface TIMService {
 	TIMProfileService getProfileService();
 
 	TIMRelationService getRelationService();
+
 
 }
