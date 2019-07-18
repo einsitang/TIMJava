@@ -170,6 +170,7 @@ public class TIMRelationServiceImplTest {
 
 	@Test
 	public void testDeleteGroups() throws TIMException {
+		System.out.println(".............");
 		String identifier = "test_1" ;
 		List<String> groupNames = Arrays.asList("group123");
 		DeleteGroupsResult res = relationService.deleteGroups(identifier, groupNames);
