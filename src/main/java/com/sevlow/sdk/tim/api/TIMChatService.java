@@ -5,7 +5,7 @@ import lombok.NonNull;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeoutException;
+
 
 /**
  * @author Element
@@ -24,7 +24,7 @@ public interface TIMChatService {
      *  @param toAccounts 群发接收账号集合
      *  @param msgList 消息集合
      */
-    void batchSendTestMsg(String fromAccount , List<String> toAccounts,List<String> msgList) throws TIMException;
+    void batchSendTextMsg(String fromAccount , List<String> toAccounts,List<String> msgList) throws TIMException;
 
 
     /**
@@ -33,7 +33,7 @@ public interface TIMChatService {
      *  @param toAccount 群发接收账号
      *  @param msgList 消息集合
      */
-    void sendTestMsg(String fromAccount , String toAccount,List<String> msgList) throws TIMException;
+    void sendTextMsg(String fromAccount , String toAccount,List<String> msgList) throws TIMException;
 
     /**
      * 发送单聊自定义消息

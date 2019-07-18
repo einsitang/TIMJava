@@ -38,7 +38,7 @@ public class TIMChatServiceImpl implements TIMChatService {
      *  @param msgList 消息集合
      */
     @Override
-    public void batchSendTestMsg(String fromAccount, List<String> toAccounts, List<String> msgList) throws TIMException {
+    public void batchSendTextMsg(String fromAccount, List<String> toAccounts, List<String> msgList) throws TIMException {
         if (toAccounts == null || toAccounts.size() > 500) {
             throw new TIMException(new TIMError(90011,"批量发消息目标帐号超过500"));
         }
@@ -73,7 +73,7 @@ public class TIMChatServiceImpl implements TIMChatService {
      * @param msgList     消息集合
      */
     @Override
-    public void sendTestMsg(String fromAccount, String toAccount, List<String> msgList) throws TIMException {
+    public void sendTextMsg(String fromAccount, String toAccount, List<String> msgList) throws TIMException {
         String api = "v4/openim/sendmsg";
 
         Map<String, Object> body = new HashMap<>();

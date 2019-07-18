@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeoutException;
 
 
 /**
@@ -47,21 +46,21 @@ public class TIMChatServiceImplTest {
 
         List<String> msg = Arrays.asList("你好");
 
-        chatService.batchSendTestMsg(fromAccount,toAccount,msg);
+        chatService.batchSendTextMsg(fromAccount,toAccount,msg);
 
     }
 
     @Test
-    public void testSendTestMsg() throws TIMException {
+    public void testSendTextMsg() throws TIMException {
         String fromAccount = "admin" ;
         String toAccount = "test_211";
         List<String> msg = Arrays.asList("你好");
-        chatService.sendTestMsg(fromAccount,toAccount,msg);
+        chatService.sendTextMsg(fromAccount,toAccount,msg);
 
     }
 
     @Test
-    public void testSendCustomMsg() throws TIMException {
+    public void textSendCustomMsg() throws TIMException {
         String fromAccount = "admin" ;
         String toAccount = "test_211";
         Map<String,String> map = new HashMap<>();
