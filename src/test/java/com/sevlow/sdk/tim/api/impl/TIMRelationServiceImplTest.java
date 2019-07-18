@@ -39,7 +39,7 @@ public class TIMRelationServiceImplTest {
 	@Test
 	public void testAddFriends() throws TIMException {
 
-		AddFriendsResult result = relationService.addFriends("test_1", Arrays.asList("test_2", "test_3", "test_4"), "forTest");
+		AddFriendsResult result = relationService.addFriends("71243920540958720", Arrays.asList("69887072709640192", "test_3", "test_4"), "forTest");
 
 		Assert.assertEquals(3, result.getResultItems().size());
 	}
@@ -95,10 +95,11 @@ public class TIMRelationServiceImplTest {
 
 	@Test
 	public void testCheckFriends() throws TIMException {
-		String identifier = "test_1" ;
-		List list = Arrays.asList("test_1","test_2");
+		String identifier = "69887072709640192" ;   //
+		List list = Arrays.asList("71243920540958720");  //  71243920540958720
 		CheckFriendsResult result = relationService.checkFriends(identifier, list);
-		Assert.assertEquals(2,result.getInfoItem().size());
+
+		Assert.assertEquals(1,result.getInfoItem().size());
 
 	}
 
@@ -106,7 +107,7 @@ public class TIMRelationServiceImplTest {
 	@Test
 	public void testListFriends() throws TIMException {
 
-		ListFriendsResult result = relationService.listFriends("test_1", 0, 1, 0, null);
+		ListFriendsResult result = relationService.listFriends("71243920540958720", 0, 10, 0, null);
 
 		Assert.assertNotNull(result);
 	}
