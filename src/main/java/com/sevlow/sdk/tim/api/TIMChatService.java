@@ -1,9 +1,11 @@
 package com.sevlow.sdk.tim.api;
 
 import com.sevlow.sdk.tim.common.error.TIMException;
+import lombok.NonNull;
 
 import java.util.List;
-import java.util.concurrent.TimeoutException;
+import java.util.Map;
+
 
 /**
  * @author Element
@@ -17,10 +19,30 @@ import java.util.concurrent.TimeoutException;
 public interface TIMChatService {
 
     /**
-     * 批量消息
+     * 批量文本消息
      *  @param fromAccount 指定发送账号
      *  @param toAccounts 群发接收账号集合
      *  @param msgList 消息集合
      */
-    void batchSendMsg(String fromAccount , List<String> toAccounts,List<String> msgList) throws TIMException;
+    void batchSendTextMsg(String fromAccount , List<String> toAccounts,List<String> msgList) throws TIMException;
+
+
+    /**
+     * 发送单聊文本消息
+     *  @param fromAccount 指定发送账号
+     *  @param toAccount 群发接收账号
+     *  @param msgList 消息集合
+     */
+    void sendTextMsg(String fromAccount , String toAccount,List<String> msgList) throws TIMException;
+
+    /**
+     * 发送单聊自定义消息
+     *  @param fromAccount 指定发送账号
+     *  @param toAccount 群发接收账号集合
+     *  @param map 消息集合
+     */
+    void sendCustomMsg(@NonNull String fromAccount , @NonNull String toAccount, @NonNull Map<String,String> map) throws TIMException;
+
+
+
 }

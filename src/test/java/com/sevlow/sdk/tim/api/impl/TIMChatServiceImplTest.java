@@ -11,8 +11,9 @@ import org.testng.annotations.Test;
 
 import javax.inject.Inject;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
+import java.util.Map;
 
 
 /**
@@ -37,15 +38,34 @@ public class TIMChatServiceImplTest {
 
 
     @Test
-    public void testBatchSendMsg() throws TimeoutException, TIMException {
+    public void testBatchSendMsg() throws TIMException {
 
         String fromAccount = "admin" ;
 
-        List toAccount = Arrays.asList("test_211","test_3");
+        List toAccount = Arrays.asList("test_211","test_3","sssddasdfewrfew");
 
         List<String> msg = Arrays.asList("你好");
 
-        chatService.batchSendMsg(fromAccount,toAccount,msg);
+        chatService.batchSendTextMsg(fromAccount,toAccount,msg);
 
+    }
+
+    @Test
+    public void testSendTextMsg() throws TIMException {
+        String fromAccount = "admin" ;
+        String toAccount = "test_211";
+        List<String> msg = Arrays.asList("你好");
+        chatService.sendTextMsg(fromAccount,toAccount,msg);
+
+    }
+
+    @Test
+    public void textSendCustomMsg() throws TIMException {
+        String fromAccount = "admin" ;
+        String toAccount = "test_211";
+        Map<String,String> map = new HashMap<>();
+        map.put("id","1123");
+        map.put("name","xixuan");
+        chatService.sendCustomMsg(fromAccount,toAccount,map);
     }
 }

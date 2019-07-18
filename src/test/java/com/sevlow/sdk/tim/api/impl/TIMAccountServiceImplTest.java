@@ -38,8 +38,9 @@ public class TIMAccountServiceImplTest {
 	@Test
 	public void testSingleImport() throws TIMException {
 
-		TIMAccount account = new TIMAccount("test_1");
-		account.setNick("fake_user_nick111");
+		TIMAccount account = new TIMAccount("71243920540958720");
+		account.setNick("哈哈哈");
+		account.setFaceUrl("https://res-test.7billion.cn/hope/users/71243920540958720/avatar/327f03fa-d5be-40f9-8c74-4e00c202b0dc");
 
 		accountService.singleImport(account);
 
@@ -48,7 +49,7 @@ public class TIMAccountServiceImplTest {
 	@Test
 	public void testMultiImport() throws TIMException {
 
-		ImportAccountsResult result = accountService.multiImport(Arrays.asList("test_211", "test_3", "test_4", "test_5"));
+		ImportAccountsResult result = accountService.multiImport(Arrays.asList("69887072709640192", "71243920540958720", "test_4", "test_5"));
 		Assert.assertEquals(0, result.getFailAccounts().size());
 
 	}

@@ -19,7 +19,7 @@ public class MsgBody implements Serializable {
     private String msgType ;
 
     @SerializedName("MsgContent")
-    private MsgContent msgContent ;
+    private Object msgContent ;
 
 
 }
