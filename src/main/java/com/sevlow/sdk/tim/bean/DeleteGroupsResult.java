@@ -7,7 +7,7 @@ import lombok.Data;
  * @author Element
  * @Package com.sevlow.sdk.tim.bean
  * @date 2019-05-27 23:05
- * @Description: TODO
+ * @Description:
  */
 @Data
 public class DeleteGroupsResult {

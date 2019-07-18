@@ -19,7 +19,7 @@ import java.util.Arrays;
  * @author Element
  * @Package com.sevlow.sdk.tim.api.impl
  * @date 2019-05-27 15:30
- * @Description: TODO
+ * @Description:
  */
 @Slf4j
 @Guice(modules = {TestModule.class})

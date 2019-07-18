@@ -18,7 +18,7 @@ public class ListBlockAccountsResult implements Serializable {
     private static final long serialVersionUID = 8014241940291761266L;
 
     @SerializedName("BlackListItem")
-    private List<BlackListItemDetail> blackListItem ;
+    private List<BlackListItemDetail> blackListItems ;
 
     @SerializedName("StartIndex")
     private Integer startIndex ;

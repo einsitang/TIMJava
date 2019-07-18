@@ -10,7 +10,7 @@ import java.util.List;
  * @author Element
  * @Package com.sevlow.sdk.tim.bean
  * @date 2019-05-27 23:05
- * @Description: TODO
+ * @Description:
  */
 
 @Data

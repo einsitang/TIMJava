@@ -43,7 +43,7 @@ public class TIMChatServiceImpl implements TIMChatService {
             throw new TIMException(new TIMError(90011,"批量发消息目标帐号超过500"));
         }
 
-        String api = "/v4/openim/batchsendmsg";
+        String api = "v4/openim/batchsendmsg";
 
         Map<String, Object> body = new HashMap<>();
         body.put("SyncOtherMachine", 2);

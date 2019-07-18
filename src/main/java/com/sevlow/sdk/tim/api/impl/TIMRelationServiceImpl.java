@@ -4,7 +4,6 @@ import com.sevlow.sdk.tim.api.TIMRelationService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.bean.*;
 import com.sevlow.sdk.tim.bean.account.TIMFriend;
-import com.sevlow.sdk.tim.bean.relationManage.DeleteAllResult;
 import com.sevlow.sdk.tim.common.error.TIMError;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import com.sevlow.sdk.tim.utils.JsonUtils;
@@ -13,13 +12,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Element
  * @Package com.sevlow.sdk.tim.api.impl
  * @date 2019-05-27 23:27
- * @Description: TODO
+ * @Description:
  */
 @Slf4j
 public class TIMRelationServiceImpl implements TIMRelationService {
@@ -284,7 +286,7 @@ public class TIMRelationServiceImpl implements TIMRelationService {
 	}
 
 	@Override
-	public CheckBlockAccountsResult checkBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts, String checkType) throws TIMException {
+	public CheckBlockAccountsResult checkBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts, BlackCheckType checkType) throws TIMException {
 
 		if (accounts == null || accounts.size() < 1) {
 			throw new RuntimeException("accounts can't be empty");
@@ -296,9 +298,10 @@ public class TIMRelationServiceImpl implements TIMRelationService {
 		body.put("From_Account",identifier);
 		body.put("To_Account",accounts);
 		// 只要不是双向验证，默认为单向验证
-		if ( !CheckBlockAccountsResult.CHECK_TYPE_BOTH.equals(checkType) ){
-			checkType = CheckBlockAccountsResult.CHECK_TYPE_SINGAL ;
+		if(checkType == null){
+			checkType = BlackCheckType.BlackCheckResult_Type_Both;
 		}
+
 		body.put("CheckType",checkType);
 
 		return JsonUtils.fromJson(this.timService.post(api, body), CheckBlockAccountsResult.class);

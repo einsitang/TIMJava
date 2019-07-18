@@ -2,6 +2,17 @@
 
 本项目是 云通讯(腾讯) 服务 Java 版本 开发工具包
 
+## 进展
+
+- 账号管理 ✅💯
+- 单聊消息管理 
+- 在线状态管理 ✅💯
+- 关系链管理  ✅💯
+- 群组管理
+- 脏字管理
+- 全局禁言管理
+- 运营相关管理
+
 ## 准备工作
 
 - IDE 上配置lombok支持插件
@@ -9,12 +20,42 @@
 - Maven 环境
 
 ## 配置
+*TIMConfig*
+```
+appId           : 腾讯云腾讯SDKID
+adminIdentifier : 管理员账号
+privateKeyPath  : 管理员私钥文件地址
+accountType     : 管理员accountType
+reqMaxRetry     : 请求最大重试数
+```
 
 ## 使用
+```
+TIMConfig config = new TIMConfig(...);
+TIMService timService = new TIMServiceImpl(config);
+
+// 导入好友
+try{
+    timService.getRelationService().importFriends(...)
+}catch(TIMException e){
+    if(e.getError().getErrorCode() == 30010){
+        // 好友已达系统上限
+    }
+}
+
+
+// 更多接口请参照文档或者com.sevlow.sdk.tim.api接口
+```
 
 ## 开发
+`com.sevlow.sdk.tim.api`下定义接口
+`com.sevlow.sdk.tim.api.impl`下实现接口方法
+`com.sevlow.sdk.tim.bean`下存放接口所需的Req和Resp结构化参数
 
 ### 编译
+```
+mvn clean install
+```
 
 ### 测试
 
@@ -62,4 +103,4 @@ git push origin develop
 
 ## coffe
 
-:-)
+:-p

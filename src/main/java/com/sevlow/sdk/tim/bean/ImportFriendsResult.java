@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author Element
  * @Package com.sevlow.sdk.tim.bean
  * @date 2019-05-27 19:40
- * @Description: TODO
+ * @Description:
  */
 @Data
 public class ImportFriendsResult extends BatchUpdateResult implements Serializable {

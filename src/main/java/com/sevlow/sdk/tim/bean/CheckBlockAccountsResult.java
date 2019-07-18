@@ -11,16 +11,12 @@ import java.util.List;
  * @author Element
  * @Package com.sevlow.sdk.tim.bean
  * @date 2019-05-27 23:05
- * @Description: TODO
+ * @Description:
  */
 @Data
 public class CheckBlockAccountsResult extends ResultStruct implements Serializable {
 
 	private static final long serialVersionUID = -7979547907000718945L;
-
-	public static final String CHECK_TYPE_BOTH = "BlackCheckResult_Type_Both" ;
-	public static final String CHECK_TYPE_SINGAL = "BlackCheckResult_Type_Singal" ;
-
 
 	@SerializedName("BlackListCheckItem")
 	private List<BlockListCheckItem> blackListCheckItems ;

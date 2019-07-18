@@ -23,7 +23,7 @@ import java.util.Map;
  * @author Element
  * @Package com.sevlow.sdk.tim.api.impl
  * @date 2019-05-27 11:23
- * @Description: TODO
+ * @Description:
  */
 @Slf4j
 public class TIMServiceImpl implements TIMService {
@@ -31,7 +31,7 @@ public class TIMServiceImpl implements TIMService {
 	private TIMConfig config;
 
 	private final OkHttpClient HTTP_CLIENT = new OkHttpClient();
-	private final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+	private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
 	private TIMAccountService accountService = new TIMAccountServiceImpl(this);
 	private TIMOnlineStatusService onlineStatusService = new TIMOnlineStatusServiceImpl(this);
@@ -49,8 +49,19 @@ public class TIMServiceImpl implements TIMService {
 
 	@Override
 	public String getUserSig(@NonNull String identifier) throws TIMException {
+		return getUserSig(identifier, 30);
+	}
 
+	@Override
+	public String getUserSig(@NonNull String identifier, Integer expireOfDay) throws TIMException {
 		TLSSigature.GenTLSSignatureResult signatureResult;
+
+		if (expireOfDay == null) {
+			expireOfDay = 30;
+		}
+		if (expireOfDay < 1) {
+			expireOfDay = 1;
+		}
 
 		try {
 
@@ -65,7 +76,7 @@ public class TIMServiceImpl implements TIMService {
 				priKey = FileUtils.readFileToString(new File(config.getPrivateKeyPath()), "UTF-8");
 			}
 
-			int secondOfMonth = 60 * 60 * 24 * 30;
+			int secondOfMonth = 60 * 60 * 24 * expireOfDay;
 			signatureResult = TLSSigature.GenTLSSignatureEx(config.getAppId(), identifier, priKey, secondOfMonth);
 			if (signatureResult == null || signatureResult.urlSig == null) {
 				throw new TIMException(new TIMError(-1, "UserSig生成失败"));
@@ -118,7 +129,7 @@ public class TIMServiceImpl implements TIMService {
 	private String buildFullUrl(String api, Map<String, String> queryParams) throws TIMException {
 		Long appid = this.getConfig().getAppId();
 		String adminIdentifier = this.getConfig().getAdminIdentifier();
-		String userSig = this.getUserSig("admin");
+		String userSig = this.getUserSig(adminIdentifier);
 		String randomText = (Math.random() * 10000000 + "").substring(0, 8);
 		String contentType = "json";
 
@@ -165,25 +176,22 @@ public class TIMServiceImpl implements TIMService {
 	private String execute(Request request, int reqCount) throws TIMException {
 		try {
 
-			String url = request.url().toString();
-			String method = request.method();
-			RequestBody body = request.body();
-
-			log.debug("【TIMJava】 发起请求 当前第 {} 次 / {} 次 {}", reqCount, config.getReqReTryCount(), reqCount > 1 ? "[重试请求]" : "");
+			log.debug("【TIMJava】 发起请求 当前第 {} 次 / {} 次 {}", reqCount, config.getReqMaxRetry(), reqCount > 1 ? "[重试请求]" : "");
 
 			return executeInternal(request);
 
 		} catch (SocketTimeoutException e) {
 
-			if (reqCount >= config.getReqReTryCount()) {
+			if (reqCount >= config.getReqMaxRetry()) {
 				throw new TIMException(new TIMError(-1, "请求失效,请检查你的网络状态"));
 			}
 
 			// 执行重试
 			return execute(request, reqCount++);
 
+		} catch (TIMException e) {
+			throw e;
 		} catch (Exception e) {
-//			log.error(e.getMessage(), e);
 			throw new TIMException(new TIMError(-1, e.getMessage()));
 		}
 	}

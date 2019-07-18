@@ -11,15 +11,12 @@ import java.util.List;
  * @author Element
  * @Package com.sevlow.sdk.tim.bean
  * @date 2019-05-28 00:13
- * @Description: TODO
+ * @Description:
  */
 @Data
 public class BatchUpdateResult implements Serializable {
 
 	private static final long serialVersionUID = -2729886288572231679L;
-
-	public BatchUpdateResult() {
-	}
 
 	@SerializedName("ResultItem")
 	private List<ResultItem> resultItems = new ArrayList<>();

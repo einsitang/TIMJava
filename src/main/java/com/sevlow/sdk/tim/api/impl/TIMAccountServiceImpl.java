@@ -18,7 +18,7 @@ import java.util.Map;
  * @author Element
  * @Package com.sevlow.sdk.tim.api.impl
  * @date 2019-05-27 14:24
- * @Description: TODO
+ * @Description:
  */
 @Slf4j
 public class TIMAccountServiceImpl implements TIMAccountService {
@@ -62,6 +62,10 @@ public class TIMAccountServiceImpl implements TIMAccountService {
 
 		if (accounts == null || accounts.size() < 1) {
 			return new ImportAccountsResult();
+		}
+
+		if(accounts.size() > 100){
+			throw new TIMException(new TIMError(70402, "单次用户导入不能超过100个,请分段导入"));
 		}
 
 		String api = "v4/im_open_login_svc/multiaccount_import";

@@ -20,12 +20,21 @@ public interface TIMService {
 	TIMConfig getConfig();
 
 	/**
-	 * 获取UserSig信息
+	 * 获取UserSig信息 (默认过期时间为30天)
 	 * @param identifier
 	 * @return
 	 * @throws TIMException
 	 */
 	String getUserSig(@NonNull String identifier) throws TIMException;
+
+	/**
+	 * 获取UserSig信息
+	 * @param identifier
+	 * @param expireOfDay 过期天数
+	 * @return
+	 * @throws TIMException
+	 */
+	String getUserSig(@NonNull String identifier,Integer expireOfDay) throws TIMException;
 
 	/**
 	 *

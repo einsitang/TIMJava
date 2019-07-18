@@ -17,7 +17,7 @@ import java.util.Map;
  * @author Element
  * @Package com.sevlow.sdk.tim.api.impl
  * @date 2019-05-27 17:34
- * @Description: TODO
+ * @Description:
  */
 @Slf4j
 public class TIMOnlineStatusServiceImpl implements TIMOnlineStatusService {

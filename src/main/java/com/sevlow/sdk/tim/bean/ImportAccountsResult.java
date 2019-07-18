@@ -11,7 +11,7 @@ import java.util.List;
  * @author Element
  * @Package com.sevlow.sdk.tim.bean
  * @date 2019-05-27 19:44
- * @Description: TODO
+ * @Description:
  */
 @Data
 public class ImportAccountsResult implements Serializable {
@@ -19,7 +19,7 @@ public class ImportAccountsResult implements Serializable {
 	@SerializedName("ResultItem")
 	private List<ResultItem> resultItems = new ArrayList<>();
 
-	@SerializedName("FailAccounts")
+	@SerializedName("Fail_Account")
 	private List<String> failAccounts = new ArrayList<>();
 
 	@SerializedName("Invalid_Account")
