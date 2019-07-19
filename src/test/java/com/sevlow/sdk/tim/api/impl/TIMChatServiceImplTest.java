@@ -63,7 +63,7 @@ public class TIMChatServiceImplTest {
     }
 
     @Test
-    public void textSendCustomMsg() throws TIMException {
+    public void testSendCustomMsg() throws TIMException {
         String fromAccount = "69887072709640192" ;
         String toAccount = "71243920540958720";
 
