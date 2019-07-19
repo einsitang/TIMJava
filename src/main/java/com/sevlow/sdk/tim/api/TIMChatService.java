@@ -1,5 +1,6 @@
 package com.sevlow.sdk.tim.api;
 
+import com.sevlow.sdk.tim.bean.chat.MsgCustomContent;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import lombok.NonNull;
 
@@ -39,9 +40,9 @@ public interface TIMChatService {
      * 发送单聊自定义消息
      *  @param fromAccount 指定发送账号
      *  @param toAccount 群发接收账号集合
-     *  @param map 消息集合
+     *  @param msgCustomContent 消息
      */
-    void sendCustomMsg(@NonNull String fromAccount , @NonNull String toAccount, @NonNull Map<String,String> map) throws TIMException;
+    void sendCustomMsg(@NonNull String fromAccount , @NonNull String toAccount, @NonNull MsgCustomContent msgCustomContent) throws TIMException;
 
 
 

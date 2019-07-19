@@ -3,7 +3,9 @@ package com.sevlow.sdk.tim.api.impl;
 import com.sevlow.sdk.tim.api.TIMChatService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.api.test.TestModule;
+import com.sevlow.sdk.tim.bean.chat.MsgCustomContent;
 import com.sevlow.sdk.tim.common.error.TIMException;
+import com.sevlow.sdk.tim.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Guice;
@@ -31,6 +33,7 @@ public class TIMChatServiceImplTest {
 
     private TIMChatService chatService;
 
+
     @BeforeTest
     public void before() {
         this.chatService = timService.getChatService();
@@ -52,8 +55,8 @@ public class TIMChatServiceImplTest {
 
     @Test
     public void testSendTextMsg() throws TIMException {
-        String fromAccount = "admin" ;
-        String toAccount = "test_211";
+        String fromAccount = "69887072709640192" ;
+        String toAccount = "71243920540958720";
         List<String> msg = Arrays.asList("你好");
         chatService.sendTextMsg(fromAccount,toAccount,msg);
 
@@ -61,11 +64,19 @@ public class TIMChatServiceImplTest {
 
     @Test
     public void textSendCustomMsg() throws TIMException {
-        String fromAccount = "admin" ;
-        String toAccount = "test_211";
+        String fromAccount = "69887072709640192" ;
+        String toAccount = "71243920540958720";
         Map<String,String> map = new HashMap<>();
-        map.put("id","1123");
-        map.put("name","xixuan");
-        chatService.sendCustomMsg(fromAccount,toAccount,map);
+
+        Map<String,String> data = new HashMap<>();
+        data.put("money","10");
+        data.put("userId","123456789");
+
+        MsgCustomContent msg = new MsgCustomContent();
+        msg.setData(JsonUtils.toJson(data));
+        msg.setDesc("hello");
+        msg.setExt("www.qq.com");
+        msg.setSound("dingdong.aiff");
+        chatService.sendCustomMsg(fromAccount,toAccount,msg);
     }
 }
