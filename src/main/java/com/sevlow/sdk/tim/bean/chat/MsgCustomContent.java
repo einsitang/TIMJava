@@ -14,12 +14,12 @@ public class MsgCustomContent {
     @SerializedName("Data")
     private String data ;
 
-    @SerializedName("desc")
-    private String Desc ;
+    @SerializedName("Desc")
+    private String desc ;
 
-    @SerializedName("ext")
-    private String Ext ;
+    @SerializedName("Ext")
+    private String ext ;
 
-    @SerializedName("sound")
-    private String Sound ;
+    @SerializedName("Sound")
+    private String sound ;
 }
