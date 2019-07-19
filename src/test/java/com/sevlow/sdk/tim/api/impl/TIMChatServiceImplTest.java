@@ -66,7 +66,25 @@ public class TIMChatServiceImplTest {
     public void textSendCustomMsg() throws TIMException {
         String fromAccount = "69887072709640192" ;
         String toAccount = "71243920540958720";
-        Map<String,String> map = new HashMap<>();
+
+        Map<String,String> data = new HashMap<>();
+        data.put("type","3");
+        data.put("money","10");
+        data.put("userId","123456789");
+
+        MsgCustomContent msg = new MsgCustomContent();
+        msg.setData(JsonUtils.toJson(data));
+        msg.setDesc("hello");
+        msg.setExt("www.qq.com");
+        msg.setSound("dingdong.aiff");
+        chatService.sendCustomMsg(fromAccount,toAccount,msg);
+    }
+
+    @Test
+    public void testBatchSendCustomMsg() throws TIMException {
+        String fromAccount = "admin" ;
+
+        List toAccount = Arrays.asList("71243920540958720");
 
         Map<String,String> data = new HashMap<>();
         data.put("money","10");
@@ -77,6 +95,7 @@ public class TIMChatServiceImplTest {
         msg.setDesc("hello");
         msg.setExt("www.qq.com");
         msg.setSound("dingdong.aiff");
-        chatService.sendCustomMsg(fromAccount,toAccount,msg);
+
+        chatService.batchSendCustomMsg(fromAccount,toAccount,msg);
     }
 }
