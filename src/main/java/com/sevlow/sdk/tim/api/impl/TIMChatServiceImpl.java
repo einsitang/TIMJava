@@ -4,6 +4,7 @@ import com.sevlow.sdk.tim.api.TIMChatService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.bean.chat.MsgBody;
 import com.sevlow.sdk.tim.bean.chat.MsgContent;
+import com.sevlow.sdk.tim.bean.chat.MsgCustomContent;
 import com.sevlow.sdk.tim.common.error.TIMError;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import lombok.NonNull;
@@ -100,10 +101,10 @@ public class TIMChatServiceImpl implements TIMChatService {
      *
      * @param fromAccount 指定发送账号
      * @param toAccount   群发接收账号集合
-     * @param map         消息集合
+     * @param msgCustomContent         消息集合
      */
     @Override
-    public void sendCustomMsg(@NonNull String fromAccount, @NonNull String toAccount, @NonNull Map<String, String> map) throws TIMException {
+    public void sendCustomMsg(@NonNull String fromAccount, @NonNull String toAccount, @NonNull MsgCustomContent msgCustomContent) throws TIMException {
         String api = "v4/openim/sendmsg";
 
         Map<String, Object> body = new HashMap<>();
@@ -116,7 +117,7 @@ public class TIMChatServiceImpl implements TIMChatService {
 
         MsgBody msgBody = new MsgBody();
         msgBody.setMsgType("TIMCustomElem");
-        msgBody.setMsgContent(map);
+        msgBody.setMsgContent(msgCustomContent);
         msgBodies.add(msgBody);
         body.put("MsgBody",msgBodies);
 
