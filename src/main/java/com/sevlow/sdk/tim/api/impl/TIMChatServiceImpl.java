@@ -67,6 +67,40 @@ public class TIMChatServiceImpl implements TIMChatService {
     }
 
     /**
+     * 批量自定义消息
+     *
+     * @param fromAccount      指定发送账号
+     * @param toAccounts       群发接收账号集合
+     * @param msgCustomContent 消息集合
+     */
+    @Override
+    public void batchSendCustomMsg(String fromAccount, List<String> toAccounts, @NonNull MsgCustomContent msgCustomContent) throws TIMException {
+        if (toAccounts == null || toAccounts.size() > 500) {
+            throw new TIMException(new TIMError(90011,"批量发消息目标帐号超过500"));
+        }
+
+        String api = "v4/openim/batchsendmsg";
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("SyncOtherMachine", 2);
+        body.put("From_Account",fromAccount);
+        body.put("To_Account",toAccounts);
+        body.put("MsgRandom", RandomUtils.nextInt(10000000,99999999));
+
+        List<MsgBody> msgBodies = new ArrayList<>();
+
+        MsgBody msgBody = new MsgBody();
+        msgBody.setMsgType("TIMCustomElem");
+        msgBody.setMsgContent(msgCustomContent);
+
+        msgBodies.add(msgBody);
+
+        body.put("MsgBody",msgBodies);
+
+        this.timService.post(api, body);
+    }
+
+    /**
      * 发送单聊消息
      *
      * @param fromAccount 指定发送账号

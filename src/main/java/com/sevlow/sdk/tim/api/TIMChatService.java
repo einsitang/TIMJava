@@ -29,6 +29,15 @@ public interface TIMChatService {
 
 
     /**
+     * 批量自定义消息
+     *  @param fromAccount 指定发送账号
+     *  @param toAccounts 群发接收账号集合
+     *  @param msgCustomContent 消息集合
+     */
+    void batchSendCustomMsg(String fromAccount , List<String> toAccounts,@NonNull MsgCustomContent msgCustomContent) throws TIMException;
+
+
+    /**
      * 发送单聊文本消息
      *  @param fromAccount 指定发送账号
      *  @param toAccount 群发接收账号
