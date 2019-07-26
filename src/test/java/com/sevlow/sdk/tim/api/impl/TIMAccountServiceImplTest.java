@@ -49,7 +49,7 @@ public class TIMAccountServiceImplTest {
 	@Test
 	public void testMultiImport() throws TIMException {
 
-		ImportAccountsResult result = accountService.multiImport(Arrays.asList("69887072709640192", "71243920540958720", "test_4", "test_5"));
+		ImportAccountsResult result = accountService.multiImport(Arrays.asList("74940051523371008", "74897564679274496", "test_4", "test_5"));
 		Assert.assertEquals(0, result.getFailAccounts().size());
 
 	}

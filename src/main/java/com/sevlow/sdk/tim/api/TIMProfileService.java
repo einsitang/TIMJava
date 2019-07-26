@@ -1,5 +1,8 @@
 package com.sevlow.sdk.tim.api;
 
+import com.sevlow.sdk.tim.bean.profile.GenderEnum;
+import com.sevlow.sdk.tim.common.error.TIMException;
+
 /**
  * @author Element
  * @Package com.sevlow.sdk.tim.api
@@ -9,4 +12,9 @@ package com.sevlow.sdk.tim.api;
  * API Doc : https://cloud.tencent.com/document/product/269/1638
  */
 public interface TIMProfileService {
+
+    /**
+     *  设置性别
+     */
+    void setInfoGender(String identifier, GenderEnum genderEnum) throws TIMException;
 }
