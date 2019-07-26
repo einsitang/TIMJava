@@ -143,7 +143,7 @@ public class TIMChatServiceImplTest {
         msg.setDesc("hello");
         msg.setExt("www.qq.com");
         msg.setSound("dingdong.aiff");
-        chatService.sendCustomMsg(fromAccount,toAccount,msg, ChatMsgEnum.Sync);
+        chatService.sendCustomMsg(fromAccount,toAccount,msg, ChatMsgEnum.NoSync);
     }
 
     @Test
