@@ -1,11 +1,11 @@
 package com.sevlow.sdk.tim.api;
 
 import com.sevlow.sdk.tim.bean.chat.MsgCustomContent;
+import com.sevlow.sdk.tim.bean.chat.ChatMsgEnum;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import lombok.NonNull;
 
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -26,6 +26,7 @@ public interface TIMChatService {
      *  @param msgList 消息集合
      */
     void batchSendTextMsg(String fromAccount , List<String> toAccounts,List<String> msgList) throws TIMException;
+    void batchSendTextMsg(String fromAccount , List<String> toAccounts, List<String> msgList, ChatMsgEnum msgEnum) throws TIMException;
 
 
     /**
@@ -35,6 +36,7 @@ public interface TIMChatService {
      *  @param msgCustomContent 消息集合
      */
     void batchSendCustomMsg(String fromAccount , List<String> toAccounts,@NonNull MsgCustomContent msgCustomContent) throws TIMException;
+    void batchSendCustomMsg(String fromAccount , List<String> toAccounts,@NonNull MsgCustomContent msgCustomContent,ChatMsgEnum msgEnum) throws TIMException;
 
 
     /**
@@ -44,6 +46,7 @@ public interface TIMChatService {
      *  @param msgList 消息集合
      */
     void sendTextMsg(String fromAccount , String toAccount,List<String> msgList) throws TIMException;
+    void sendTextMsg(String fromAccount , String toAccount,List<String> msgList,ChatMsgEnum msgEnum) throws TIMException;
 
     /**
      * 发送单聊自定义消息
@@ -52,6 +55,7 @@ public interface TIMChatService {
      *  @param msgCustomContent 消息
      */
     void sendCustomMsg(@NonNull String fromAccount , @NonNull String toAccount, @NonNull MsgCustomContent msgCustomContent) throws TIMException;
+    void sendCustomMsg(@NonNull String fromAccount , @NonNull String toAccount, @NonNull MsgCustomContent msgCustomContent,ChatMsgEnum msgEnum) throws TIMException;
 
 
 

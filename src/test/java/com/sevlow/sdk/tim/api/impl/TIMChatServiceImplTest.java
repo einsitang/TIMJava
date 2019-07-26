@@ -3,6 +3,7 @@ package com.sevlow.sdk.tim.api.impl;
 import com.sevlow.sdk.tim.api.TIMChatService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.api.test.TestModule;
+import com.sevlow.sdk.tim.bean.chat.ChatMsgEnum;
 import com.sevlow.sdk.tim.bean.chat.MsgCustomContent;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import com.sevlow.sdk.tim.utils.JsonUtils;
@@ -64,13 +65,15 @@ public class TIMChatServiceImplTest {
 
     @Test
     public void testSendCustomMsg() throws TIMException {
-        String fromAccount = "69887072709640192" ;
-        String toAccount = "71243920540958720";
+        String fromAccount = "74897564679274496" ;
+        String toAccount = "73071536809967616";
 
         Map<String,String> data = new HashMap<>();
-        data.put("type","3");
+        data.put("type","2");
         data.put("money","10");
-        data.put("userId","123456789");
+        data.put("money","10");
+        data.put("ext","www.qq.com");
+        data.put("desc","hello");
 
         MsgCustomContent msg = new MsgCustomContent();
         msg.setData(JsonUtils.toJson(data));
@@ -97,5 +100,68 @@ public class TIMChatServiceImplTest {
         msg.setSound("dingdong.aiff");
 
         chatService.batchSendCustomMsg(fromAccount,toAccount,msg);
+    }
+
+
+
+    @Test
+    public void testBatchSendMsg2() throws TIMException {
+
+        String fromAccount = "admin" ;
+
+        List toAccount = Arrays.asList("test_211","test_3","sssddasdfewrfew");
+
+        List<String> msg = Arrays.asList("你好");
+
+        chatService.batchSendTextMsg(fromAccount,toAccount,msg, ChatMsgEnum.Sync);
+
+    }
+
+    @Test
+    public void testSendTextMsg2() throws TIMException {
+        String fromAccount = "69887072709640192" ;
+        String toAccount = "71243920540958720";
+        List<String> msg = Arrays.asList("你好");
+        chatService.sendTextMsg(fromAccount,toAccount,msg, ChatMsgEnum.Sync);
+
+    }
+
+    @Test
+    public void testSendCustomMsg2() throws TIMException {
+        String fromAccount = "74897564679274496" ;
+        String toAccount = "73071536809967616";
+
+        Map<String,String> data = new HashMap<>();
+        data.put("type","2");
+        data.put("money","10");
+        data.put("money","10");
+        data.put("ext","www.qq.com");
+        data.put("desc","hello");
+
+        MsgCustomContent msg = new MsgCustomContent();
+        msg.setData(JsonUtils.toJson(data));
+        msg.setDesc("hello");
+        msg.setExt("www.qq.com");
+        msg.setSound("dingdong.aiff");
+        chatService.sendCustomMsg(fromAccount,toAccount,msg, ChatMsgEnum.Sync);
+    }
+
+    @Test
+    public void testBatchSendCustomMsg2() throws TIMException {
+        String fromAccount = "admin" ;
+
+        List toAccount = Arrays.asList("71243920540958720");
+
+        Map<String,String> data = new HashMap<>();
+        data.put("money","10");
+        data.put("userId","123456789");
+
+        MsgCustomContent msg = new MsgCustomContent();
+        msg.setData(JsonUtils.toJson(data));
+        msg.setDesc("hello");
+        msg.setExt("www.qq.com");
+        msg.setSound("dingdong.aiff");
+
+        chatService.batchSendCustomMsg(fromAccount,toAccount,msg, ChatMsgEnum.NoSync);
     }
 }
