@@ -30,6 +30,8 @@ public class TIMServiceImpl implements TIMService {
 
 	private TIMConfig config;
 
+	private String priKey = null;
+
 	private final OkHttpClient HTTP_CLIENT = new OkHttpClient();
 	private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -66,15 +68,17 @@ public class TIMServiceImpl implements TIMService {
 
 		try {
 
-			String priKey = null;
+			if(priKey == null){
 
-			final String CLASSPATH_PREFIX = "classpath:";
+				final String CLASSPATH_PREFIX = "classpath:";
 
-			if (config.getPrivateKeyPath().startsWith(CLASSPATH_PREFIX)) {
-				InputStream fis = TIMConfig.class.getClassLoader().getResourceAsStream(RegExUtils.removeFirst(config.getPrivateKeyPath(), CLASSPATH_PREFIX));
-				priKey = IOUtils.toString(fis, "UTF-8");
-			} else {
-				priKey = FileUtils.readFileToString(new File(config.getPrivateKeyPath()), "UTF-8");
+				if (config.getPrivateKeyPath().startsWith(CLASSPATH_PREFIX)) {
+					InputStream fis = TIMConfig.class.getClassLoader().getResourceAsStream(RegExUtils.removeFirst(config.getPrivateKeyPath(), CLASSPATH_PREFIX));
+					priKey = IOUtils.toString(fis, "UTF-8");
+				} else {
+					priKey = FileUtils.readFileToString(new File(config.getPrivateKeyPath()), "UTF-8");
+				}
+
 			}
 
 			int secondOfMonth = 60 * 60 * 24 * expireOfDay;

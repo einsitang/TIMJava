@@ -40,6 +40,7 @@ public class TIMProfileServiceImplTest {
     @Test
     public void testSetInfoGender() throws TIMException {
 
-        profileService.setInfoGender("test_211", GenderEnum.Female);
+        profileService.setInfoGender("10001", GenderEnum.Female);
+        profileService.setInfoGender("10002", GenderEnum.MALE);
     }
 }
