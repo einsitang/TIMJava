@@ -100,7 +100,3 @@ git push origin develop
 在自己的仓库和develop的分支上开发代码，并且编写测试用例
 
 最后在此项目中提交`PR`(Pull request)
-
-## coffe
-
-:-p
