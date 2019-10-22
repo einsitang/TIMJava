@@ -74,7 +74,7 @@ mvn clean install
 
 测试套件的注入工具使用`com.google.inject:guice`
 
-### 贡献代码
+## 贡献代码
 
 fork 本项目
 
@@ -82,15 +82,15 @@ clone自己fork的仓库
 
 添加本仓库地址为远程仓库
 ```shell
-git remote add root https://github.com/forfuns/TIMJava.git
+git remote add upstream https://github.com/forfuns/TIMJava.git
 ```
 
 定期保持自己仓库和此项目的内容
 
 ```shell
-git fetch root
+git fetch upstream
 git checkout develop
-git rebase root/develop
+git rebase upstream/develop
 git push origin develop
 
 ```
