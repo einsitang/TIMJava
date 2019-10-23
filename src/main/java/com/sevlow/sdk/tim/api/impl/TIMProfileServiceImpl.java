@@ -10,6 +10,7 @@ import com.sevlow.sdk.tim.bean.profile.GenderEnum;
 import com.sevlow.sdk.tim.common.error.TIMError;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,5 +62,62 @@ public class TIMProfileServiceImpl implements TIMProfileService {
         body.put("ProfileItem",list);
 
         this.timService.post(api, body);
+    }
+
+    /**
+     * 设置性别，年龄和学院
+     */
+    @Override
+    public void setInfoGender(String identifier, GenderEnum genderEnum, Integer age, String collage) throws TIMException {
+
+        if (identifier == null ) {
+            throw new TIMException(new TIMError(40003,"用户账号不存在"));
+        }
+
+        if (age==null && genderEnum == null && collage == null ) {
+            throw new TIMException(new TIMError(500,"性别，年龄和学院不能全部为空"));
+        }
+
+        String api = "v4/profile/portrait_set";
+
+        Map<String, Object> body = new HashMap<>(4);
+
+        body.put("From_Account", identifier);
+
+        List<SnsItem<String>> list = new ArrayList<>();
+
+
+
+        if (genderEnum != null){
+            SnsItem<String> snsItemGender = new SnsItem<>();
+            snsItemGender.setTag("Tag_Profile_IM_Gender");
+            snsItemGender.setValue(genderEnum.getType());
+            list.add(snsItemGender);
+        }
+
+        if (age != null){
+            if (age < 0 || age > 100){
+                throw new TIMException(new TIMError(5000,"年龄必须在0-100之间"));
+            }
+            SnsItem<String> snsItemAge = new SnsItem<>();
+            snsItemAge.setTag("Tag_Profile_Custom_age");
+            snsItemAge.setValue(String.valueOf(age));
+            list.add(snsItemAge);
+        }
+
+        if (collage != null){
+            if (collage.length() > 100 ){
+                throw new TIMException(new TIMError(5000,"学院长度太长"));
+            }
+            SnsItem<String> snsItemCollage = new SnsItem<>();
+            snsItemCollage.setTag("Tag_Profile_Custom_college");
+            snsItemCollage.setValue(collage);
+            list.add(snsItemCollage);
+        }
+
+        body.put("ProfileItem",list);
+
+        this.timService.post(api, body);
+
     }
 }

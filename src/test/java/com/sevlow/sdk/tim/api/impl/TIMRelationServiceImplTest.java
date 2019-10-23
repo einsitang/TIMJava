@@ -174,4 +174,9 @@ public class TIMRelationServiceImplTest {
 		Assert.assertTrue(res.getCurrentSequence() >= 0);
 
 	}
+
+	@Test
+	public void remarkFriend() throws TIMException{
+		relationService.remarkFriend("69887072709640192","72356624357916672","你好测试");
+	}
 }
