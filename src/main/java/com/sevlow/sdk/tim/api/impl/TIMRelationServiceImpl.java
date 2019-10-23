@@ -9,6 +9,7 @@ import com.sevlow.sdk.tim.common.error.TIMException;
 import com.sevlow.sdk.tim.utils.JsonUtils;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -332,6 +333,46 @@ public class TIMRelationServiceImpl implements TIMRelationService {
 		body.put("From_Account",identifier);
 		body.put("GroupName",groupNames);
 		return JsonUtils.fromJson(this.timService.post(api, body), DeleteGroupsResult.class);
+	}
+
+	/**
+	 * 修改好友备注
+	 */
+	@Override
+	public void remarkFriend(@NonNull String identifier, @NonNull String friendId, @NonNull String remark) throws TIMException {
+
+		if (!ObjectUtils.allNotNull(identifier,friendId,remark)){
+			throw new TIMException(new TIMError(5000,"账号，好友id和备注不能为空"));
+		}
+		if (remark.length() > 100){
+			throw new TIMException(new TIMError(5000,"备注长度太长"));
+		}
+
+		String api = "v4/sns/friend_update";
+
+		Map<String, Object> body = new HashMap<>(4);
+
+		List updateItem = new ArrayList() ;
+
+		Map map = new HashMap() ;
+
+		List<SnsItem<String>> list = new ArrayList<>();
+
+		SnsItem<String> rename = new SnsItem<>();
+		rename.setTag("Tag_SNS_IM_Remark");
+		rename.setValue(remark);
+
+		list.add(rename) ;
+
+		map.put("To_Account",friendId);
+		map.put("SnsItem",list);
+
+		updateItem.add(map);
+
+		body.put("From_Account",identifier);
+		body.put("UpdateItem",updateItem);
+
+		this.timService.post(api, body);
 	}
 
 
