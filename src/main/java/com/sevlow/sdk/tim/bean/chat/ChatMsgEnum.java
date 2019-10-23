@@ -14,12 +14,12 @@ public enum ChatMsgEnum {
     /**
      *  消息同步发送
      */
-    Sync(1),
+    SYNC(1),
     
     /**
      *  消息不同步
      */
-    NoSync(2)
+    NO_SYNC(2)
 
     ;
 

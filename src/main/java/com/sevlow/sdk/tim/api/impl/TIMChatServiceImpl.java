@@ -8,6 +8,7 @@ import com.sevlow.sdk.tim.bean.chat.MsgContent;
 import com.sevlow.sdk.tim.bean.chat.MsgCustomContent;
 import com.sevlow.sdk.tim.common.error.TIMError;
 import com.sevlow.sdk.tim.common.error.TIMException;
+import com.sevlow.sdk.tim.constant.TIMErrorConstant;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
@@ -25,7 +26,6 @@ import java.util.Map;
 
 @Slf4j
 public class TIMChatServiceImpl implements TIMChatService {
-
 
     private TIMService timService;
 
@@ -47,10 +47,10 @@ public class TIMChatServiceImpl implements TIMChatService {
     @Override
     public void batchSendTextMsg(String fromAccount, List<String> toAccounts, List<String> msgList, ChatMsgEnum msgEnum) throws TIMException {
         if (toAccounts == null || toAccounts.size() > 500) {
-            throw new TIMException(new TIMError(90011,"批量发消息目标帐号超过500"));
+            throw new TIMException(new TIMError(90011, TIMErrorConstant.getErrorInfo(90011)));
         }
         if (msgEnum == null){
-            msgEnum = ChatMsgEnum.Sync ;
+            msgEnum = ChatMsgEnum.SYNC ;
         }
         String api = "v4/openim/batchsendmsg";
 
@@ -88,11 +88,11 @@ public class TIMChatServiceImpl implements TIMChatService {
     @Override
     public void batchSendCustomMsg(String fromAccount, List<String> toAccounts, @NonNull MsgCustomContent msgCustomContent, ChatMsgEnum msgEnum) throws TIMException {
         if (toAccounts == null || toAccounts.size() > 500) {
-            throw new TIMException(new TIMError(90011,"批量发消息目标帐号超过500"));
+            throw new TIMException(new TIMError(90011, TIMErrorConstant.getErrorInfo(90011)));
         }
 
         if (msgEnum == null){
-            msgEnum = ChatMsgEnum.Sync ;
+            msgEnum = ChatMsgEnum.SYNC ;
         }
 
         String api = "v4/openim/batchsendmsg";
@@ -133,7 +133,7 @@ public class TIMChatServiceImpl implements TIMChatService {
         String api = "v4/openim/sendmsg";
 
         if (msgEnum == null){
-            msgEnum = ChatMsgEnum.Sync ;
+            msgEnum = ChatMsgEnum.SYNC ;
         }
 
         Map<String, Object> body = new HashMap<>(4);
@@ -172,7 +172,7 @@ public class TIMChatServiceImpl implements TIMChatService {
         String api = "v4/openim/sendmsg";
 
         if (msgEnum == null){
-            msgEnum = ChatMsgEnum.Sync ;
+            msgEnum = ChatMsgEnum.SYNC ;
         }
 
         Map<String, Object> body = new HashMap<>(4);

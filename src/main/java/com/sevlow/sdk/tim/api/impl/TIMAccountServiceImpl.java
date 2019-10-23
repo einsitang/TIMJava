@@ -45,10 +45,8 @@ public class TIMAccountServiceImpl implements TIMAccountService {
 				doSingleImport(account);
 				return;
 			}
-
 			throw e;
 		}
-
 
 	}
 

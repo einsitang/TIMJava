@@ -113,7 +113,7 @@ public class TIMChatServiceImplTest {
 
         List<String> msg = Arrays.asList("你好");
 
-        chatService.batchSendTextMsg(fromAccount,toAccount,msg, ChatMsgEnum.Sync);
+        chatService.batchSendTextMsg(fromAccount,toAccount,msg, ChatMsgEnum.SYNC);
 
     }
 
@@ -122,7 +122,7 @@ public class TIMChatServiceImplTest {
         String fromAccount = "69887072709640192" ;
         String toAccount = "71243920540958720";
         List<String> msg = Arrays.asList("你好");
-        chatService.sendTextMsg(fromAccount,toAccount,msg, ChatMsgEnum.Sync);
+        chatService.sendTextMsg(fromAccount,toAccount,msg, ChatMsgEnum.SYNC);
 
     }
 
@@ -143,7 +143,7 @@ public class TIMChatServiceImplTest {
         msg.setDesc("hello");
         msg.setExt("www.qq.com");
         msg.setSound("dingdong.aiff");
-        chatService.sendCustomMsg(fromAccount,toAccount,msg, ChatMsgEnum.NoSync);
+        chatService.sendCustomMsg(fromAccount,toAccount,msg, ChatMsgEnum.NO_SYNC);
     }
 
     @Test
@@ -162,6 +162,6 @@ public class TIMChatServiceImplTest {
         msg.setExt("www.qq.com");
         msg.setSound("dingdong.aiff");
 
-        chatService.batchSendCustomMsg(fromAccount,toAccount,msg, ChatMsgEnum.NoSync);
+        chatService.batchSendCustomMsg(fromAccount,toAccount,msg, ChatMsgEnum.NO_SYNC);
     }
 }

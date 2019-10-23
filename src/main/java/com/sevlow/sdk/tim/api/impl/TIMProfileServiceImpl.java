@@ -104,7 +104,7 @@ public class TIMProfileServiceImpl implements TIMProfileService {
         }
 
         String api = "v4/profile/portrait_set";
-        Map<String, Object> body = new HashMap<>(4);
+        Map<String, Object> body = new HashMap<>(2);
         body.put("From_Account", identifier);
         body.put("ProfileItem", profileItemList);
 

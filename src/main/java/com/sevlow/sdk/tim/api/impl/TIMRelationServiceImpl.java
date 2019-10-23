@@ -27,7 +27,6 @@ import java.util.Map;
 @Slf4j
 public class TIMRelationServiceImpl implements TIMRelationService {
 
-
 	private final String ADD_SOURCE_TYPE_PREFIX = "AddSource_Type_";
 
 	private TIMService timService;
