@@ -1,7 +1,9 @@
 package com.sevlow.sdk.tim.bean;
 
 import com.google.gson.annotations.SerializedName;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -12,10 +14,12 @@ import java.io.Serializable;
  * @Description:
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SnsItem<T> implements Serializable {
 	private static final long serialVersionUID = -2164515049612843515L;
 
-	@SerializedName("tag")
+	@SerializedName("Tag")
 	private String tag;
 
 	@SerializedName("Value")

@@ -38,9 +38,23 @@ public class TIMErrorConstant {
 		ERROR_INFO_MAP.put(30539,"A 请求加 B 为好友，B 的加好友验证方式被设置为“AllowType_Type_NeedConfirm”，这时 A 与 B 之间只能形成未决关系，这个返回码用于标识加未决成功，以便与加好友成功的返回码区分开，调用方可以捕捉该错误给用户一个合理的提示");
 		ERROR_INFO_MAP.put(30540,"添加好友请求被安全策略打击，请勿频繁发起添加好友请求");
 
+		ERROR_INFO_MAP.put(40001,"请求参数错误，请根据错误描述检查请求参数");
+		ERROR_INFO_MAP.put(40003,"请求的用户帐号不存在");
+		ERROR_INFO_MAP.put(40004,"请求需要 App 管理员权限");
 		ERROR_INFO_MAP.put(40005,"资料字段中包含敏感词");
-		ERROR_INFO_MAP.put(40006,"设置资料时服务器内部错误，请稍后重试");
+		ERROR_INFO_MAP.put(40006,"服务器内部错误，请稍后重试");
+		ERROR_INFO_MAP.put(40008,"没有资料字段的写权限");
+		ERROR_INFO_MAP.put(40009,"资料字段的 Tag 不存在");
 		ERROR_INFO_MAP.put(40601,"资料字段的 Value 长度超过500字节");
+		ERROR_INFO_MAP.put(40605,"标配资料字段的 Value错误");
+		ERROR_INFO_MAP.put(40610,"资料字段的 Value 类型不匹配");
+
+		ERROR_INFO_MAP.put(50001,"请求的用户帐号不存在。");
+		ERROR_INFO_MAP.put(50002,"请求参数错误，请根据错误描述检查请求是否正确。");
+		ERROR_INFO_MAP.put(50003,"请求需要 App 管理员权限。");
+		ERROR_INFO_MAP.put(50004,"服务端内部错误，请重试。");
+		ERROR_INFO_MAP.put(50005,"网络超时，请稍后重试。");
+
 		ERROR_INFO_MAP.put(60008,"服务请求超时或 HTTP 请求格式错误，请检查并重试。");
 		ERROR_INFO_MAP.put(70020,"SDKAppID 未找到，请在云通信 IM 控制台确认应用信息。");
 		ERROR_INFO_MAP.put(70052,"UserSig 已经失效，请重新生成，再次尝试。");
