@@ -318,4 +318,12 @@ public interface TIMRelationService {
 	DeleteGroupsResult deleteGroups(@NonNull String identifier, @NonNull List<String> groupNames) throws TIMException;
 
 
+	/**
+	 *  修改好友备注
+	 */
+	void remarkFriend(@NonNull String identifier,@NonNull String friendId,@NonNull String remark) throws TIMException;
+
+
+
+
 }

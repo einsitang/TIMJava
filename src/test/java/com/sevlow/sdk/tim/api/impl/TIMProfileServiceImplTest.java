@@ -13,6 +13,9 @@ import org.testng.annotations.Test;
 
 import javax.inject.Inject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.testng.Assert.*;
 
 /**
@@ -42,5 +45,21 @@ public class TIMProfileServiceImplTest {
 
         profileService.setInfoGender("10001", GenderEnum.Female);
         profileService.setInfoGender("10002", GenderEnum.MALE);
+    }
+
+    @Test
+    public void testSetInfoGender2() throws TIMException {
+
+        profileService.setInfoGender("10001", GenderEnum.Female,15,"你好");
+        profileService.setInfoGender("10002", GenderEnum.MALE);
+    }
+
+    @Test
+    public void testSetInfoGender3() throws TIMException {
+        Map<String,String> map = new HashMap<>();
+        map.put("Tag_Profile_IM_Nick","你好");
+        map.put("Tag_Profile_Custom_age","10");
+        profileService.setInfoGender("10001", map);
+
     }
 }
