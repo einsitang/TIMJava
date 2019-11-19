@@ -40,6 +40,7 @@ public class TIMServiceImpl implements TIMService {
 	private TIMRelationService relationService = new TIMRelationServiceImpl(this);
 	private TIMChatService chatService = new TIMChatServiceImpl(this);
 	private TIMProfileService profileService = new TIMProfileServiceImpl(this);
+	private TIMGroupServiceImpl groupService = new TIMGroupServiceImpl(this);
 
 	public TIMServiceImpl(TIMConfig config) {
 		this.config = config;
@@ -214,7 +215,7 @@ public class TIMServiceImpl implements TIMService {
 
 	@Override
 	public TIMGroupService getGroupService() {
-		return null;
+		return this.groupService;
 	}
 
 	@Override

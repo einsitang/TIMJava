@@ -58,7 +58,9 @@ public class TIMAccountServiceImplTest {
 	public void testKick() throws TIMException {
 
 		accountService.kick("test_2");
-
 	}
+
+
+
 
 }
