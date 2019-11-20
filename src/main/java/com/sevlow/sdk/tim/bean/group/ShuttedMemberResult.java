@@ -12,7 +12,7 @@ import java.util.List;
  * @Description:
  */
 @Data
-public class ShuttedMember implements Serializable {
+public class ShuttedMemberResult implements Serializable {
     
     private static final long serialVersionUID = 6292088611087946322L;
 

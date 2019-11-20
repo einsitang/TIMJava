@@ -78,10 +78,29 @@ public class GroupInfo {
 
 
     public enum Type {
+        /**
+         * 公开群
+         */
         Public,
+
+        /**
+         * 私有群
+         */
         Private,
+
+        /**
+         * 聊天室
+         */
         ChatRoom,
+
+        /**
+         * 音视频聊天室
+         */
         AVChatRoom,
+
+        /**
+         * 在线成员广播大群
+         */
         BChatRoom
     }
 

@@ -1,15 +1,9 @@
 package com.sevlow.sdk.tim.api.impl;
 
 import com.sevlow.sdk.tim.api.TIMGroupService;
-import com.sevlow.sdk.tim.api.TIMRelationService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.api.test.TestModule;
-import com.sevlow.sdk.tim.bean.*;
 import com.sevlow.sdk.tim.bean.group.*;
-import com.sevlow.sdk.tim.bean.profile.AdminForbidTypeEnum;
-import com.sevlow.sdk.tim.bean.profile.AllowTypeEnum;
-import com.sevlow.sdk.tim.bean.profile.GenderEnum;
-import com.sevlow.sdk.tim.bean.profile.TIMProfile;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
@@ -120,7 +114,7 @@ public class TIMGroupServiceImplTest {
 
 	@Test
 	public void testGetShuttedMember() throws TIMException {
-		ShuttedMember member = groupService.getShuttedMember("11231");
+		ShuttedMemberResult member = groupService.getShuttedMember("11231");
 		Assert.assertNotNull(member);
 	}
 

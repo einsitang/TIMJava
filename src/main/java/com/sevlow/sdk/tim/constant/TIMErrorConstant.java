@@ -61,6 +61,7 @@ public class TIMErrorConstant {
         ERROR_INFO_MAP.put(70402, "参数非法，请检查必填字段是否填充，或者字段的填充是否满足协议要求");
         ERROR_INFO_MAP.put(70403, "请求需要 App 管理员权限");
         ERROR_INFO_MAP.put(70500, "服务器内部错误，请重试");
+
         ERROR_INFO_MAP.put(90001, "JSON 格式解析失败，请检查请求包是否符合 JSON 规范。或者 To_Account 是空数组");
         ERROR_INFO_MAP.put(90003, "JSON 格式请求包中 To_Account 不符合消息格式描述，请检查 To_Account 类型是否为 String");
         ERROR_INFO_MAP.put(90005, "JSON 格式请求包体中缺少 MsgRandom 字段或者 MsgRandom 字段不是 Integer 类型");
