@@ -57,7 +57,7 @@ public class TIMChatServiceImplTest {
     @Test
     public void testSendTextMsg() throws TIMException {
         String fromAccount = "69887072709640192" ;
-        String toAccount = "71243920540958720";
+        String toAccount = "119384433261281280";// 119384433261281280  73071536809967616
         List<String> msg = Arrays.asList("你好");
         chatService.sendTextMsg(fromAccount,toAccount,msg);
 

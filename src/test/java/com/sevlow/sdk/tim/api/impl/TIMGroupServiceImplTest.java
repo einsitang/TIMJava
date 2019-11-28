@@ -51,7 +51,7 @@ public class TIMGroupServiceImplTest {
 	@Test
 	public void testCreateGroup() throws TIMException {
 		GroupInfo groupInfo = new GroupInfo();
-		groupInfo.setGroupId("11231");
+		groupInfo.setGroupId("119384433261281280");
 		groupInfo.setType(GroupInfo.Type.Public);
 		groupInfo.setApplyJoinOption(GroupInfo.ApplyJoinOption.FreeAccess);
 		groupInfo.setName("147");
@@ -74,8 +74,8 @@ public class TIMGroupServiceImplTest {
 
 	@Test
 	public void testJoinGroup() throws TIMException {
-		List<String> list = Arrays.asList("74940051523371008","74897564679274496");
-		AddGroupResult addGroupResult = groupService.addGroupMember("11231",list, SilenceEnum.QUIET);
+		List<String> list = Arrays.asList("69887072709640192","74897564679274496");
+		AddGroupResult addGroupResult = groupService.addGroupMember("119384433261281280",list, SilenceEnum.QUIET);
 		System.out.println("11111");
 	}
 
@@ -121,24 +121,27 @@ public class TIMGroupServiceImplTest {
 
 	@Test
 	public void testSendGroupMsg() throws TIMException {
-		groupService.sendGroupMsg("11231","74940051523371008",true,"你好");
+		groupService.sendGroupMsg("119384433261281280",null,true,"你好11");
 	}
 
 
 	@Test
 	public void testSendGroupSystemNotification() throws TIMException {
-		groupService.sendGroupSystemNotification("11231",null,"你好");
+		groupService.sendGroupSystemNotification("119384433261281280",null,"你好111");
 	}
 
 
 	@Test
 	public void testImportGroupMember() throws TIMException {
+		// 117954688241893376   72779248246456320  69887072709640192  17612021831
 		List<ImportMember> members = new ArrayList<>();
-		ImportMember member1 = new ImportMember("74897564679274496");
-		ImportMember member2 = new ImportMember("74940051523371008");
+		ImportMember member1 = new ImportMember("72356624357916672");
+		ImportMember member2 = new ImportMember("69887072709640192");
+		ImportMember member3 = new ImportMember("17612021831");
 		members.add(member1);
 		members.add(member2);
-		AddGroupResult result = groupService.importGroupMember("11231", members);
+		members.add(member3);
+		AddGroupResult result = groupService.importGroupMember("117954688241893376", members);
 		Assert.assertNotNull(result);
 	}
 }
