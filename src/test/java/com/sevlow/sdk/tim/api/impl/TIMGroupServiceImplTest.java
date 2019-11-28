@@ -136,13 +136,15 @@ public class TIMGroupServiceImplTest {
 	@Test
 	public void testSentGroupCustomMsg() throws TIMException {
 		Map map = new HashMap();
-		map.put("ll","tt");
+		map.put("action","9");
 		map.put("type","8");
+		map.put("name","你好");
 
 		MsgCustomContent msg = new MsgCustomContent();
 		msg.setSound("dingdong.aiff");
 		msg.setExt("您有一条系统消息");
 		msg.setDesc("您有一条系统消息");
+
 		msg.setData(JsonUtils.toJson(map));
 		groupService.sentGroupCustomMsg("119384433261281280",null,null,msg);
 	}
