@@ -2,6 +2,8 @@ package com.sevlow.sdk.tim.api.impl;
 
 import com.sevlow.sdk.tim.api.TIMGroupService;
 import com.sevlow.sdk.tim.api.TIMService;
+import com.sevlow.sdk.tim.bean.chat.MsgBody;
+import com.sevlow.sdk.tim.bean.chat.MsgCustomContent;
 import com.sevlow.sdk.tim.bean.group.*;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import com.sevlow.sdk.tim.utils.JsonUtils;
@@ -172,6 +174,40 @@ public class TIMGroupServiceImpl implements TIMGroupService {
         map.put("MsgBody", Collections.singletonList(new TIMTextElem(message)));
 
         this.timService.post(api, map);
+    }
+
+    /**
+     * 发送自定义消息
+     *
+     * @param groupId
+     * @param account
+     * @param isSentOnline true 则消息表示只在线下发，不存离线和漫游（AVChatRoom 和 BChatRoom 不允许使用）。
+     * @param map          自定义消息内容
+     */
+    @Override
+    public void sentGroupCustomMsg(String groupId, String account, Boolean isSentOnline, MsgCustomContent message) throws TIMException {
+        String api = "v4/group_open_http_svc/send_group_msg";
+
+
+        Map body = new HashMap<>(5);
+        body.put("GroupId", groupId);
+        if (StringUtils.isNotBlank(account)) {
+            body.put("From_Account", account);
+        }
+        if (isSentOnline != null && isSentOnline) {
+            body.put("OnlineOnlyFlag", 1);
+        }
+        body.put("Random", RandomUtils.nextInt(1000000, 10000000));
+
+        List<MsgBody> msgBodies = new ArrayList<>();
+
+        MsgBody msgBody = new MsgBody();
+        msgBody.setMsgType("TIMCustomElem");
+        msgBody.setMsgContent(message);
+        msgBodies.add(msgBody);
+        body.put("MsgBody",msgBodies);
+
+        this.timService.post(api, body);
     }
 
 

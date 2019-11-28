@@ -22,7 +22,7 @@ public class ImportMember implements Serializable {
 
 
     @SerializedName("Member_Account")
-    private String Member_Account ;
+    private String MemberAccount ;
 
     @SerializedName("Role")
     private Role role ;
@@ -38,12 +38,12 @@ public class ImportMember implements Serializable {
         Member
     }
 
-    public ImportMember(String member_Account) {
-        Member_Account = member_Account;
+    public ImportMember(String memberAccount) {
+        MemberAccount = memberAccount;
     }
 
-    public ImportMember(String member_Account, Role role) {
-        Member_Account = member_Account;
+    public ImportMember(String memberAccount, Role role) {
+        MemberAccount = memberAccount;
         this.role = role;
     }
 }

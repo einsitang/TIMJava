@@ -3,13 +3,16 @@ package com.sevlow.sdk.tim.api.impl;
 import com.sevlow.sdk.tim.api.TIMGroupService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.api.test.TestModule;
+import com.sevlow.sdk.tim.bean.chat.MsgCustomContent;
 import com.sevlow.sdk.tim.bean.group.*;
 import com.sevlow.sdk.tim.common.error.TIMException;
+import com.sevlow.sdk.tim.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
+import org.testng.annotations.TestInstance;
 
 import javax.inject.Inject;
 import java.util.*;
@@ -51,7 +54,7 @@ public class TIMGroupServiceImplTest {
 	@Test
 	public void testCreateGroup() throws TIMException {
 		GroupInfo groupInfo = new GroupInfo();
-		groupInfo.setGroupId("11231");
+		groupInfo.setGroupId("119384433261281280");
 		groupInfo.setType(GroupInfo.Type.Public);
 		groupInfo.setApplyJoinOption(GroupInfo.ApplyJoinOption.FreeAccess);
 		groupInfo.setName("147");
@@ -74,8 +77,8 @@ public class TIMGroupServiceImplTest {
 
 	@Test
 	public void testJoinGroup() throws TIMException {
-		List<String> list = Arrays.asList("74940051523371008","74897564679274496");
-		AddGroupResult addGroupResult = groupService.addGroupMember("11231",list, SilenceEnum.QUIET);
+		List<String> list = Arrays.asList("69887072709640192","74897564679274496");
+		AddGroupResult addGroupResult = groupService.addGroupMember("119384433261281280",list, SilenceEnum.QUIET);
 		System.out.println("11111");
 	}
 
@@ -121,24 +124,43 @@ public class TIMGroupServiceImplTest {
 
 	@Test
 	public void testSendGroupMsg() throws TIMException {
-		groupService.sendGroupMsg("11231","74940051523371008",true,"你好");
+		groupService.sendGroupMsg("119384433261281280",null,true,"你好11");
 	}
 
 
 	@Test
 	public void testSendGroupSystemNotification() throws TIMException {
-		groupService.sendGroupSystemNotification("11231",null,"你好");
+		groupService.sendGroupSystemNotification("119384433261281280",null,"你好111");
+	}
+
+	@Test
+	public void testSentGroupCustomMsg() throws TIMException {
+		Map map = new HashMap();
+		map.put("action","9");
+		map.put("type","8");
+		map.put("name","你好");
+
+		MsgCustomContent msg = new MsgCustomContent();
+		msg.setSound("dingdong.aiff");
+		msg.setExt("您有一条系统消息");
+		msg.setDesc("您有一条系统消息");
+
+		msg.setData(JsonUtils.toJson(map));
+		groupService.sentGroupCustomMsg("119384433261281280",null,null,msg);
 	}
 
 
 	@Test
 	public void testImportGroupMember() throws TIMException {
+		// 117954688241893376   72779248246456320  69887072709640192  17612021831
 		List<ImportMember> members = new ArrayList<>();
-		ImportMember member1 = new ImportMember("74897564679274496");
-		ImportMember member2 = new ImportMember("74940051523371008");
+		ImportMember member1 = new ImportMember("72356624357916672");
+		ImportMember member2 = new ImportMember("69887072709640192");
+		ImportMember member3 = new ImportMember("17612021831");
 		members.add(member1);
 		members.add(member2);
-		AddGroupResult result = groupService.importGroupMember("11231", members);
+		members.add(member3);
+		AddGroupResult result = groupService.importGroupMember("117954688241893376", members);
 		Assert.assertNotNull(result);
 	}
 }
