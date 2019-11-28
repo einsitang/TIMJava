@@ -3,13 +3,16 @@ package com.sevlow.sdk.tim.api.impl;
 import com.sevlow.sdk.tim.api.TIMGroupService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.api.test.TestModule;
+import com.sevlow.sdk.tim.bean.chat.MsgCustomContent;
 import com.sevlow.sdk.tim.bean.group.*;
 import com.sevlow.sdk.tim.common.error.TIMException;
+import com.sevlow.sdk.tim.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
+import org.testng.annotations.TestInstance;
 
 import javax.inject.Inject;
 import java.util.*;
@@ -128,6 +131,20 @@ public class TIMGroupServiceImplTest {
 	@Test
 	public void testSendGroupSystemNotification() throws TIMException {
 		groupService.sendGroupSystemNotification("119384433261281280",null,"你好111");
+	}
+
+	@Test
+	public void testSentGroupCustomMsg() throws TIMException {
+		Map map = new HashMap();
+		map.put("ll","tt");
+		map.put("type","8");
+
+		MsgCustomContent msg = new MsgCustomContent();
+		msg.setSound("dingdong.aiff");
+		msg.setExt("您有一条系统消息");
+		msg.setDesc("您有一条系统消息");
+		msg.setData(JsonUtils.toJson(map));
+		groupService.sentGroupCustomMsg("119384433261281280",null,null,msg);
 	}
 
 

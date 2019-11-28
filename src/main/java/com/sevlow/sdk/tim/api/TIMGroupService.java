@@ -1,9 +1,11 @@
 package com.sevlow.sdk.tim.api;
 
+import com.sevlow.sdk.tim.bean.chat.MsgCustomContent;
 import com.sevlow.sdk.tim.bean.group.*;
 import com.sevlow.sdk.tim.common.error.TIMException;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Element
@@ -135,6 +137,15 @@ public interface TIMGroupService {
      * @throws TIMException
      */
     void sendGroupMsg(String groupId, String account, Boolean isSentOnline, String message) throws TIMException;
+
+    /**
+     *  发送自定义消息
+     * @param groupId
+     * @param account
+     * @param isSentOnline true 则消息表示只在线下发，不存离线和漫游（AVChatRoom 和 BChatRoom 不允许使用）。
+     * @param message 自定义消息内容
+     */
+    void sentGroupCustomMsg(String groupId, String account, Boolean isSentOnline, MsgCustomContent message) throws TIMException;
 
     /**
      * 发送通知消息
