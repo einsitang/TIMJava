@@ -6,7 +6,7 @@
 
     <groupId>com.sevlow</groupId>
     <artifactId>tim-java-sdk</artifactId>
-    <version>0.4.1</version>
+    <version>0.4.2</version>
     <name>TIMJava - Tencent IM Java SDK</name>
     <description>腾讯IM 云通讯 Java SDK</description>
     <url>https://github.com/forfuns/TIMJava</url>
