@@ -134,6 +134,10 @@ public class TIMProfileServiceImpl implements TIMProfileService {
             throw new TIMException(new TIMError(40002, TIMErrorConstant.getErrorInfo(40002)));
         }
 
+        if (accounts.size() > 100) {
+            throw new TIMException(new TIMError(-1, "拉取资料的账号不能超过100个"));
+        }
+
         List<String> tagList = new ArrayList<>();
 
         if (profiles != null && !profiles.isEmpty()) {
@@ -141,7 +145,7 @@ public class TIMProfileServiceImpl implements TIMProfileService {
         }
 
         if (customProfiles != null && !customProfiles.isEmpty()) {
-            for(String custom : customProfiles){
+            for (String custom : customProfiles) {
                 if (custom.length() > 8) {
                     throw new TIMException(new TIMError(-1, "自定义资料字段不能超过8个字符"));
                 }
