@@ -4,19 +4,19 @@ import com.sevlow.sdk.tim.api.TIMChatService;
 import com.sevlow.sdk.tim.api.TIMProfileService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.api.test.TestModule;
-import com.sevlow.sdk.tim.bean.profile.AdminForbidTypeEnum;
-import com.sevlow.sdk.tim.bean.profile.AllowTypeEnum;
-import com.sevlow.sdk.tim.bean.profile.GenderEnum;
-import com.sevlow.sdk.tim.bean.profile.TIMProfile;
+import com.sevlow.sdk.tim.bean.profile.*;
 import com.sevlow.sdk.tim.common.error.TIMException;
+import com.sevlow.sdk.tim.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
+import org.testng.collections.Lists;
 
 import javax.inject.Inject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.testng.Assert.*;
@@ -70,6 +70,24 @@ public class TIMProfileServiceImplTest {
         map.put("Tag_Profile_IM_Nick", "你好");
         map.put("Tag_Profile_Custom_age", "10");
 //        profileService.setInfoGender("10001", map);
+
+    }
+
+    @Test
+    public void testGetPortrait() throws TIMException {
+        List<String> accounts = Lists.newArrayList("114382074047102976","10001");
+        List<String> profileTags = Lists.newArrayList(TIMProfile.TAG_PROFILE_IM_NICK,TIMProfile.TAG_PROFILE_IM_GENDER,TIMProfile.TAG_PROFILE_IM_IMAGE,TIMProfile.TAG_PROFILE_IM_ALLOWTYPE);
+        List<String> customs = Lists.newArrayList("college","age");
+
+        UserProfileResult result = profileService.getPortrait(accounts,profileTags,customs);
+
+        List<UserProfileItem> userProfileItems = result.getUserProfileItems();
+
+        String nickName = null;
+        for(UserProfileItem item : userProfileItems){
+            nickName = String.valueOf(item.getProfile(TIMProfile.TAG_PROFILE_IM_NICK));
+            log.info(item.getToAccount().concat(".nickName : ").concat(nickName));
+        }
 
     }
 }

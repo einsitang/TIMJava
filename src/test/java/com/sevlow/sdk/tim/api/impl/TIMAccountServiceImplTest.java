@@ -38,9 +38,9 @@ public class TIMAccountServiceImplTest {
 	@Test
 	public void testSingleImport() throws TIMException {
 
-		TIMAccount account = new TIMAccount("10002");
-		account.setNick("官方消息");
-		account.setFaceUrl("https://res-test.7billion.cn/common/default/message_icon_tz_xxhdpi.png");
+		TIMAccount account = new TIMAccount("10004");
+		account.setNick("群通知");
+		account.setFaceUrl("https://res.7billion.cn/common/default/meseage_icon_group_notice.png");
 
 		accountService.singleImport(account);
 

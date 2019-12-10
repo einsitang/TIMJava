@@ -40,6 +40,7 @@ public class TIMErrorConstant {
         ERROR_INFO_MAP.put(40004, "请求需要 App 管理员权限");
         ERROR_INFO_MAP.put(40005, "资料字段中包含敏感词");
         ERROR_INFO_MAP.put(40006, "服务器内部错误，请稍后重试");
+        ERROR_INFO_MAP.put(40007, "没有资料字段的读权限");
         ERROR_INFO_MAP.put(40008, "没有资料字段的写权限");
         ERROR_INFO_MAP.put(40009, "资料字段的 Tag 不存在");
         ERROR_INFO_MAP.put(40601, "资料字段的 Value 长度超过500字节");

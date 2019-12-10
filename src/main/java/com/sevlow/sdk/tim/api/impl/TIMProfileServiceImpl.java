@@ -5,6 +5,7 @@ import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.bean.SnsItem;
 import com.sevlow.sdk.tim.bean.profile.GenderEnum;
 import com.sevlow.sdk.tim.bean.profile.TIMProfile;
+import com.sevlow.sdk.tim.bean.profile.UserProfileResult;
 import com.sevlow.sdk.tim.common.error.TIMError;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import com.sevlow.sdk.tim.constant.TIMErrorConstant;
@@ -26,6 +27,8 @@ import java.util.Map;
 public class TIMProfileServiceImpl implements TIMProfileService {
 
     private TIMService timService;
+
+    private static final String CUSTOM_PROFILE_PREFIX = "Tag_Profile_Custom_";
 
     public TIMProfileServiceImpl(TIMService timService) {
         this.timService = timService;
@@ -75,7 +78,7 @@ public class TIMProfileServiceImpl implements TIMProfileService {
         if (imProfile != null) {
             try {
                 String jsonStr = JsonUtils.toJson(imProfile);
-                Map<String,Object> imProfileMap = JsonUtils.fromJson(jsonStr,new HashMap().getClass());
+                Map<String, Object> imProfileMap = JsonUtils.fromJson(jsonStr, new HashMap().getClass());
 
                 for (Map.Entry<String, Object> entity : imProfileMap.entrySet()) {
                     profileItemList.add(new SnsItem(entity.getKey(), entity.getValue()));
@@ -87,7 +90,6 @@ public class TIMProfileServiceImpl implements TIMProfileService {
 
         if (customProfile != null) {
             String key;
-            String CUSTOM_PROFILE_PREFIX = "Tag_Profile_Custom_";
             for (Map.Entry<String, Object> entity : customProfile.entrySet()) {
                 key = entity.getKey();
                 if (key.length() > 8) {
@@ -100,7 +102,7 @@ public class TIMProfileServiceImpl implements TIMProfileService {
 
         if (profileItemList.size() < 1) {
             log.warn("当前未设置任何资料，不进行接口请求");
-            return ;
+            return;
         }
 
         String api = "v4/profile/portrait_set";
@@ -120,6 +122,44 @@ public class TIMProfileServiceImpl implements TIMProfileService {
     @Override
     public void setPortrait(@NonNull String identifier, Map<String, Object> customProfile) throws TIMException {
         this.setPortrait(identifier, null, customProfile);
+    }
+
+    @Override
+    public UserProfileResult getPortrait(@NonNull List<String> accounts, List<String> profiles, List<String> customProfiles) throws TIMException {
+        if (profiles == null && customProfiles == null) {
+            throw new TIMException(new TIMError(40001, TIMErrorConstant.getErrorInfo(40001)));
+        }
+
+        if (accounts.isEmpty()) {
+            throw new TIMException(new TIMError(40002, TIMErrorConstant.getErrorInfo(40002)));
+        }
+
+        List<String> tagList = new ArrayList<>();
+
+        if (profiles != null && !profiles.isEmpty()) {
+            tagList.addAll(profiles);
+        }
+
+        if (customProfiles != null && !customProfiles.isEmpty()) {
+            for(String custom : customProfiles){
+                if (custom.length() > 8) {
+                    throw new TIMException(new TIMError(-1, "自定义资料字段不能超过8个字符"));
+                }
+                tagList.add(CUSTOM_PROFILE_PREFIX.concat(custom));
+            }
+        }
+
+        if (tagList.isEmpty()) {
+            throw new TIMException(new TIMError(40001, TIMErrorConstant.getErrorInfo(40001)));
+        }
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("To_Account", accounts);
+        body.put("TagList", tagList);
+
+        String api = "v4/profile/portrait_get";
+
+        return JsonUtils.fromJson(this.timService.post(api, body), UserProfileResult.class);
     }
 
 }
