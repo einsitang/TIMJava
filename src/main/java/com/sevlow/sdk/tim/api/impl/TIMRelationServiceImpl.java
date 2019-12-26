@@ -247,6 +247,10 @@ public class TIMRelationServiceImpl implements TIMRelationService {
             throw new TIMException(new TIMError(30001, "查找的好友列表不能为空"));
         }
 
+        if(friends.size() > 100){
+            throw new TIMException(new TIMError(90011, "批量目标帐号超过100，请减少 To_Account 中目标帐号数量"));
+        }
+
         List<String> tagList = new ArrayList<>();
         if (profiles != null && !profiles.isEmpty()) {
             tagList.addAll(profiles);
