@@ -2,6 +2,7 @@ package com.sevlow.sdk.tim.bean.profile;
 
 import com.google.gson.annotations.SerializedName;
 import com.sevlow.sdk.tim.bean.ResultStruct;
+import com.sevlow.sdk.tim.bean.SnsItem;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -21,7 +22,7 @@ public class UserProfileItem extends ResultStruct implements Serializable {
     private String toAccount;
 
     @SerializedName("ProfileItem")
-    private List<ProfileItem> profileItems;
+    private List<SnsItem> profileItems;
 
     public Object getProfile(@NonNull String key){
         if(profileItems == null || profileItems.isEmpty()){

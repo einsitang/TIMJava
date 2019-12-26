@@ -4,12 +4,17 @@ import com.sevlow.sdk.tim.api.TIMRelationService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.api.test.TestModule;
 import com.sevlow.sdk.tim.bean.*;
+import com.sevlow.sdk.tim.bean.profile.TIMProfile;
+import com.sevlow.sdk.tim.bean.relation.ListFriendsDirectivityResult;
+import com.sevlow.sdk.tim.bean.relation.ListFriendsResult;
+import com.sevlow.sdk.tim.bean.relation.TIMFriendProfile;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
+import org.testng.collections.Lists;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -102,21 +107,27 @@ public class TIMRelationServiceImplTest {
 
 	}
 
-
 	@Test
-	public void testListFriends() throws TIMException {
+	public void testListFriends() throws TIMException{
 
-		ListFriendsResult result = relationService.listFriends("test_1", 0, 1, 0, null);
+		String account = "10001";
+		Integer startIndex = 0;
 
-		Assert.assertNotNull(result);
+		ListFriendsResult result = relationService.listFriends(account,startIndex);
+		Assert.assertEquals(result.getFriendNum(),Integer.valueOf(0));
 	}
 
 	@Test
-	public void testListFriendsByAccounts() throws TIMException {
-		ListFriendsByAccountsResult list = relationService.listFriendsByAccounts("test_1", Arrays.asList("test_2"));
+	public void testListFriendsDirectivity() throws TIMException{
+		String account = "119020659249512448";
+		List<String> friends = Lists.newArrayList("119029328846520320","119097887090016256","118283730413420544");
+		List<String> profiles = Lists.newArrayList(TIMProfile.TAG_PROFILE_IM_NICK,TIMProfile.TAG_PROFILE_IM_GENDER);
+		List<String> customProfiles = Lists.newArrayList("college");
+		List<String> snsProfiles = Lists.newArrayList(TIMFriendProfile.TAG_SNS_IM_REMARK);
+		ListFriendsDirectivityResult result = relationService.listFriendsDirectivity(account,friends,profiles,customProfiles,snsProfiles,null);
 
-		Assert.assertEquals(list.getInfoItem().size(), 1);
 	}
+
 
 	@Test
 	public void testAddBlockAccounts() throws TIMException {

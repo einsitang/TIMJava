@@ -75,7 +75,7 @@ public class TIMProfileServiceImplTest {
 
     @Test
     public void testGetPortrait() throws TIMException {
-        List<String> accounts = Lists.newArrayList("114382074047102976","10001");
+        List<String> accounts = Lists.newArrayList("129333528310579201");
         List<String> profileTags = Lists.newArrayList(TIMProfile.TAG_PROFILE_IM_NICK,TIMProfile.TAG_PROFILE_IM_GENDER,TIMProfile.TAG_PROFILE_IM_IMAGE,TIMProfile.TAG_PROFILE_IM_ALLOWTYPE);
         List<String> customs = Lists.newArrayList("college","age");
 

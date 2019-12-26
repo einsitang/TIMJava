@@ -4,12 +4,13 @@ import com.sevlow.sdk.tim.api.TIMRelationService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.bean.*;
 import com.sevlow.sdk.tim.bean.account.TIMFriend;
+import com.sevlow.sdk.tim.bean.relation.ListFriendsDirectivityResult;
+import com.sevlow.sdk.tim.bean.relation.ListFriendsResult;
 import com.sevlow.sdk.tim.common.error.TIMError;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import com.sevlow.sdk.tim.utils.JsonUtils;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -19,360 +20,403 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Element
- * @Package com.sevlow.sdk.tim.api.impl
- * @date 2019-05-27 23:27
- * @Description:
+ * 关系管理实现类
+ *
+ * @author element
  */
 @Slf4j
 public class TIMRelationServiceImpl implements TIMRelationService {
 
-	private final String ADD_SOURCE_TYPE_PREFIX = "AddSource_Type_";
+    private final String ADD_SOURCE_TYPE_PREFIX = "AddSource_Type_";
 
-	private TIMService timService;
+    private static final String CUSTOM_PROFILE_PREFIX = "Tag_Profile_Custom_";
 
-	public TIMRelationServiceImpl(TIMService timService) {
-		this.timService = timService;
-	}
+    private static final String CUSTOM_SNS_PROFILE_PREFIX = "Tag_SNS_Custom_";
 
-	private String cleanAddSourceTypePrefix(String addSourceType) throws TIMException {
-		if (StringUtils.startsWith(addSourceType, ADD_SOURCE_TYPE_PREFIX)) {
-			addSourceType = RegExUtils.removeFirst(addSourceType, ADD_SOURCE_TYPE_PREFIX);
-		}
+    private TIMService timService;
 
-		if (addSourceType.length() > 8) {
-			throw new TIMException(new TIMError(30001, "addSourceType除去前缀Add_Source_外，不能多于8个字符"));
-		}
-		return addSourceType;
-	}
+    public TIMRelationServiceImpl(TIMService timService) {
+        this.timService = timService;
+    }
 
-	@Override
-	public AddFriendsResult addFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull String friendSource, AddType addType) throws TIMException {
+    private String cleanAddSourceTypePrefix(String addSourceType) throws TIMException {
+        if (StringUtils.startsWith(addSourceType, ADD_SOURCE_TYPE_PREFIX)) {
+            addSourceType = RegExUtils.removeFirst(addSourceType, ADD_SOURCE_TYPE_PREFIX);
+        }
 
-		if (friends == null || friends.size() < 1) {
-			throw new RuntimeException("friends can't be empty");
-		}
+        if (addSourceType.length() > 8) {
+            throw new TIMException(new TIMError(30001, "addSourceType除去前缀Add_Source_外，不能多于8个字符"));
+        }
+        return addSourceType;
+    }
 
-		String api = "v4/sns/friend_add";
+    @Override
+    public AddFriendsResult addFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull String friendSource, AddType addType) throws TIMException {
 
-		friendSource = cleanAddSourceTypePrefix(friendSource);
+        if (friends.isEmpty()) {
+            throw new TIMException(new TIMError(30001, "好友列表不能为空"));
+        }
 
-		Map<String, Object> body = new HashMap<>();
-		body.put("From_Account", identifier);
+        String api = "v4/sns/friend_add";
 
-		List<Map<String, String>> friendItems = new ArrayList<>();
-		Map<String, String> friendItem = null;
-		for (String friend : friends) {
-			friendItem = new HashMap<>();
-			friendItem.put("To_Account", friend);
-			friendItem.put("AddSource", ADD_SOURCE_TYPE_PREFIX + friendSource);
+        friendSource = cleanAddSourceTypePrefix(friendSource);
 
-			friendItems.add(friendItem);
-		}
+        Map<String, Object> body = new HashMap<>();
+        body.put("From_Account", identifier);
 
-		body.put("AddFriendItem", friendItems);
+        List<Map<String, String>> friendItems = new ArrayList<>();
+        Map<String, String> friendItem = null;
+        for (String friend : friends) {
+            friendItem = new HashMap<>();
+            friendItem.put("To_Account", friend);
+            friendItem.put("AddSource", ADD_SOURCE_TYPE_PREFIX + friendSource);
 
+            friendItems.add(friendItem);
+        }
 
-		if (addType == null) {
-			body.put("AddType", AddType.Add_Type_Both);
-		}
+        body.put("AddFriendItem", friendItems);
 
-		return JsonUtils.fromJson(this.timService.post(api, body), AddFriendsResult.class);
-	}
 
-	@Override
-	public AddFriendsResult addFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull String friendSource) throws TIMException {
-		return this.addFriends(identifier, friends, friendSource, null);
-	}
+        if (addType == null) {
+            body.put("AddType", AddType.Add_Type_Both);
+        }
 
-	@Override
-	public ImportFriendsResult importFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull String friendSource) throws TIMException {
+        return JsonUtils.fromJson(this.timService.post(api, body), AddFriendsResult.class);
+    }
 
-		if (friends == null || friends.size() < 1) {
-			throw new RuntimeException("friends can't be empty");
-		}
+    @Override
+    public AddFriendsResult addFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull String friendSource) throws TIMException {
+        return this.addFriends(identifier, friends, friendSource, null);
+    }
 
-		friendSource = cleanAddSourceTypePrefix(friendSource);
+    @Override
+    public ImportFriendsResult importFriends(@NonNull String identifier, @NonNull List<String> friends, @NonNull String friendSource) throws TIMException {
 
-		List<TIMFriend> list = new ArrayList<>();
-		TIMFriend timFriend = null;
+        friendSource = cleanAddSourceTypePrefix(friendSource);
 
-		for (String friend : friends) {
-			timFriend = new TIMFriend(friend, ADD_SOURCE_TYPE_PREFIX + friendSource);
-			list.add(timFriend);
-		}
+        List<TIMFriend> list = new ArrayList<>();
+        TIMFriend timFriend = null;
 
-		return this.importFriends(identifier, list);
-	}
+        for (String friend : friends) {
+            timFriend = new TIMFriend(friend, ADD_SOURCE_TYPE_PREFIX + friendSource);
+            list.add(timFriend);
+        }
 
-	@Override
-	public ImportFriendsResult importFriends(@NonNull String identifier, @NonNull List<TIMFriend> friends) throws TIMException {
+        return this.importFriends(identifier, list);
+    }
 
-		String api = "v4/sns/friend_import";
+    @Override
+    public ImportFriendsResult importFriends(@NonNull String identifier, @NonNull List<TIMFriend> friends) throws TIMException {
 
-		Map<String, Object> body = new HashMap<>();
+        if (friends.isEmpty()) {
+            throw new TIMException(new TIMError(30001, "好友列表不能为空"));
+        }
 
-		body.put("From_Account", identifier);
-		body.put("AddFriendItem", friends);
+        String api = "v4/sns/friend_import";
 
-		return JsonUtils.fromJson(this.timService.post(api, body), ImportFriendsResult.class);
-	}
+        Map<String, Object> body = new HashMap<>();
 
-	@Override
-	public UpdateFriendsResult updateFriends(@NonNull String identifier, @NonNull List<String> friends, List<SnsItem> snsItems) throws TIMException {
+        body.put("From_Account", identifier);
+        body.put("AddFriendItem", friends);
 
-		String api = "v4/sns/friend_update";
+        return JsonUtils.fromJson(this.timService.post(api, body), ImportFriendsResult.class);
+    }
 
-		if (friends == null || friends.size() < 1) {
-			throw new RuntimeException("friends can't be empty");
-		}
+    @Override
+    public UpdateFriendsResult updateFriends(@NonNull String identifier, @NonNull List<String> friends, List<SnsItem> snsItems) throws TIMException {
 
-		Map<String, Object> body = new HashMap<>();
-		body.put("From_Account", identifier);
+        if (friends.isEmpty()) {
+            throw new TIMException(new TIMError(30001, "好友列表不能为空"));
+        }
 
-		List<Map<String, Object>> updateItems = new ArrayList<>();
-		Map<String, Object> updateItem = null;
+        String api = "v4/sns/friend_update";
 
-		for (String friend : friends) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("From_Account", identifier);
 
-			updateItem = new HashMap<>();
-			updateItem.put("To_Account", friend);
-			updateItem.put("SnsItem", snsItems);
+        List<Map<String, Object>> updateItems = new ArrayList<>();
+        Map<String, Object> updateItem = null;
 
-			updateItems.add(updateItem);
-		}
+        for (String friend : friends) {
 
-		body.put("UpdateItem", updateItems);
+            updateItem = new HashMap<>();
+            updateItem.put("To_Account", friend);
+            updateItem.put("SnsItem", snsItems);
 
-		return JsonUtils.fromJson(this.timService.post(api, body), UpdateFriendsResult.class);
-	}
+            updateItems.add(updateItem);
+        }
 
-	@Override
-	public DeleteFriendsResult deleteFriend(@NonNull String identifier, @NonNull List<String> friends, DeleteType deleteType) throws TIMException {
+        body.put("UpdateItem", updateItems);
 
-		if (friends == null || friends.size() < 1) {
-			throw new RuntimeException("friends can't be empty");
-		}
+        return JsonUtils.fromJson(this.timService.post(api, body), UpdateFriendsResult.class);
+    }
 
-		String api = "v4/sns/friend_delete";
+    @Override
+    public DeleteFriendsResult deleteFriend(@NonNull String identifier, @NonNull List<String> friends, DeleteType deleteType) throws TIMException {
 
-		Map<String, Object> body = new HashMap<>();
-		body.put("From_Account", identifier);
-		body.put("To_Account", friends);
+        if (friends.isEmpty()) {
+            throw new TIMException(new TIMError(30001, "好友列表不能为空"));
+        }
 
-		if (deleteType == null) {
-			deleteType = DeleteType.Delete_Type_Both;
-		}
+        String api = "v4/sns/friend_delete";
 
-		body.put("DeleteType", deleteType);
+        Map<String, Object> body = new HashMap<>();
+        body.put("From_Account", identifier);
+        body.put("To_Account", friends);
 
-		return JsonUtils.fromJson(this.timService.post(api, body), DeleteFriendsResult.class);
-	}
+        if (deleteType == null) {
+            deleteType = DeleteType.Delete_Type_Both;
+        }
 
+        body.put("DeleteType", deleteType);
 
-	@Override
-	public DeleteFriendsResult deleteFriend(@NonNull String identifier, @NonNull List<String> friends) throws TIMException {
-		return deleteFriend(identifier, friends, null);
-	}
+        return JsonUtils.fromJson(this.timService.post(api, body), DeleteFriendsResult.class);
+    }
 
-	@Override
-	public void emptyFriends(@NonNull String identifier) throws TIMException {
 
-		String api = "v4/sns/friend_delete_all";
+    @Override
+    public DeleteFriendsResult deleteFriend(@NonNull String identifier, @NonNull List<String> friends) throws TIMException {
+        return deleteFriend(identifier, friends, null);
+    }
 
-		Map<String, Object> body = new HashMap<>();
-		body.put("From_Account", identifier);
+    @Override
+    public void emptyFriends(@NonNull String identifier) throws TIMException {
 
-		this.timService.post(api, body);
+        String api = "v4/sns/friend_delete_all";
 
-	}
+        Map<String, Object> body = new HashMap<>();
+        body.put("From_Account", identifier);
 
-	@Override
-	public CheckFriendsResult checkFriends(@NonNull String identifier, @NonNull List<String> friends, CheckType checkType) throws TIMException {
+        this.timService.post(api, body);
 
-		if (friends == null || friends.size() < 1) {
-			throw new RuntimeException("friends can't be empty");
-		}
+    }
 
-		String api = "v4/sns/friend_check";
+    @Override
+    public CheckFriendsResult checkFriends(@NonNull String identifier, @NonNull List<String> friends, CheckType checkType) throws TIMException {
 
-		Map<String, Object> body = new HashMap<>();
-		body.put("From_Account",identifier);
-		body.put("To_Account",friends);
-		// 如果不是双向检查，则默认为单项检查
-		if (!CheckType.CheckResult_Type_Both.equals(checkType)){
-			checkType = CheckType.CheckResult_Type_Singal ;
-		}
-		body.put("CheckType",checkType);
-		return JsonUtils.fromJson(this.timService.post(api, body), CheckFriendsResult.class);
-	}
+        if (friends.isEmpty()) {
+            throw new TIMException(new TIMError(30001, "好友列表不能为空"));
+        }
 
-	@Override
-	public CheckFriendsResult checkFriends(@NonNull String identifier, @NonNull List<String> friends) throws TIMException {
-		return checkFriends(identifier,friends,null);
-	}
+        String api = "v4/sns/friend_check";
 
-	@Override
-	public ListFriendsResult listFriends(@NonNull String identifier, Integer offset, Integer rows, Integer timestamp, Integer lastStandardSequence) throws TIMException {
-		String api = "v4/sns/friend_get_all";
+        Map<String, Object> body = new HashMap<>();
+        body.put("From_Account", identifier);
+        body.put("To_Account", friends);
+        // 如果不是双向检查，则默认为单项检查
+        if (!CheckType.CheckResult_Type_Both.equals(checkType)) {
+            checkType = CheckType.CheckResult_Type_Singal;
+        }
+        body.put("CheckType", checkType);
+        return JsonUtils.fromJson(this.timService.post(api, body), CheckFriendsResult.class);
+    }
 
-		Map<String, Object> body = new HashMap<>();
-		body.put("From_Account",identifier);
-		body.put("TimeStamp", timestamp) ;
-		body.put("StartIndex",offset) ;
-		body.put("LastStandardSequence",lastStandardSequence);
-		return JsonUtils.fromJson(this.timService.post(api, body), ListFriendsResult.class);
-	}
+    @Override
+    public CheckFriendsResult checkFriends(@NonNull String identifier, @NonNull List<String> friends) throws TIMException {
+        return checkFriends(identifier, friends, null);
+    }
 
-	@Override
-	public ListFriendsByAccountsResult listFriendsByAccounts(@NonNull String identifier, @NonNull List<String> accounts) throws TIMException {
-		if (accounts == null || accounts.size() < 1) {
-			throw new RuntimeException("accounts can't be empty");
-		}
+    @Override
+    public ListFriendsResult listFriends(@NonNull String account, @NonNull Integer startIndex, Integer standardSequence, Integer customSequence) throws TIMException {
+        String api = "v4/sns/friend_get";
 
-		String api = "v4/sns/friend_get_list";
+        Map<String, Object> body = new HashMap<>();
+        body.put("From_Account", account);
+        body.put("StartIndex", startIndex);
 
-		Map<String, Object> body = new HashMap<>();
-		body.put("From_Account",identifier);
-		body.put("To_Account",accounts);
+        if (standardSequence != null) {
+            body.put("StandardSequence", standardSequence);
+        }
 
-		return JsonUtils.fromJson(this.timService.post(api, body), ListFriendsByAccountsResult.class);
-	}
+        if (customSequence != null) {
+            body.put("CustomSequence", customSequence);
+        }
 
-	@Override
-	public AddBlockAccountsResult addBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts) throws TIMException {
+        return JsonUtils.fromJson(this.timService.post(api, body), ListFriendsResult.class);
+    }
 
-		if (accounts == null || accounts.size() < 1) {
-			throw new RuntimeException("accounts can't be empty");
-		}
+    @Override
+    public ListFriendsResult listFriends(@NonNull String account, @NonNull Integer startIndex) throws TIMException {
+        return this.listFriends(account, startIndex, null, null);
+    }
 
-		String api = "v4/sns/black_list_add";
+    @Override
+    public ListFriendsDirectivityResult listFriendsDirectivity(@NonNull String account, @NonNull List<String> friends, List<String> profiles, List<String> customProfiles, List<String> snsProfiles, List<String> customSnsProfiles) throws TIMException {
 
-		Map<String, Object> body = new HashMap<>();
+        if (friends.isEmpty()) {
+            throw new TIMException(new TIMError(30001, "查找的好友列表不能为空"));
+        }
 
-		body.put("From_Account",identifier);
-		body.put("To_Account",accounts);
-		return JsonUtils.fromJson(this.timService.post(api, body), AddBlockAccountsResult.class);
-	}
+        List<String> tagList = new ArrayList<>();
+        if (profiles != null && !profiles.isEmpty()) {
+            tagList.addAll(profiles);
+        }
 
-	@Override
-	public RemoveBlockAccountsResult removeblockAccounts(@NonNull String identifier, @NonNull List<String> blockAccounts) throws TIMException {
-		if (blockAccounts == null || blockAccounts.size() < 1) {
-			throw new RuntimeException("blockAccounts can't be empty");
-		}
+        if (snsProfiles != null && !snsProfiles.isEmpty()) {
+            tagList.addAll(snsProfiles);
+        }
 
-		String api = "v4/sns/black_list_delete";
+        if (customProfiles != null && !customProfiles.isEmpty()) {
+            for (String custom : customProfiles) {
+                if (custom.length() > 8) {
+                    throw new TIMException(new TIMError(-1, "自定义资料字段不能超过8个字符"));
+                }
+                tagList.add(CUSTOM_PROFILE_PREFIX.concat(custom));
+            }
+        }
 
-		Map<String, Object> body = new HashMap<>();
+        if (customSnsProfiles != null && !customSnsProfiles.isEmpty()) {
+            for (String custom : customSnsProfiles) {
+                if (custom.length() > 8) {
+                    throw new TIMException(new TIMError(-1, "自定义好友资料字段不能超过8个字符"));
+                }
+                tagList.add(CUSTOM_SNS_PROFILE_PREFIX.concat(custom));
+            }
+        }
 
-		body.put("From_Account",identifier);
-		body.put("To_Account",blockAccounts);
-		return JsonUtils.fromJson(this.timService.post(api, body), RemoveBlockAccountsResult.class);
-	}
+        if (tagList.isEmpty()) {
+            throw new TIMException(new TIMError(30001, "拉取的字段不能为空"));
+        }
 
-	@Override
-	public ListBlockAccountsResult listBlockAccounts(@NonNull String identifier, Integer offset, Integer rows, Integer lastSequence) throws TIMException {
+        String api = "v4/sns/friend_get_list";
+        Map<String, Object> body = new HashMap<>();
+        body.put("From_Account", account);
+        body.put("To_Account", friends);
+        body.put("TagList", tagList);
+        return JsonUtils.fromJson(this.timService.post(api, body), ListFriendsDirectivityResult.class);
+    }
 
-		String api = "v4/sns/black_list_get";
+    @Override
+    public AddBlockAccountsResult addBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts) throws TIMException {
 
-		Map<String, Object> body = new HashMap<>();
+        if (accounts.isEmpty()) {
+            throw new TIMException(new TIMError(30001, "屏蔽的用户列表不能为空"));
+        }
 
-		body.put("From_Account",identifier);
-		body.put("StartIndex",offset);
-		body.put("MaxLimited",rows);
-		body.put("LastSequence",lastSequence);
+        String api = "v4/sns/black_list_add";
 
-		return JsonUtils.fromJson(this.timService.post(api, body), ListBlockAccountsResult.class);
-	}
+        Map<String, Object> body = new HashMap<>();
 
-	@Override
-	public CheckBlockAccountsResult checkBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts, BlackCheckType checkType) throws TIMException {
+        body.put("From_Account", identifier);
+        body.put("To_Account", accounts);
+        return JsonUtils.fromJson(this.timService.post(api, body), AddBlockAccountsResult.class);
+    }
 
-		if (accounts == null || accounts.size() < 1) {
-			throw new RuntimeException("accounts can't be empty");
-		}
+    @Override
+    public RemoveBlockAccountsResult removeblockAccounts(@NonNull String identifier, @NonNull List<String> blockAccounts) throws TIMException {
+        if (blockAccounts.isEmpty()) {
+            throw new TIMException(new TIMError(30001, "屏蔽的用户列表不能为空"));
+        }
 
-		String api = "v4/sns/black_list_check";
+        String api = "v4/sns/black_list_delete";
 
-		Map<String, Object> body = new HashMap<>();
-		body.put("From_Account",identifier);
-		body.put("To_Account",accounts);
-		// 只要不是双向验证，默认为单向验证
-		if(checkType == null){
-			checkType = BlackCheckType.BlackCheckResult_Type_Both;
-		}
+        Map<String, Object> body = new HashMap<>();
 
-		body.put("CheckType",checkType);
+        body.put("From_Account", identifier);
+        body.put("To_Account", blockAccounts);
+        return JsonUtils.fromJson(this.timService.post(api, body), RemoveBlockAccountsResult.class);
+    }
 
-		return JsonUtils.fromJson(this.timService.post(api, body), CheckBlockAccountsResult.class);
-	}
+    @Override
+    public ListBlockAccountsResult listBlockAccounts(@NonNull String identifier, Integer offset, Integer rows, Integer lastSequence) throws TIMException {
 
-	@Override
-	public AddGroupsResult addGroups(@NonNull String identifier, @NonNull List<String> groupNames, List<String> friends) throws TIMException {
-		if (groupNames == null || groupNames.size() < 1) {
-			throw new RuntimeException("groupNames can't be empty");
-		}
-		String api = "v4/sns/group_add";
+        String api = "v4/sns/black_list_get";
 
-		Map<String, Object> body = new HashMap<>();
-		body.put("From_Account",identifier);
-		body.put("GroupName",groupNames);
-		body.put("To_Account",friends);
-		return JsonUtils.fromJson(this.timService.post(api, body), AddGroupsResult.class);
-	}
+        Map<String, Object> body = new HashMap<>();
 
-	@Override
-	public DeleteGroupsResult deleteGroups(@NonNull String identifier, @NonNull List<String> groupNames) throws TIMException {
-		if (groupNames == null || groupNames.size() < 1) {
-			throw new RuntimeException("groupNames can't be empty");
-		}
-		String api = "v4/sns/group_delete";
+        body.put("From_Account", identifier);
+        body.put("StartIndex", offset);
+        body.put("MaxLimited", rows);
+        body.put("LastSequence", lastSequence);
 
-		Map<String, Object> body = new HashMap<>();
-		body.put("From_Account",identifier);
-		body.put("GroupName",groupNames);
-		return JsonUtils.fromJson(this.timService.post(api, body), DeleteGroupsResult.class);
-	}
+        return JsonUtils.fromJson(this.timService.post(api, body), ListBlockAccountsResult.class);
+    }
 
-	/**
-	 * 修改好友备注
-	 */
-	@Override
-	public void remarkFriend(@NonNull String identifier, @NonNull String friendId, @NonNull String remark) throws TIMException {
+    @Override
+    public CheckBlockAccountsResult checkBlockAccounts(@NonNull String identifier, @NonNull List<String> accounts, BlackCheckType checkType) throws TIMException {
 
-		if (!ObjectUtils.allNotNull(identifier,friendId,remark)){
-			throw new TIMException(new TIMError(5000,"账号，好友id和备注不能为空"));
-		}
-		if (remark.length() > 100){
-			throw new TIMException(new TIMError(5000,"备注长度太长"));
-		}
+        if (accounts.isEmpty()) {
+            throw new TIMException(new TIMError(30001, "检查的账号列表不能为空"));
+        }
 
-		String api = "v4/sns/friend_update";
+        String api = "v4/sns/black_list_check";
 
-		Map<String, Object> body = new HashMap<>(4);
+        Map<String, Object> body = new HashMap<>();
+        body.put("From_Account", identifier);
+        body.put("To_Account", accounts);
+        // 只要不是双向验证，默认为单向验证
+        if (checkType == null) {
+            checkType = BlackCheckType.BlackCheckResult_Type_Both;
+        }
 
-		List updateItem = new ArrayList() ;
+        body.put("CheckType", checkType);
 
-		Map map = new HashMap() ;
+        return JsonUtils.fromJson(this.timService.post(api, body), CheckBlockAccountsResult.class);
+    }
 
-		List<SnsItem<String>> list = new ArrayList<>();
+    @Override
+    public AddGroupsResult addGroups(@NonNull String identifier, @NonNull List<String> groupNames, List<String> friends) throws TIMException {
+        if (groupNames.isEmpty()) {
+            throw new TIMException(new TIMError(30001, "分组列表 不能为空"));
+        }
+        String api = "v4/sns/group_add";
 
-		SnsItem<String> rename = new SnsItem<>();
-		rename.setTag("Tag_SNS_IM_Remark");
-		rename.setValue(remark);
+        Map<String, Object> body = new HashMap<>();
+        body.put("From_Account", identifier);
+        body.put("GroupName", groupNames);
+        body.put("To_Account", friends);
+        return JsonUtils.fromJson(this.timService.post(api, body), AddGroupsResult.class);
+    }
 
-		list.add(rename) ;
+    @Override
+    public DeleteGroupsResult deleteGroups(@NonNull String identifier, @NonNull List<String> groupNames) throws TIMException {
+        if (groupNames.isEmpty()) {
+            throw new TIMException(new TIMError(30001, "分组列表 不能为空"));
+        }
+        String api = "v4/sns/group_delete";
 
-		map.put("To_Account",friendId);
-		map.put("SnsItem",list);
+        Map<String, Object> body = new HashMap<>();
+        body.put("From_Account", identifier);
+        body.put("GroupName", groupNames);
+        return JsonUtils.fromJson(this.timService.post(api, body), DeleteGroupsResult.class);
+    }
 
-		updateItem.add(map);
+    /**
+     * 修改好友备注
+     */
+    @Override
+    public void remarkFriend(@NonNull String identifier, @NonNull String friendId, @NonNull String remark) throws TIMException {
 
-		body.put("From_Account",identifier);
-		body.put("UpdateItem",updateItem);
+        if (remark.length() > 96) {
+            throw new TIMException(new TIMError(-1, "备注长度最长不得超过 96 个字节"));
+        }
 
-		this.timService.post(api, body);
-	}
+        String api = "v4/sns/friend_update";
+
+        Map<String, Object> body = new HashMap<>(4);
+
+        List updateItem = new ArrayList();
+
+        Map map = new HashMap();
+
+        List<SnsItem<String>> list = new ArrayList<>();
+
+        SnsItem<String> rename = new SnsItem<>();
+        rename.setTag("Tag_SNS_IM_Remark");
+        rename.setValue(remark);
+
+        list.add(rename);
+
+        map.put("To_Account", friendId);
+        map.put("SnsItem", list);
+
+        updateItem.add(map);
+
+        body.put("From_Account", identifier);
+        body.put("UpdateItem", updateItem);
+
+        this.timService.post(api, body);
+    }
 
 
 }
