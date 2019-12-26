@@ -10,9 +10,7 @@ import java.util.Timer;
 
 /**
  * @author Element
- * @Package com.sevlow.sdk.tim.api
- * @date 2019-05-27 11:20
- * @Description:
+ *
  * TIMService是所有Service模块的入口
  */
 public interface TIMService {

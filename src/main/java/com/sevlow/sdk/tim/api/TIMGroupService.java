@@ -5,13 +5,11 @@ import com.sevlow.sdk.tim.bean.group.*;
 import com.sevlow.sdk.tim.common.error.TIMException;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Element
- * @Package com.sevlow.sdk.tim.api
- * @date 2019-05-27 11:13
- * @Description: 群组管理
+ *
+ * 群组管理
  * API Doc : https://cloud.tencent.com/document/product/269/1613
  */
 public interface TIMGroupService {
