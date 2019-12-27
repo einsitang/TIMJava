@@ -1,12 +1,10 @@
 package com.sevlow.sdk.tim.api.impl;
 
-import com.sevlow.sdk.tim.api.TIMChatService;
 import com.sevlow.sdk.tim.api.TIMProfileService;
 import com.sevlow.sdk.tim.api.TIMService;
 import com.sevlow.sdk.tim.api.test.TestModule;
 import com.sevlow.sdk.tim.bean.profile.*;
 import com.sevlow.sdk.tim.common.error.TIMException;
-import com.sevlow.sdk.tim.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Guice;
@@ -14,12 +12,9 @@ import org.testng.annotations.Test;
 import org.testng.collections.Lists;
 
 import javax.inject.Inject;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.testng.Assert.*;
 
 /**
  * @author pengshiqing
@@ -40,14 +35,6 @@ public class TIMProfileServiceImplTest {
     @BeforeTest
     public void before() {
         this.profileService = timService.getProfileService();
-    }
-
-
-    @Test
-    public void testSetInfoGender() throws TIMException {
-
-        profileService.setInfoGender("10001", GenderEnum.Female);
-        profileService.setInfoGender("10002", GenderEnum.MALE);
     }
 
     @Test

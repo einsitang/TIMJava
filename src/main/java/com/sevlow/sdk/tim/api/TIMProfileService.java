@@ -17,13 +17,6 @@ import java.util.Map;
  */
 public interface TIMProfileService {
 
-    /**
-     * 设置性别
-     * 不推荐使用，请使用 setPortrait
-     */
-    @Deprecated
-    void setInfoGender(String identifier, GenderEnum genderEnum) throws TIMException;
-
 
     /**
      * 设置资料

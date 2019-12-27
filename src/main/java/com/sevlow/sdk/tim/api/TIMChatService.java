@@ -1,7 +1,7 @@
 package com.sevlow.sdk.tim.api;
 
-import com.sevlow.sdk.tim.bean.chat.MsgCustomContent;
 import com.sevlow.sdk.tim.bean.chat.ChatMsgEnum;
+import com.sevlow.sdk.tim.bean.chat.MsgCustomContent;
 import com.sevlow.sdk.tim.common.error.TIMException;
 import lombok.NonNull;
 

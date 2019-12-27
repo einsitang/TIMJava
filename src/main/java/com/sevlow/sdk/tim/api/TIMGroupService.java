@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author Element
- *
+ * <p>
  * 群组管理
  * API Doc : https://cloud.tencent.com/document/product/269/1613
  */
@@ -17,7 +17,7 @@ public interface TIMGroupService {
     /**
      * 获取所有的群
      *
-     * @param type  群组类型
+     * @param type 群组类型
      * @return
      * @throws TIMException
      */
@@ -137,11 +137,12 @@ public interface TIMGroupService {
     void sendGroupMsg(String groupId, String account, Boolean isSentOnline, String message) throws TIMException;
 
     /**
-     *  发送自定义消息
+     * 发送自定义消息
+     *
      * @param groupId
      * @param account
      * @param isSentOnline true 则消息表示只在线下发，不存离线和漫游（AVChatRoom 和 BChatRoom 不允许使用）。
-     * @param message 自定义消息内容
+     * @param message      自定义消息内容
      */
     void sentGroupCustomMsg(String groupId, String account, Boolean isSentOnline, MsgCustomContent message) throws TIMException;
 
@@ -154,6 +155,7 @@ public interface TIMGroupService {
 
     /**
      * 发送所有人通知消息
+     *
      * @param groupId
      * @param message
      * @throws TIMException
@@ -161,6 +163,8 @@ public interface TIMGroupService {
     void sendGroupSystemNotification(String groupId, String message) throws TIMException;
 
     /**
+     * 导入群成员
+     *
      * @param groupId
      * @param members
      * @return
