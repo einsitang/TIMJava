@@ -14,11 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 /**
- * @author Element
- * @Package com.sevlow.sdk.tim.api.impl
- * @date 2019-05-27 14:24
- * @Description:
+ * @author element
  */
 @Slf4j
 public class TIMAccountServiceImpl implements TIMAccountService {

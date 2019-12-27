@@ -13,11 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 /**
- * @author Element
- * @Package com.sevlow.sdk.tim.api.impl
- * @date 2019-05-27 17:34
- * @Description:
+ * @author element
  */
 @Slf4j
 public class TIMOnlineStatusServiceImpl implements TIMOnlineStatusService {
