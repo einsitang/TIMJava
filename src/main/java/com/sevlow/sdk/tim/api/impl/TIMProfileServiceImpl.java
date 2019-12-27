@@ -34,38 +34,6 @@ public class TIMProfileServiceImpl implements TIMProfileService {
         this.timService = timService;
     }
 
-    /**
-     * 设置性别
-     *
-     * @param identifier
-     * @param genderEnum
-     */
-    @Override
-    public void setInfoGender(String identifier, GenderEnum genderEnum) throws TIMException {
-        if (identifier == null) {
-            throw new TIMException(new TIMError(40003, "用户账号不存在"));
-        }
-        if (genderEnum == null) {
-            genderEnum = GenderEnum.Female;
-        }
-        String api = "v4/profile/portrait_set";
-
-        Map<String, Object> body = new HashMap<>(4);
-
-        body.put("From_Account", identifier);
-
-        List<SnsItem<String>> list = new ArrayList<>();
-
-        SnsItem<String> snsItem = new SnsItem<>();
-        snsItem.setTag("Tag_Profile_IM_Gender");
-        snsItem.setValue(genderEnum.getType());
-
-        list.add(snsItem);
-        body.put("ProfileItem", list);
-
-        this.timService.post(api, body);
-    }
-
     @Override
     public void setPortrait(@NonNull String identifier, TIMProfile imProfile, Map<String, Object> customProfile) throws TIMException {
 

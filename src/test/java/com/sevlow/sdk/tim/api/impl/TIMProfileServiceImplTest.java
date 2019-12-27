@@ -37,14 +37,6 @@ public class TIMProfileServiceImplTest {
         this.profileService = timService.getProfileService();
     }
 
-
-    @Test
-    public void testSetInfoGender() throws TIMException {
-
-        profileService.setInfoGender("10001", GenderEnum.Female);
-        profileService.setInfoGender("10002", GenderEnum.MALE);
-    }
-
     @Test
     public void testSetPortrait() throws TIMException {
         TIMProfile imProfile = new TIMProfile();

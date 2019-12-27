@@ -56,7 +56,7 @@ public class TIMGroupServiceImplTest {
         groupInfo.setType(GroupInfo.Type.Public);
         groupInfo.setApplyJoinOption(GroupInfo.ApplyJoinOption.FreeAccess);
         groupInfo.setName("147");
-        System.out.println(groupInfo.toString());
+        log.debug(groupInfo.toString());
         CreateGroupResult group = groupService.createGroup(groupInfo);
         Assert.assertNotNull(group);
     }
@@ -68,7 +68,7 @@ public class TIMGroupServiceImplTest {
         groupInfo.setType(GroupInfo.Type.Public);
         groupInfo.setApplyJoinOption(GroupInfo.ApplyJoinOption.FreeAccess);
         groupInfo.setName("147");
-        System.out.println(groupInfo.toString());
+        log.debug(groupInfo.toString());
         groupService.updateGroup(groupInfo);
     }
 
@@ -77,7 +77,7 @@ public class TIMGroupServiceImplTest {
     public void testJoinGroup() throws TIMException {
         List<String> list = Arrays.asList("69887072709640192", "74897564679274496");
         AddGroupResult addGroupResult = groupService.addGroupMember("119384433261281280", list, SilenceEnum.QUIET);
-        System.out.println("11111");
+        Assert.assertTrue(addGroupResult.getMemberList().size() > 0);
     }
 
 
