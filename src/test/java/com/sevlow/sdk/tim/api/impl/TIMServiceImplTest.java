@@ -10,32 +10,31 @@ import org.testng.annotations.Test;
 import javax.inject.Inject;
 
 /**
- * @author Element
- * @Package com.sevlow.sdk.tim.api.impl
- * @date 2019-05-27 13:28
- * @Description:
+ * TIMService 测试用例
+ *
+ * @author element
  */
 @Slf4j
 @Guice(modules = {TestModule.class})
 public class TIMServiceImplTest {
 
-	@Inject
-	private TIMService timService;
+    @Inject
+    private TIMService timService;
 
-	@Test
-	public void testGetUserSig(){
+    @Test
+    public void testGetUserSig() {
 
-		String identifier = "test";
+        String identifier = "test";
 
-		try {
-			String userSig = timService.getUserSig(identifier);
+        try {
+            String userSig = timService.getUserSig(identifier);
 
-			log.debug("userSig");
-			log.debug(userSig);
+            log.debug("userSig");
+            log.debug(userSig);
 
-		} catch (TIMException e) {
-			log.error(e.getMessage(),e);
-		}
-	}
+        } catch (TIMException e) {
+            log.error(e.getMessage(), e);
+        }
+    }
 }
 
