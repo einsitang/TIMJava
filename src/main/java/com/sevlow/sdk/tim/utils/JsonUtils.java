@@ -2,6 +2,9 @@ package com.sevlow.sdk.tim.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
 
 /**
  * @author Element
@@ -19,6 +22,10 @@ public class JsonUtils {
 
 	public static <T> T fromJson(String json,Class<T> clazz){
 		return GSON.fromJson(json, clazz);
+	}
+
+	public static <T> List<T> listFromJson(String json, Class<T> clazz){
+		return GSON.fromJson(json, new TypeToken<T>(){}.getType());
 	}
 
 }
